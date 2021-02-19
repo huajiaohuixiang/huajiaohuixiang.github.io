@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java-HotSpotIntrinsicCandidate | 花椒茴香的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="@HotSpotIntrinsicCandidate看源码的时候看到了很多这种注释 ， JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。参考https:&#x2F;&#x2F;blog.csdn.net&#x2F;javaer_lee&#x2F;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-HotSpotIntrinsicCandidate">
+<meta property="og:url" content="http://example.com/2021/02/19/@HotSpotIntrinsicCandidate/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="@HotSpotIntrinsicCandidate看源码的时候看到了很多这种注释 ， JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。参考https:&#x2F;&#x2F;blog.csdn.net&#x2F;javaer_lee&#x2F;a">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-19T06:13:38.000Z">
+<meta property="article:modified_time" content="2021-02-19T13:14:20.809Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">花椒茴香的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-@HotSpotIntrinsicCandidate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/19/@HotSpotIntrinsicCandidate/" class="article-date">
+  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java-HotSpotIntrinsicCandidate
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="HotSpotIntrinsicCandidate"><a href="#HotSpotIntrinsicCandidate" class="headerlink" title="@HotSpotIntrinsicCandidate"></a>@HotSpotIntrinsicCandidate</h3><p>看源码的时候看到了很多这种注释 ，</p>
+<h4 id="JDK的Object类源码中，被-HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。"><a href="#JDK的Object类源码中，被-HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。" class="headerlink" title="JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。"></a>JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。</h4><p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/javaer_lee/article/details/87161952">https://blog.csdn.net/javaer_lee/article/details/87161952</a></p>
+<p>下面的源码对其的解释</p>
+<p>The {@code @HotSpotIntrinsicCandidate} annotation is specific to the  HotSpot Virtual Machine. It indicates that an annotated method  may be (but is not guaranteed to be) intrinsified by the HotSpot VM. A method  is intrinsified if the HotSpot VM replaces the annotated method with hand-written  assembly and/or hand-written compiler IR – a compiler intrinsic – to improve  performance. The {@code @HotSpotIntrinsicCandidate} annotation is internal to the  Java libraries and is therefore not supposed to have any relevance for application code. Maintainers of the Java libraries must consider the following when  modifying methods annotated with {@code @HotSpotIntrinsicCandidate}. </p>
+<ul>
+<li></li>
+<li><p>When modifying a method annotated with {@code @HotSpotIntrinsicCandidate},  the corresponding intrinsic code in the HotSpot VM implementation must be  updated to match the semantics of the annotated method.</p>
+</li>
+<li></li>
+<li><p>For some annotated methods, the corresponding intrinsic may omit some low-level * checks that would be performed as a matter of course if the intrinsic is implemented * using Java bytecodes. This is because individual Java bytecodes implicitly check * for exceptions like {@code NullPointerException} and {@code ArrayStoreException}. * If such a method is replaced by an intrinsic coded in assembly language, any * checks performed as a matter of normal bytecode operation must be performed * before entry into the assembly code. These checks must be performed, as * appropriate, on all arguments to the intrinsic, and on other values (if any) obtained * by the intrinsic through those arguments. The checks may be deduced by inspecting * the non-intrinsic Java code for the method, and determining exactly which exceptions * may be thrown by the code, including undeclared implicit {@code RuntimeException}s. * Therefore, depending on the data accesses performed by the intrinsic, * the checks may include: </p>
+<ul>
+<li></li>
+<li><p>null checks on references</p>
+</li>
+<li></li>
+<li><p>range checks on primitive values used as array indexes</p>
+</li>
+<li></li>
+<li><p>other validity checks on primitive values (e.g., for divide-by-zero conditions)</p>
+</li>
+<li></li>
+<li><p>store checks on reference values stored into arrays</p>
+</li>
+<li></li>
+<li><p>array length checks on arrays indexed from within the intrinsic</p>
+</li>
+<li></li>
+<li><p>reference casts (when formal parameters are {@code Object} or some other weak type)</p>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>Note that the receiver value ({@code this}) is passed as a extra argument * to all non-static methods. If a non-static method is an intrinsic, the receiver * value does not need a null check, but (as stated above) any values loaded by the * intrinsic from object fields must also be checked. As a matter of clarity, it is * better to make intrinisics be static methods, to make the dependency on {@code this} * clear. Also, it is better to explicitly load all required values from object * fields before entering the intrinsic code, and pass those values as explicit arguments. * First, this may be necessary for null checks (or other checks). Second, if the * intrinsic reloads the values from fields and operates on those without checks, * race conditions may be able to introduce unchecked invalid values into the intrinsic. * If the intrinsic needs to store a value back to an object field, that value should be * returned explicitly from the intrinsic; if there are multiple return values, coders * should consider buffering them in an array. Removing field access from intrinsics * not only clarifies the interface with between the JVM and JDK; it also helps decouple * the HotSpot and JDK implementations, since if JDK code before and after the intrinsic * manages all field accesses, then intrinsics can be coded to be agnostic of object * layouts.</p>
+</li>
+<li><p>* * Maintainers of the HotSpot VM must consider the following when modifying intrinsics. * *</p>
+</li>
+<li><ul>
+<li></li>
+<li><p>When adding a new intrinsic, make sure that the corresponding method * in the Java libraries is annotated with {@code @HotSpotIntrinsicCandidate} * and that all possible call sequences that result in calling the intrinsic contain * the checks omitted by the intrinsic (if any).</p>
+</li>
+<li></li>
+<li><p>When modifying an existing intrinsic, the Java libraries must be updated * to match the semantics of the intrinsic and to execute all checks omitted * by the intrinsic (if any).</p>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>Persons not directly involved with maintaining the Java libraries or the * HotSpot VM can safely ignore the fact that a method is annotated with * {@code @HotSpotIntrinsicCandidate}. * * The HotSpot VM defines (internally) a list of intrinsics. Not all intrinsic * are available on all platforms supported by the HotSpot VM. Furthermore, * the availability of an intrinsic on a given platform depends on the * configuration of the HotSpot VM (e.g., the set of VM flags enabled). * Therefore, annotating a method with {@code @HotSpotIntrinsicCandidate} does * not guarantee that the marked method is intrinsified by the HotSpot VM. * * If the {@code CheckIntrinsics} VM flag is enabled, the HotSpot VM checks * (when loading a class) that (1) all methods of that class that are also on * the VM’s list of intrinsics are annotated with {@code @HotSpotIntrinsicCandidate} * and that (2) for all methods of that class annotated with * {@code @HotSpotIntrinsicCandidate} there is an intrinsic in the list.</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/19/@HotSpotIntrinsicCandidate/" data-id="cklcdbhhp0000v4vwe90kehi4" data-title="Java-HotSpotIntrinsicCandidate" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/02/19/String/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Neuer</strong>
+      <div class="article-nav-title">
+        
+          Java-String
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/02/19/Object/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Java-Object</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E7%B1%BB/" rel="tag">杂类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E6%9D%82%E7%B1%BB/" style="font-size: 10px;">杂类</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/">hexo使用</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/19/String/">Java-String</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/19/@HotSpotIntrinsicCandidate/">Java-HotSpotIntrinsicCandidate</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/19/Object/">Java-Object</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/19/native/">Java-Native</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 huajiaohuixiang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

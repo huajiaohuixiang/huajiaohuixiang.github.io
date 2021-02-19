@@ -155,7 +155,9 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h4 id="String-被final修饰-不能被继承"><a href="#String-被final修饰-不能被继承" class="headerlink" title="String 被final修饰  不能被继承"></a>String 被final修饰  不能被继承</h4><p>final的作用：</p>
+        <p>关于字符串  推荐阅读源码，或者<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/80803507">https://blog.csdn.net/zhxdick/article/details/80803507</a></p>
+<p>以下是几个String的问题，总结一下。</p>
+<h4 id="String-被final修饰-不能被继承"><a href="#String-被final修饰-不能被继承" class="headerlink" title="String 被final修饰  不能被继承"></a>String 被final修饰  不能被继承</h4><p>final的作用：</p>
 <ol>
 <li><p>​    修饰变量    表示变量只能一次赋值以后值不能被修改</p>
 <p>​    如果是修饰了一个基本类型数据，就表示一个常量</p>
@@ -169,11 +171,223 @@
 </ol>
 <p>final修饰变量的<strong>本质</strong>: final修饰的变量会指向一块固定的内存, 这块内存中的值不能改变.</p>
 <p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24309787/article/details/100942044">https://blog.csdn.net/qq_24309787/article/details/100942044</a></p>
+<h4 id="那为何String要被修饰成final？"><a href="#那为何String要被修饰成final？" class="headerlink" title="那为何String要被修饰成final？"></a>那为何String要被修饰成final？</h4><p> 为了实现字符串常量池：字符串常量池可以在程序运行时节约很多内存空间，因为不同的字符串变量指向相同的字面量时，都是指向字符串常量池中的同一个对象。这样一方面能够节约内存，另一方面也提升了性能。</p>
+<p>但是仅有一个final不能保证字符串常量，原因在上面final作用第一条已说明。我们看String源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">//String类被final修饰了，表明其不可被继承。</span></span><br><span class="line">    <span class="comment">//实现了 Serializable接口---&gt;使其可以序列化，方便数据的传输</span></span><br><span class="line">    <span class="comment">//实现了Comparable接口，可以调用Collections.sort() 和 Arrays.sort() 方法排序，并且String类实现 compareTo() 方法。</span></span><br><span class="line">    <span class="comment">//实现了CharSequence接口，该接口能表示char值的一个可读序列。几个String兄弟类都实现了此接口。</span></span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Stable</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] value;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span> coder;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的final修饰的byte数组用来存储String内容，然后再加上private修饰，本身也没有提供修改自己value数组的方法，所以value数组不可变，即字符串不可变，生成了字符串常量池。</p>
+<p>还有因为其不可变所以String是线程安全的，同一个字符串实例可以被多个线程共享。</p>
+<p> 因为字符串是不可变的，所以在它创建的时候<strong>HashCode</strong>就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。</p>
+<p>​        参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/80803507">https://blog.csdn.net/zhxdick/article/details/80803507</a></p>
+<p>​                <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9c7f5daac283">https://www.jianshu.com/p/9c7f5daac283</a></p>
+<h4 id="JDK8-和JDK9-String的变化"><a href="#JDK8-和JDK9-String的变化" class="headerlink" title="JDK8 和JDK9 String的变化"></a>JDK8 和JDK9 String的变化</h4><p>​    再JDK8中 String中是用char数组来存储  char是由UTF16编码咱用两个字节，但是很多都只用了一个字节（ASICII），所有再9中对其进行了优化，将char[]  更改为了 byte [] 以及一个coder来存储。</p>
+<p>​    coder一般只有两个值：分别用来表示8位表示还剩16位表示 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static final byte LATIN1 &#x3D; 0; </span><br><span class="line">static final byte UTF16  &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="关于-和equal"><a href="#关于-和equal" class="headerlink" title="关于== 和equal()"></a>关于== 和equal()</h4><p>“==”判断的是两个对象的内存地址是否一样，适用于原始数据类型和枚举类型（它们的变量存储的是值本身，而引用类型变量存储的是引用）；equals是Object类的方法，Object对它的实现是比较内存地址，我们可以重写这个方法来自定义“相等”这个概念。比如类库中的String、Date等类就对这个方法进行了重写。<br>综上，对于枚举类型和原始数据类型的相等性比较，应该使用”==”；对于引用类型的相等性比较，应该使用equals方法。</p>
+<p>下面是String的equal函数,equal()函数的object的一个函数，String对其进行了重写，首先它判断了两者内存地址是否一样，然后将anObject转换为String比较内容。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String aString = (String)anObject;</span><br><span class="line">        <span class="keyword">if</span> (coder() == aString.coder()) &#123;</span><br><span class="line">            <span class="keyword">return</span> isLatin1() ? StringLatin1.equals(value, aString.value)</span><br><span class="line">                              : StringUTF16.equals(value, aString.value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
       <a data-url="http://example.com/2021/02/19/String/" data-id="cklc12gnm0003pgvw2qd5hl7f" data-title="Java-String" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-@HotSpotIntrinsicCandidate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/19/@HotSpotIntrinsicCandidate/" class="article-date">
+  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/19/@HotSpotIntrinsicCandidate/">Java-HotSpotIntrinsicCandidate</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="HotSpotIntrinsicCandidate"><a href="#HotSpotIntrinsicCandidate" class="headerlink" title="@HotSpotIntrinsicCandidate"></a>@HotSpotIntrinsicCandidate</h3><p>看源码的时候看到了很多这种注释 ，</p>
+<h4 id="JDK的Object类源码中，被-HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。"><a href="#JDK的Object类源码中，被-HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。" class="headerlink" title="JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。"></a>JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。</h4><p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/javaer_lee/article/details/87161952">https://blog.csdn.net/javaer_lee/article/details/87161952</a></p>
+<p>下面的源码对其的解释</p>
+<p>The {@code @HotSpotIntrinsicCandidate} annotation is specific to the  HotSpot Virtual Machine. It indicates that an annotated method  may be (but is not guaranteed to be) intrinsified by the HotSpot VM. A method  is intrinsified if the HotSpot VM replaces the annotated method with hand-written  assembly and/or hand-written compiler IR – a compiler intrinsic – to improve  performance. The {@code @HotSpotIntrinsicCandidate} annotation is internal to the  Java libraries and is therefore not supposed to have any relevance for application code. Maintainers of the Java libraries must consider the following when  modifying methods annotated with {@code @HotSpotIntrinsicCandidate}. </p>
+<ul>
+<li></li>
+<li><p>When modifying a method annotated with {@code @HotSpotIntrinsicCandidate},  the corresponding intrinsic code in the HotSpot VM implementation must be  updated to match the semantics of the annotated method.</p>
+</li>
+<li></li>
+<li><p>For some annotated methods, the corresponding intrinsic may omit some low-level * checks that would be performed as a matter of course if the intrinsic is implemented * using Java bytecodes. This is because individual Java bytecodes implicitly check * for exceptions like {@code NullPointerException} and {@code ArrayStoreException}. * If such a method is replaced by an intrinsic coded in assembly language, any * checks performed as a matter of normal bytecode operation must be performed * before entry into the assembly code. These checks must be performed, as * appropriate, on all arguments to the intrinsic, and on other values (if any) obtained * by the intrinsic through those arguments. The checks may be deduced by inspecting * the non-intrinsic Java code for the method, and determining exactly which exceptions * may be thrown by the code, including undeclared implicit {@code RuntimeException}s. * Therefore, depending on the data accesses performed by the intrinsic, * the checks may include: </p>
+<ul>
+<li></li>
+<li><p>null checks on references</p>
+</li>
+<li></li>
+<li><p>range checks on primitive values used as array indexes</p>
+</li>
+<li></li>
+<li><p>other validity checks on primitive values (e.g., for divide-by-zero conditions)</p>
+</li>
+<li></li>
+<li><p>store checks on reference values stored into arrays</p>
+</li>
+<li></li>
+<li><p>array length checks on arrays indexed from within the intrinsic</p>
+</li>
+<li></li>
+<li><p>reference casts (when formal parameters are {@code Object} or some other weak type)</p>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>Note that the receiver value ({@code this}) is passed as a extra argument * to all non-static methods. If a non-static method is an intrinsic, the receiver * value does not need a null check, but (as stated above) any values loaded by the * intrinsic from object fields must also be checked. As a matter of clarity, it is * better to make intrinisics be static methods, to make the dependency on {@code this} * clear. Also, it is better to explicitly load all required values from object * fields before entering the intrinsic code, and pass those values as explicit arguments. * First, this may be necessary for null checks (or other checks). Second, if the * intrinsic reloads the values from fields and operates on those without checks, * race conditions may be able to introduce unchecked invalid values into the intrinsic. * If the intrinsic needs to store a value back to an object field, that value should be * returned explicitly from the intrinsic; if there are multiple return values, coders * should consider buffering them in an array. Removing field access from intrinsics * not only clarifies the interface with between the JVM and JDK; it also helps decouple * the HotSpot and JDK implementations, since if JDK code before and after the intrinsic * manages all field accesses, then intrinsics can be coded to be agnostic of object * layouts.</p>
+</li>
+<li><p>* * Maintainers of the HotSpot VM must consider the following when modifying intrinsics. * *</p>
+</li>
+<li><ul>
+<li></li>
+<li><p>When adding a new intrinsic, make sure that the corresponding method * in the Java libraries is annotated with {@code @HotSpotIntrinsicCandidate} * and that all possible call sequences that result in calling the intrinsic contain * the checks omitted by the intrinsic (if any).</p>
+</li>
+<li></li>
+<li><p>When modifying an existing intrinsic, the Java libraries must be updated * to match the semantics of the intrinsic and to execute all checks omitted * by the intrinsic (if any).</p>
+</li>
+<li></li>
+</ul>
+</li>
+<li><p>Persons not directly involved with maintaining the Java libraries or the * HotSpot VM can safely ignore the fact that a method is annotated with * {@code @HotSpotIntrinsicCandidate}. * * The HotSpot VM defines (internally) a list of intrinsics. Not all intrinsic * are available on all platforms supported by the HotSpot VM. Furthermore, * the availability of an intrinsic on a given platform depends on the * configuration of the HotSpot VM (e.g., the set of VM flags enabled). * Therefore, annotating a method with {@code @HotSpotIntrinsicCandidate} does * not guarantee that the marked method is intrinsified by the HotSpot VM. * * If the {@code CheckIntrinsics} VM flag is enabled, the HotSpot VM checks * (when loading a class) that (1) all methods of that class that are also on * the VM’s list of intrinsics are annotated with {@code @HotSpotIntrinsicCandidate} * and that (2) for all methods of that class annotated with * {@code @HotSpotIntrinsicCandidate} there is an intrinsic in the list.</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/19/@HotSpotIntrinsicCandidate/" data-id="cklcdbhhp0000v4vwe90kehi4" data-title="Java-HotSpotIntrinsicCandidate" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Object" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/19/Object/" class="article-date">
+  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/19/Object/">Java-Object</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class &#123;@code Object&#125; is the root of the class hierarchy. Every class has &#123;@code Object&#125; as a superclass. All objects, including arrays, implement the methods of this class.</span><br><span class="line">类Object是类层次结构的根。 每个类都把Object作为父类。 所有对象，包括数组，实现该类的方法。</span><br></pre></td></tr></table></figure>
+<p>源码介绍如上。</p>
+<h4 id="1-hashcode"><a href="#1-hashcode" class="headerlink" title="1.hashcode()"></a>1.hashcode()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>native修饰的方法，不由java实现，hashcode()方法就是将该对象再内存中的位置转换为整数然后返回，所有的对象由JVM管理。</p>
+<h4 id="2-equals"><a href="#2-equals" class="headerlink" title="2.equals()"></a>2.equals()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>==即判断两者的内存地址是否相同。</p>
+<p>对于String来说，其重写了equals()函数，先判断内存地址然后再判断内容。</p>
+<p>需要注意的是必须保证如果两者的hashcode()相同那么equals()为true。即重写的话也要先判断内存地址是否相同，然后对于不同的情况再判断其他的。</p>
+<p><strong>建议但不强制对于不相等的对象的hashCode一定要不同。</strong></p>
+<h4 id="3-clone-方法"><a href="#3-clone-方法" class="headerlink" title="3.clone()方法"></a>3.clone()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">* The method &#123;@code clone&#125; for class &#123;@code Object&#125; performs a</span></span><br><span class="line"><span class="comment"> * specific cloning operation. First, if the class of this object does</span></span><br><span class="line"><span class="comment"> * not implement the interface &#123;@code Cloneable&#125;, then a</span></span><br><span class="line"><span class="comment"> * &#123;@code CloneNotSupportedException&#125; is thrown. Note that all arrays</span></span><br><span class="line"><span class="comment"> * are considered to implement the interface &#123;@code Cloneable&#125; and that</span></span><br><span class="line"><span class="comment"> * the return type of the &#123;@code clone&#125; method of an array type &#123;@code T[]&#125;</span></span><br><span class="line"><span class="comment"> * is &#123;@code T[]&#125; where T is any reference or primitive type.</span></span><br><span class="line"><span class="comment"> * Otherwise, this method creates a new instance of the class of this</span></span><br><span class="line"><span class="comment"> * object and initializes all its fields with exactly the contents of</span></span><br><span class="line"><span class="comment"> * the corresponding fields of this object, as if by assignment; the</span></span><br><span class="line"><span class="comment"> * contents of the fields are not themselves cloned. Thus, this method</span></span><br><span class="line"><span class="comment"> * performs a &quot;shallow copy&quot; of this object, not a &quot;deep copy&quot; operation.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
+<p>只包含了部分注释，这一部分注释解释了该函数的内容：</p>
+<p>如果该类没有实现Cloneable接口，会抛出CloneNotSupportedException异常。</p>
+<p>如果实现了Cloneable接口，那么该方法将会创建该类的新实例，并且初始化所有字段，字段的内容本身不是克隆的。 从而，这种方法执行此对象的“浅拷贝”，而不是“深拷贝”操作</p>
+<h4 id="4-toString"><a href="#4-toString" class="headerlink" title="4.toString()"></a>4.toString()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//It is recommended that all subclasses override this method.</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回类名+@+哈希值（内存地址转换而成）</p>
+<h4 id="5-wait-notify-notifyAll"><a href="#5-wait-notify-notifyAll" class="headerlink" title="5.wait(), notify(), notifyAll()"></a>5.wait(), notify(), notifyAll()</h4><p>java的线程同步函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    wait(<span class="number">0L</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeoutMillis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;timeoutMillis value is negative&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nanos &lt; <span class="number">0</span> || nanos &gt; <span class="number">999999</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">                            <span class="string">&quot;nanosecond timeout value out of range&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nanos &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        timeoutMillis++;</span><br><span class="line">    &#125;</span><br><span class="line">    wait(timeoutMillis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="6-finalize-函数"><a href="#6-finalize-函数" class="headerlink" title="6.finalize()函数"></a>6.finalize()函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Deprecated(since&#x3D;&quot;9&quot;)</span><br><span class="line">protected void finalize() throws Throwable &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>finalize()方法就是再JVM确定已经没有任何线程可以访问该对象，那么将会清空该内存区域，如果其他类又使用了该类将会报异常。抛出的是Throwable，说明除了常规的异常Exceprion外，还有可能是JVM错误。当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize( )方法。</p>
+<p>@Deprecated(since=”9”)表示自从JDK9已废除该方法</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/19/Object/" data-id="cklcdbhhs0001v4vw8zop4tkh" data-title="Java-Object" class="article-share-link">Teilen</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-native" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/19/native/" class="article-date">
+  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/19/native/">Java-Native</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>看Object的源码的时候发现了从未见过的修饰符native，雨伞学习一下。</p>
+<p>就是这几个：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    wait(<span class="number">0L</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考博客<a target="_blank" rel="noopener" href="https://www.cnblogs.com/KingIceMou/p/7239668.html">https://www.cnblogs.com/KingIceMou/p/7239668.html</a></p>
+<p>被native修饰的方法就是不是由java实现的，而是由C或者C++实现，并且编译成了dll，然后由java调用，调用过程如下：<br><img src="Y:\个人博客\hexo\source_posts\jni.png"></p>
+<p>实现步骤</p>
+<p>　　１、在Java中声明native()方法，然后编译；<br>　　２、用javah产生一个.h文件；<br>　　３、写一个.cpp文件实现native导出方法，其中需要包含第二步产生的.h文件（注意其中又包含了JDK带的jni.h文件）；<br>　　４、将第三步的.cpp文件编译成动态链接库文件；<br>　　５、在Java中用System.loadLibrary()方法加载第四步产生的动态链接库文件，这个native()方法就可以在Java中被访问了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/19/native/" data-id="cklcdbhhv0004v4vw44np9pbs" data-title="Java-Native" class="article-share-link">Teilen</a>
       
       
       
@@ -359,7 +573,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E6%9D%82%E7%B1%BB/" style="font-size: 10px;">杂类</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a>
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E6%9D%82%E7%B1%BB/" style="font-size: 10px;">杂类</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a>
     </div>
   </div>
 
@@ -389,15 +603,15 @@
           </li>
         
           <li>
-            <a href="/2020/12/04/%E6%82%B2%E6%83%A8%E4%B8%96%E7%95%8C/">悲惨世界</a>
+            <a href="/2021/02/19/@HotSpotIntrinsicCandidate/">Java-HotSpotIntrinsicCandidate</a>
           </li>
         
           <li>
-            <a href="/2020/11/20/SpringBoot/">SpringBoot 学习</a>
+            <a href="/2021/02/19/Object/">Java-Object</a>
           </li>
         
           <li>
-            <a href="/2020/11/16/Linux%20Window%E5%91%BD%E4%BB%A4/">Linux/Windows系统命令</a>
+            <a href="/2021/02/19/native/">Java-Native</a>
           </li>
         
       </ul>
