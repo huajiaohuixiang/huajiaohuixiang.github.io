@@ -14,7 +14,7 @@
 <meta property="og:description" content="Kinect获取 骨骼图骨骼三维坐标该项目需要我们利用KinectV2 获取骨骼图并得到头部坐标，每一秒取一帧，一共五分钟，将坐标输出。 KinectV2 可以获得色彩图、深度图、骨骼图等等，其实一开始我也不知道该从哪里下手，但对骨骼图的代码进行了一下分析找到了突破点。 对KinectV2大体了解：Kinect一共有三个坐标空间，分别是相机空间、深度空间、色彩空间，相机空间对应骨骼图等，深度空间对">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-19T14:14:50.000Z">
-<meta property="article:modified_time" content="2021-02-19T15:17:13.942Z">
+<meta property="article:modified_time" content="2021-02-19T15:21:19.631Z">
 <meta property="article:author" content="huajiaohuixiang">
 <meta property="article:tag" content="Kinect">
 <meta name="twitter:card" content="summary">
@@ -64,10 +64,10 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -98,7 +98,7 @@
       
         <h2 id="Kinect获取-骨骼图骨骼三维坐标"><a href="#Kinect获取-骨骼图骨骼三维坐标" class="headerlink" title="Kinect获取 骨骼图骨骼三维坐标"></a>Kinect获取 骨骼图骨骼三维坐标</h2><p>该项目需要我们利用KinectV2 获取骨骼图并得到头部坐标，每一秒取一帧，一共五分钟，将坐标输出。</p>
 <p>KinectV2 可以获得色彩图、深度图、骨骼图等等，其实一开始我也不知道该从哪里下手，但对骨骼图的代码进行了一下分析找到了突破点。</p>
-<h4 id="对KinectV2大体了解："><a href="#对KinectV2大体了解：" class="headerlink" title="对KinectV2大体了解："></a>对KinectV2大体了解：</h4><p>Kinect一共有三个坐标空间，分别是相机空间、深度空间、色彩空间，相机空间对应骨骼图等，深度空间对应深度图，色彩空间对应色彩图，并且KInectSDK中有CoordinateMapper类来实现深度空间到相机空间和深度空间到色彩空间的转换。</p>
+<h4 id="对KinectV2大体了解："><a href="#对KinectV2大体了解：" class="headerlink" title="对KinectV2大体了解："></a>对KinectV2大体了解：</h4><p>Kinect一共有三个坐标空间，分别是相机空间、深度空间、色彩空间，相机空间对应骨骼图等，深度空间对应深度图，色彩空间对应色彩图，并且KInectSDK中有CoordinateMapper类来实现深度空间到相机空间和深度空间到色彩空间的转换。<br>具体查看官方文档：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/kinect/dn785530(v=ieb.10)">https://docs.microsoft.com/en-us/previous-versions/windows/kinect/dn785530(v=ieb.10)</a></p>
 <p>重点需要关心获取的帧的数据如何存储的，对于骨骼图，SDK中有两个重要的类分别是IBody 和 Joint 分别代表人和骨骼点。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">IBody : <span class="keyword">public</span> IUnknown</span><br><span class="line">  &#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">      <span class="function"><span class="keyword">virtual</span> HRESULT STDMETHODCALLTYPE <span class="title">GetJoints</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* [annotation] */</span> </span></span></span><br><span class="line"><span class="function"><span class="params">          _Pre_equal_to_(JointType_Count)  UINT capacity,</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* [annotation][size_is][out] */</span> </span></span></span><br><span class="line"><span class="function"><span class="params">          _Out_writes_all_(capacity)  Joint *joints)</span> </span>= <span class="number">0</span>;</span><br><span class="line">      </span><br><span class="line">    ...</span><br><span class="line">      <span class="keyword">virtual</span> <span class="comment">/* [propget] */</span> <span class="function">HRESULT STDMETHODCALLTYPE <span class="title">get_IsTracked</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* [annotation][out][retval] */</span> </span></span></span><br><span class="line"><span class="function"><span class="params">          _Out_  BOOLEAN *tracked)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    ...</span><br><span class="line">   </span><br><span class="line">     </span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
 <p>分别利用GetJoints函数和get_IsTracked函数可以获得Joints和判断是否被记录到了。</p>
@@ -145,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/" data-id="cklcfspie000018vwgbe46e1y" data-title="Kinect获取 骨骼图骨骼三维坐标" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/" data-id="cklcfspie000018vwgbe46e1y" data-title="Kinect获取 骨骼图骨骼三维坐标" class="article-share-link">Share</a>
       
       
       
@@ -157,9 +157,18 @@
     
 <nav id="article-nav">
   
+    <a href="/2021/02/20/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java-Reference
+        
+      </div>
+    </a>
+  
   
     <a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">hexo使用</div>
     </a>
   
@@ -197,7 +206,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
     </div>
@@ -207,28 +216,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/">Kinect获取 骨骼图骨骼三维坐标</a>
+            <a href="/2021/02/20/ArrayList/">Java-List</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/">hexo使用</a>
+            <a href="/2021/02/20/LinkedList/">Java-LinkedList</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/String/">Java-String</a>
+            <a href="/2021/02/20/List/">Java-List</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/@HotSpotIntrinsicCandidate/">Java-@HotSpotIntrinsicCandidate</a>
+            <a href="/2021/02/20/transient/">Java-transient</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/Object/">Java-Object</a>
+            <a href="/2021/02/20/Collection/">Java-Collection</a>
           </li>
         
       </ul>

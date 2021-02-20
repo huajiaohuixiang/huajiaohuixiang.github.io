@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Java-Iterable | 花椒茴香的个人博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="interface Iterable介绍1234567* Implementing this interface allows an object to be the target of the enhanced* &amp;#123;@code for&amp;#125; statement (sometimes called the &quot;for-each loop&quot; statement).*">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-Iterable">
+<meta property="og:url" content="http://example.com/2021/02/20/Iterable/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="interface Iterable介绍1234567* Implementing this interface allows an object to be the target of the enhanced* &amp;#123;@code for&amp;#125; statement (sometimes called the &quot;for-each loop&quot; statement).*">
+<meta property="og:locale">
+<meta property="article:published_time" content="2021-02-20T02:45:38.000Z">
+<meta property="article:modified_time" content="2021-02-20T11:23:39.393Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">花椒茴香的个人博客</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Iterable" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/Iterable/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T02:45:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Java-Iterable
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="interface-Iterable"><a href="#interface-Iterable" class="headerlink" title="interface Iterable"></a>interface Iterable<T></h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* Implementing <span class="keyword">this</span> <span class="class"><span class="keyword">interface</span> <span class="title">allows</span> <span class="title">an</span> <span class="title">object</span> <span class="title">to</span> <span class="title">be</span> <span class="title">the</span> <span class="title">target</span> <span class="title">of</span> <span class="title">the</span> <span class="title">enhanced</span></span></span><br><span class="line"><span class="class">* </span>&#123;<span class="meta">@code</span> <span class="keyword">for</span>&#125; statement (sometimes called the <span class="string">&quot;for-each loop&quot;</span> statement).</span><br><span class="line">*</span><br><span class="line">* <span class="meta">@param</span> &lt;T&gt; the type of elements returned by the iterator</span><br><span class="line">*</span><br><span class="line">* <span class="meta">@since</span> <span class="number">1.5</span></span><br><span class="line">* <span class="meta">@jls</span> <span class="number">14.14</span><span class="number">.2</span> The enhanced &#123;<span class="meta">@code</span> <span class="keyword">for</span>&#125; statement</span><br></pre></td></tr></table></figure>
+<p>实现此接口允许一个对象成为增强for语句的目标,就是下面这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a.forEach(</span><br><span class="line">        <span class="keyword">new</span> Consumer&lt;Object&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns an iterator over elements of type &#123;<span class="doctag">@code</span> T&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> an Iterator.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="forEach-函数，重点"><a href="#forEach-函数，重点" class="headerlink" title="forEach()函数，重点"></a>forEach()函数，重点</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Performs the given action for each element of the &#123;<span class="doctag">@code</span> Iterable&#125;</span></span><br><span class="line"><span class="comment"> * until all elements have been processed or the action throws an</span></span><br><span class="line"><span class="comment"> * exception.  Actions are performed in the order of iteration, if that</span></span><br><span class="line"><span class="comment"> * order is specified.  Exceptions thrown by the action are relayed to the</span></span><br><span class="line"><span class="comment"> * caller.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * The behavior of this method is unspecified if the action performs</span></span><br><span class="line"><span class="comment"> * side-effects that modify the underlying source of elements, unless an</span></span><br><span class="line"><span class="comment"> * overriding class has specified a concurrent modification policy.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@implSpec</span></span></span><br><span class="line"><span class="comment"> * &lt;p&gt;The default implementation behaves as if:</span></span><br><span class="line"><span class="comment"> * &lt;pre&gt;&#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment"> *     for (T t : this)</span></span><br><span class="line"><span class="comment"> *         action.accept(t);</span></span><br><span class="line"><span class="comment"> * &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> action The action to be performed for each element</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> NullPointerException if the specified action is null</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(action);</span><br><span class="line">    <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">        action.accept(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的话可以通过匿名类、lamda表达式、现有方法的名称。</p>
+<h4 id="Spliterator-spliterator"><a href="#Spliterator-spliterator" class="headerlink" title="Spliterator spliterator()"></a>Spliterator<T> spliterator()</h4><p>Spliterator是一个可分割迭代器(splitable iterator)，可以和iterator顺序遍历迭代器一起看。jdk1.8发布后，对于并行处理的能力大大增强，Spliterator就是为了并行遍历元素而设计的一个迭代器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a &#123;<span class="doctag">@link</span> Spliterator&#125; over the elements described by this</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> Iterable&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@implSpec</span></span></span><br><span class="line"><span class="comment"> * The default implementation creates an</span></span><br><span class="line"><span class="comment"> * &lt;em&gt;&lt;a href=&quot;../util/Spliterator.html#binding&quot;&gt;early-binding&lt;/a&gt;&lt;/em&gt;</span></span><br><span class="line"><span class="comment"> * spliterator from the iterable&#x27;s &#123;<span class="doctag">@code</span> Iterator&#125;.  The spliterator</span></span><br><span class="line"><span class="comment"> * inherits the &lt;em&gt;fail-fast&lt;/em&gt; properties of the iterable&#x27;s iterator.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@implNote</span></span></span><br><span class="line"><span class="comment"> * The default implementation should usually be overridden.  The</span></span><br><span class="line"><span class="comment"> * spliterator returned by the default implementation has poor splitting</span></span><br><span class="line"><span class="comment"> * capabilities, is unsized, and does not report any spliterator</span></span><br><span class="line"><span class="comment"> * characteristics. Implementing classes can nearly always provide a</span></span><br><span class="line"><span class="comment"> * better implementation.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a &#123;<span class="doctag">@code</span> Spliterator&#125; over the elements described by this</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> Iterable&#125;.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> Spliterator&lt;T&gt; <span class="title">spliterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/Iterable/" data-id="ckldvwtlb0004ukvwgv9p5n1p" data-title="Java-Iterable" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/02/20/Collection/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Java-Collection
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/02/20/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Java-Reference</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/" rel="tag">Kinect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E7%B1%BB/" rel="tag">杂类</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Kinect/" style="font-size: 10px;">Kinect</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 10px;">博客搭建</a> <a href="/tags/%E6%9D%82%E7%B1%BB/" style="font-size: 10px;">杂类</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 10px;">读书笔记</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/02/20/ArrayList/">Java-List</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/20/LinkedList/">Java-LinkedList</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/20/List/">Java-List</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/20/transient/">Java-transient</a>
+          </li>
+        
+          <li>
+            <a href="/2021/02/20/Collection/">Java-Collection</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 huajiaohuixiang<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

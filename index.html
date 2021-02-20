@@ -61,10 +61,10 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Suche"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
       </div>
     </div>
   </div>
@@ -72,6 +72,371 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-ArrayList" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/ArrayList/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T06:13:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/ArrayList/">Java-List</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p>ArrayList  数组列表，分别实现了列表、随机访问、可克隆、序列化，继承了抽象列表,其关系如下所示：</p>
+<p><img src="Y:\个人博客\hexo\source\photoes\ArrayList.png"></p>
+<h4 id="1-几个参数"><a href="#1-几个参数" class="headerlink" title="1.几个参数"></a>1.几个参数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">8683452581122892189L</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">transient</span> Object[] elementData; <span class="comment">// non-private to simplify nested class access</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> size;</span><br></pre></td></tr></table></figure>
+<h4 id="2-主要方法"><a href="#2-主要方法" class="headerlink" title="2.主要方法"></a>2.主要方法</h4><h5 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (initialCapacity &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.elementData = <span class="keyword">new</span> Object[initialCapacity];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (initialCapacity == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;Illegal Capacity: &quot;</span>+</span><br><span class="line">                                           initialCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>传入另一个集合，先将collection转为数组，然后copy到elementData中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ArrayList</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    elementData = c.toArray();</span><br><span class="line">    <span class="keyword">if</span> ((size = elementData.length) != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// defend against c.toArray (incorrectly) not returning Object[]</span></span><br><span class="line">        <span class="comment">// (see e.g. https://bugs.openjdk.java.net/browse/JDK-6260652)</span></span><br><span class="line">        <span class="keyword">if</span> (elementData.getClass() != Object[].class)</span><br><span class="line">            elementData = Arrays.copyOf(elementData, size, Object[].class);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// replace with empty array.</span></span><br><span class="line">        <span class="keyword">this</span>.elementData = EMPTY_ELEMENTDATA;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-trimToSize-修剪大小到size"><a href="#3-trimToSize-修剪大小到size" class="headerlink" title="3.trimToSize()修剪大小到size"></a>3.trimToSize()修剪大小到size</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">trimToSize</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    modCount++;</span><br><span class="line">    <span class="keyword">if</span> (size &lt; elementData.length) &#123;</span><br><span class="line">        elementData = (size == <span class="number">0</span>)</span><br><span class="line">          ? EMPTY_ELEMENTDATA</span><br><span class="line">          : Arrays.copyOf(elementData, size);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-增加容量"><a href="#4-增加容量" class="headerlink" title="4. 增加容量"></a>4. 增加容量</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ensureCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (minCapacity &gt; elementData.length</span><br><span class="line">        &amp;&amp; !(elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA</span><br><span class="line">             &amp;&amp; minCapacity &lt;= DEFAULT_CAPACITY)) &#123;</span><br><span class="line">        modCount++;</span><br><span class="line">        grow(minCapacity);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">用到了grow() ,newCapacity(minCapacity) ,hugeCapacity(<span class="keyword">int</span> minCapacity)方法</span><br></pre></td></tr></table></figure>
+<h4 id="5-得到O地址"><a href="#5-得到O地址" class="headerlink" title="5.得到O地址"></a>5.得到O地址</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOfRange</span><span class="params">(Object o, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    Object[] es = elementData;</span><br><span class="line">    <span class="keyword">if</span> (o == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; end; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (es[i] == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = start; i &lt; end; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (o.equals(es[i])) &#123;</span><br><span class="line">                <span class="keyword">return</span> i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/ArrayList/" data-id="ckldvwtkz0000ukvwam2fcwj8" data-title="Java-List" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-LinkedList" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/LinkedList/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T06:13:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/LinkedList/">Java-LinkedList</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">extends</span> <span class="title">AbstractSequentialList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">Deque</span>&lt;<span class="title">E</span>&gt;, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br></pre></td></tr></table></figure>
+<p><img src="Y:\个人博客\hexo\source\photoes\LinkedList.png"></p>
+<p>比ArrayList多实现了Queue和Deque 即实现了双向队列，ArrayList直接继承AbstractList，LinkedList继承于AbstractSequentialList,即顺序访问，AbstractList适合随机访问。</p>
+<p>LinkedList底层就是链表实现，有内部类Node ，然后又first节点、last节点。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">transient</span> <span class="keyword">int</span> size = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Pointer to first node.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; first;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Pointer to last node.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">transient</span> Node&lt;E&gt; last;</span><br></pre></td></tr></table></figure>
+<p>Node类，item内容，前指针和后指针，双向链表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span>&lt;<span class="title">E</span>&gt; </span>&#123;</span><br><span class="line">    E item;</span><br><span class="line">    Node&lt;E&gt; next;</span><br><span class="line">    Node&lt;E&gt; prev;</span><br><span class="line"></span><br><span class="line">    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;</span><br><span class="line">        <span class="keyword">this</span>.item = element;</span><br><span class="line">        <span class="keyword">this</span>.next = next;</span><br><span class="line">        <span class="keyword">this</span>.prev = prev;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>剩下的就是对链表的一些操作以及toArray等等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/LinkedList/" data-id="ckldvwtld0005ukvwasfs76jp" data-title="Java-LinkedList" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-List" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/List/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T06:13:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/List/">Java-List</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>List接口实现了Collection接口，主要有以下函数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//返回大小</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判空</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断是否包含</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Object[] toArray();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;T&gt; T[] toArray(T[] a);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(<span class="keyword">int</span> index, Collection&lt;? extends E&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//删除掉不在c中的元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">replaceAll</span><span class="params">(UnaryOperator&lt;E&gt; operator)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(operator);</span><br><span class="line">    <span class="keyword">final</span> ListIterator&lt;E&gt; li = <span class="keyword">this</span>.listIterator();</span><br><span class="line">    <span class="keyword">while</span> (li.hasNext()) &#123;</span><br><span class="line">        li.set(operator.apply(li.next()));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;rawtypes&quot;&#125;)</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">sort</span><span class="params">(Comparator&lt;? <span class="keyword">super</span> E&gt; c)</span> </span>&#123;</span><br><span class="line">    Object[] a = <span class="keyword">this</span>.toArray();</span><br><span class="line">    Arrays.sort(a, (Comparator) c);</span><br><span class="line">    ListIterator&lt;E&gt; i = <span class="keyword">this</span>.listIterator();</span><br><span class="line">    <span class="keyword">for</span> (Object e : a) &#123;</span><br><span class="line">        i.next();</span><br><span class="line">        i.set((E) e);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面是比Collection多的方法</span></span><br><span class="line"><span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lastIndexOf</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// List Iterators</span></span><br><span class="line"><span class="function">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// View</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function">List&lt;E&gt; <span class="title">subList</span><span class="params">(<span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//重写了Collection的可分割迭代器</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> Spliterator&lt;E&gt; <span class="title">spliterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> <span class="keyword">instanceof</span> RandomAccess) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> AbstractList.RandomAccessSpliterator&lt;&gt;(<span class="keyword">this</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> Spliterators.spliterator(<span class="keyword">this</span>, Spliterator.ORDERED);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//下面的暂时还没看</span></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ImmutableCollections.emptyList();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.List12&lt;&gt;(e1);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.List12&lt;&gt;(e1, e2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4, E e5)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4, E e5, E e6)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,</span><br><span class="line">                                            e6);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4, E e5, E e6, E e7)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,</span><br><span class="line">                                            e6, e7);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,</span><br><span class="line">                                            e6, e7, e8);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,</span><br><span class="line">                                            e6, e7, e8, e9);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,</span><br><span class="line">                                            e6, e7, e8, e9, e10);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@SafeVarargs</span></span><br><span class="line"><span class="meta">@SuppressWarnings(&quot;varargs&quot;)</span></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">of</span><span class="params">(E... elements)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (elements.length) &#123; <span class="comment">// implicit null check of elements</span></span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> ImmutableCollections.emptyList();</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.List12&lt;&gt;(elements[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.List12&lt;&gt;(elements[<span class="number">0</span>], elements[<span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ImmutableCollections.ListN&lt;&gt;(elements);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">copyOf</span><span class="params">(Collection&lt;? extends E&gt; coll)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> ImmutableCollections.listCopy(coll);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/List/" data-id="ckldvwtlf0007ukvw5137hlwz" data-title="Java-List" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-transient" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/transient/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T06:13:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/transient/">Java-transient</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>参考资料<a target="_blank" rel="noopener" href="https://www.cnblogs.com/lanxuezaipiao/p/3369962.html">https://www.cnblogs.com/lanxuezaipiao/p/3369962.html</a></p>
+<p>transient关键字用来标明不想序列化的某个属性，例如在ArrayList源码中，elementData就不想被序列化，则使用了transient。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ArrayList</span>&lt;<span class="title">E</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractList</span>&lt;<span class="title">E</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="keyword">implements</span> <span class="title">List</span>&lt;<span class="title">E</span>&gt;, <span class="title">RandomAccess</span>, <span class="title">Cloneable</span>, <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">8683452581122892189L</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;</span><br><span class="line">    <span class="keyword">transient</span> Object[] elementData; <span class="comment">// non-private to simplify nested class access</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/transient/" data-id="ckldvwtlh0009ukvwc2jz8ysm" data-title="Java-transient" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Collection" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/Collection/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T02:45:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/Collection/">Java-Collection</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="interface-Collection"><a href="#interface-Collection" class="headerlink" title="interface Collection"></a>interface Collection<T></h3><p>集合层次结构中的根接口。集合代表一组对象，称为其元素。一些集合允许重复的元素，而另一些则不允许。有些是有序的，而另一些则是无序的。JDK不提供 此接口的任何直接实现：它提供了更多特定子接口的实现，例如{@code Set}和{@code List}。该接口通常用于传递集合并在需要最大通用性的地方操纵它们。</p>
+<p>Bags或multisets（可能包含重复元素的无序集合）应直接实现此接口。</p>
+<p>所有通用的{@code Collection}实现类（通常通过其子接口之一间接实现{@code Collection}）应提供两个“标准”构造函数：void（无自变量）构造函数，该构造函数创建一个空的集合，以及一个带有单个实参类型为{@code Collection}的构造函数，该构造函数创建一个新集合，其元素与实参相同。实际上，后一个构造函数允许用户复制任何集合，从而产生所需实现类型的等效集合。没有强制执行此约定的方法（因为接口不能包含构造函数），但是Java平台库中的所有通用{@code Collection} 实现都可以遵循。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@see</span>     Set</span><br><span class="line"><span class="meta">@see</span>     List</span><br><span class="line"><span class="meta">@see</span>     SortedSet</span><br><span class="line"><span class="meta">@see</span>     HashSet</span><br><span class="line"><span class="meta">@see</span>     TreeSet</span><br><span class="line"><span class="meta">@see</span>     ArrayList</span><br><span class="line"><span class="meta">@see</span>     LinkedList</span><br><span class="line"><span class="meta">@see</span>     Vector</span><br><span class="line"><span class="meta">@see</span>     AbstractCollection</span><br><span class="line"> <span class="comment">//   以上这些实现了Collection接口</span></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="方法解析"><a href="#方法解析" class="headerlink" title="方法解析"></a>方法解析</h4><p>1.size()返回集合大小</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns the number of elements in this collection.  If this collection</span></span><br><span class="line"><span class="comment"> * contains more than &#123;<span class="doctag">@code</span> Integer.MAX_VALUE&#125; elements, returns</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> Integer.MAX_VALUE&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the number of elements in this collection</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>2.isEmpty() </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns &#123;<span class="doctag">@code</span> true&#125; if this collection contains no elements.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if this collection contains no elements</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>3.contains(Object o)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns &#123;<span class="doctag">@code</span> true&#125; if this collection contains the specified element.</span></span><br><span class="line"><span class="comment"> * More formally, returns &#123;<span class="doctag">@code</span> true&#125; if and only if this collection</span></span><br><span class="line"><span class="comment"> * contains at least one element &#123;<span class="doctag">@code</span> e&#125; such that</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> Objects.equals(o, e)&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> o element whose presence in this collection is to be tested</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if this collection contains the specified</span></span><br><span class="line"><span class="comment"> *         element</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> ClassCastException if the type of the specified element</span></span><br><span class="line"><span class="comment"> *         is incompatible with this collection</span></span><br><span class="line"><span class="comment"> *         (&lt;a href=&quot;&#123;<span class="doctag">@docRoot</span>&#125;/java.base/java/util/Collection.html#optional-restrictions&quot;&gt;optional&lt;/a&gt;)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> NullPointerException if the specified element is null and this</span></span><br><span class="line"><span class="comment"> *         collection does not permit null elements</span></span><br><span class="line"><span class="comment"> *         (&lt;a href=&quot;&#123;<span class="doctag">@docRoot</span>&#125;/java.base/java/util/Collection.html#optional-restrictions&quot;&gt;optional&lt;/a&gt;)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>4.iterator()返回一个迭代器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns an iterator over the elements in this collection.  There are no</span></span><br><span class="line"><span class="comment"> * guarantees concerning the order in which the elements are returned</span></span><br><span class="line"><span class="comment"> * (unless this collection is an instance of some class that provides a</span></span><br><span class="line"><span class="comment"> * guarantee).</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> an &#123;<span class="doctag">@code</span> Iterator&#125; over the elements in this collection</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>5.toArray()转换成数组 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Object[] toArray();</span><br><span class="line"></span><br><span class="line">&lt;T&gt; T[] toArray(T[] a);</span><br><span class="line"></span><br><span class="line"><span class="keyword">default</span> &lt;T&gt; T[] toArray(IntFunction&lt;T[]&gt; generator) &#123;</span><br><span class="line">    <span class="keyword">return</span> toArray(generator.apply(<span class="number">0</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>6.add()添加元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>7.去除元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>8.containAll()返回是否包含该集合的所有元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns &#123;<span class="doctag">@code</span> true&#125; if this collection contains all of the elements</span></span><br><span class="line"><span class="comment"> * in the specified collection.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span>  c collection to be checked for containment in this collection</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="doctag">@code</span> true&#125; if this collection contains all of the elements</span></span><br><span class="line"><span class="comment"> *         in the specified collection</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> ClassCastException if the types of one or more elements</span></span><br><span class="line"><span class="comment"> *         in the specified collection are incompatible with this</span></span><br><span class="line"><span class="comment"> *         collection</span></span><br><span class="line"><span class="comment"> *         (&lt;a href=&quot;&#123;<span class="doctag">@docRoot</span>&#125;/java.base/java/util/Collection.html#optional-restrictions&quot;&gt;optional&lt;/a&gt;)</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> NullPointerException if the specified collection contains one</span></span><br><span class="line"><span class="comment"> *         or more null elements and this collection does not permit null</span></span><br><span class="line"><span class="comment"> *         elements</span></span><br><span class="line"><span class="comment"> *         (&lt;a href=&quot;&#123;<span class="doctag">@docRoot</span>&#125;/java.base/java/util/Collection.html#optional-restrictions&quot;&gt;optional&lt;/a&gt;),</span></span><br><span class="line"><span class="comment"> *         or if the specified collection is null.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>    #contains(Object)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>9.addALL()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>10.removeAll</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>11.removesif()去除所有符合条件的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">boolean</span> <span class="title">removeIf</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> E&gt; filter)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(filter);</span><br><span class="line">    <span class="keyword">boolean</span> removed = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">final</span> Iterator&lt;E&gt; each = iterator();</span><br><span class="line">    <span class="keyword">while</span> (each.hasNext()) &#123;</span><br><span class="line">        <span class="keyword">if</span> (filter.test(each.next())) &#123;</span><br><span class="line">            each.remove();</span><br><span class="line">            removed = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> removed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>12.retainAll()去除所有不在c中的元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Removes all of the elements from this collection (optional operation).</span></span><br><span class="line"><span class="comment"> * The collection will be empty after this method returns.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> UnsupportedOperationException if the &#123;<span class="doctag">@code</span> clear&#125; operation</span></span><br><span class="line"><span class="comment"> *         is not supported by this collection</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>13.clear()清楚所有</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>14.equals和hashcode</p>
+<p>15.可分割迭代器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> Spliterator&lt;E&gt; <span class="title">spliterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Spliterators.spliterator(<span class="keyword">this</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>16.Stream  获得流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这个是串行流</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> Stream&lt;E&gt; <span class="title">stream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> StreamSupport.stream(spliterator(), <span class="keyword">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Java 8 API添加了一个新的抽象称为流Stream，可以让你以一种声明的方式处理数据。</p>
+<p>Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。</p>
+<p>Stream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。</p>
+<p>这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。</p>
+<p>元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br><span class="line">| stream of elements +-----&gt; |filter+-&gt; |sorted+-&gt; |map+-&gt; |collect|</span><br><span class="line">+--------------------+       +------+   +------+   +---+   +-------+</span><br></pre></td></tr></table></figure>
+<p>以上的流程转换为 Java 代码为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt; transactionsIds = </span><br><span class="line">widgets.stream()</span><br><span class="line">             .filter(b -&gt; b.getColor() == RED)</span><br><span class="line">             .sorted((x,y) -&gt; x.getWeight() - y.getWeight())</span><br><span class="line">             .mapToInt(Widget::getWeight)</span><br><span class="line">             .sum();</span><br></pre></td></tr></table></figure>
+<p>参考<a target="_blank" rel="noopener" href="https://www.runoob.com/java/java8-streams.html">https://www.runoob.com/java/java8-streams.html</a></p>
+<p>17.获得并行流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//并行流</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> Stream&lt;E&gt; <span class="title">parallelStream</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> StreamSupport.stream(spliterator(), <span class="keyword">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/Collection/" data-id="ckldvwtl60001ukvw9i678cw5" data-title="Java-Collection" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Iterable" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/Iterable/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T02:45:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/Iterable/">Java-Iterable</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="interface-Iterable"><a href="#interface-Iterable" class="headerlink" title="interface Iterable"></a>interface Iterable<T></h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">* Implementing <span class="keyword">this</span> <span class="class"><span class="keyword">interface</span> <span class="title">allows</span> <span class="title">an</span> <span class="title">object</span> <span class="title">to</span> <span class="title">be</span> <span class="title">the</span> <span class="title">target</span> <span class="title">of</span> <span class="title">the</span> <span class="title">enhanced</span></span></span><br><span class="line"><span class="class">* </span>&#123;<span class="meta">@code</span> <span class="keyword">for</span>&#125; statement (sometimes called the <span class="string">&quot;for-each loop&quot;</span> statement).</span><br><span class="line">*</span><br><span class="line">* <span class="meta">@param</span> &lt;T&gt; the type of elements returned by the iterator</span><br><span class="line">*</span><br><span class="line">* <span class="meta">@since</span> <span class="number">1.5</span></span><br><span class="line">* <span class="meta">@jls</span> <span class="number">14.14</span><span class="number">.2</span> The enhanced &#123;<span class="meta">@code</span> <span class="keyword">for</span>&#125; statement</span><br></pre></td></tr></table></figure>
+<p>实现此接口允许一个对象成为增强for语句的目标,就是下面这样。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a.forEach(</span><br><span class="line">        <span class="keyword">new</span> Consumer&lt;Object&gt;() &#123;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">accept</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Returns an iterator over elements of type &#123;<span class="doctag">@code</span> T&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> an Iterator.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">Iterator&lt;T&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="forEach-函数，重点"><a href="#forEach-函数，重点" class="headerlink" title="forEach()函数，重点"></a>forEach()函数，重点</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Performs the given action for each element of the &#123;<span class="doctag">@code</span> Iterable&#125;</span></span><br><span class="line"><span class="comment"> * until all elements have been processed or the action throws an</span></span><br><span class="line"><span class="comment"> * exception.  Actions are performed in the order of iteration, if that</span></span><br><span class="line"><span class="comment"> * order is specified.  Exceptions thrown by the action are relayed to the</span></span><br><span class="line"><span class="comment"> * caller.</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * The behavior of this method is unspecified if the action performs</span></span><br><span class="line"><span class="comment"> * side-effects that modify the underlying source of elements, unless an</span></span><br><span class="line"><span class="comment"> * overriding class has specified a concurrent modification policy.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@implSpec</span></span></span><br><span class="line"><span class="comment"> * &lt;p&gt;The default implementation behaves as if:</span></span><br><span class="line"><span class="comment"> * &lt;pre&gt;&#123;<span class="doctag">@code</span></span></span><br><span class="line"><span class="comment"> *     for (T t : this)</span></span><br><span class="line"><span class="comment"> *         action.accept(t);</span></span><br><span class="line"><span class="comment"> * &#125;&lt;/pre&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> action The action to be performed for each element</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> NullPointerException if the specified action is null</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> <span class="keyword">void</span> <span class="title">forEach</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; action)</span> </span>&#123;</span><br><span class="line">    Objects.requireNonNull(action);</span><br><span class="line">    <span class="keyword">for</span> (T t : <span class="keyword">this</span>) &#123;</span><br><span class="line">        action.accept(t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用的话可以通过匿名类、lamda表达式、现有方法的名称。</p>
+<h4 id="Spliterator-spliterator"><a href="#Spliterator-spliterator" class="headerlink" title="Spliterator spliterator()"></a>Spliterator<T> spliterator()</h4><p>Spliterator是一个可分割迭代器(splitable iterator)，可以和iterator顺序遍历迭代器一起看。jdk1.8发布后，对于并行处理的能力大大增强，Spliterator就是为了并行遍历元素而设计的一个迭代器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Creates a &#123;<span class="doctag">@link</span> Spliterator&#125; over the elements described by this</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> Iterable&#125;.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@implSpec</span></span></span><br><span class="line"><span class="comment"> * The default implementation creates an</span></span><br><span class="line"><span class="comment"> * &lt;em&gt;&lt;a href=&quot;../util/Spliterator.html#binding&quot;&gt;early-binding&lt;/a&gt;&lt;/em&gt;</span></span><br><span class="line"><span class="comment"> * spliterator from the iterable&#x27;s &#123;<span class="doctag">@code</span> Iterator&#125;.  The spliterator</span></span><br><span class="line"><span class="comment"> * inherits the &lt;em&gt;fail-fast&lt;/em&gt; properties of the iterable&#x27;s iterator.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@implNote</span></span></span><br><span class="line"><span class="comment"> * The default implementation should usually be overridden.  The</span></span><br><span class="line"><span class="comment"> * spliterator returned by the default implementation has poor splitting</span></span><br><span class="line"><span class="comment"> * capabilities, is unsized, and does not report any spliterator</span></span><br><span class="line"><span class="comment"> * characteristics. Implementing classes can nearly always provide a</span></span><br><span class="line"><span class="comment"> * better implementation.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> a &#123;<span class="doctag">@code</span> Spliterator&#125; over the elements described by this</span></span><br><span class="line"><span class="comment"> * &#123;<span class="doctag">@code</span> Iterable&#125;.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span> 1.8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">default</span> Spliterator&lt;T&gt; <span class="title">spliterator</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Spliterators.spliteratorUnknownSize(iterator(), <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/Iterable/" data-id="ckldvwtlb0004ukvwgv9p5n1p" data-title="Java-Iterable" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-四种引用" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/02/20/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" class="article-date">
+  <time class="dt-published" datetime="2021-02-20T02:45:38.000Z" itemprop="datePublished">2021-02-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/02/20/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/">Java-Reference</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>Java四种引用：强引用、软引用、弱引用、虚引用</p>
+<p>强引用：new一个对象就是强引用，可以通过赋null来取消引用，被强引用的对象永远都不会被回收即使Out of memory。</p>
+<p>软引用：SoftReference，被软引用的对象将会在内存不够用时被GC回收</p>
+<p>弱引用：WeakReference，将会在下一轮GC被回收，如果对象有finalize()，将会先执行finalize()，然后再回收，这时可能会延后一个GC</p>
+<p>虚引用：用来标记对象是否要回收，如果一个对象只有虚引用，那么将会回收</p>
+<p>参考：<a target="_blank" rel="noopener" href="https://zhanghaoxin.blog.csdn.net/article/details/80991802">https://zhanghaoxin.blog.csdn.net/article/details/80991802</a></p>
+<p>​            <a target="_blank" rel="noopener" href="https://www.cnblogs.com/skywang12345/p/3154474.html">https://www.cnblogs.com/skywang12345/p/3154474.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/02/20/%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8/" data-id="ckldvwtlk000cukvwbvtv9fr6" data-title="Java-Reference" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-Kinect获取-骨骼图骨骼三维坐标" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -97,7 +462,7 @@
       
         <h2 id="Kinect获取-骨骼图骨骼三维坐标"><a href="#Kinect获取-骨骼图骨骼三维坐标" class="headerlink" title="Kinect获取 骨骼图骨骼三维坐标"></a>Kinect获取 骨骼图骨骼三维坐标</h2><p>该项目需要我们利用KinectV2 获取骨骼图并得到头部坐标，每一秒取一帧，一共五分钟，将坐标输出。</p>
 <p>KinectV2 可以获得色彩图、深度图、骨骼图等等，其实一开始我也不知道该从哪里下手，但对骨骼图的代码进行了一下分析找到了突破点。</p>
-<h4 id="对KinectV2大体了解："><a href="#对KinectV2大体了解：" class="headerlink" title="对KinectV2大体了解："></a>对KinectV2大体了解：</h4><p>Kinect一共有三个坐标空间，分别是相机空间、深度空间、色彩空间，相机空间对应骨骼图等，深度空间对应深度图，色彩空间对应色彩图，并且KInectSDK中有CoordinateMapper类来实现深度空间到相机空间和深度空间到色彩空间的转换。</p>
+<h4 id="对KinectV2大体了解："><a href="#对KinectV2大体了解：" class="headerlink" title="对KinectV2大体了解："></a>对KinectV2大体了解：</h4><p>Kinect一共有三个坐标空间，分别是相机空间、深度空间、色彩空间，相机空间对应骨骼图等，深度空间对应深度图，色彩空间对应色彩图，并且KInectSDK中有CoordinateMapper类来实现深度空间到相机空间和深度空间到色彩空间的转换。<br>具体查看官方文档：<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/previous-versions/windows/kinect/dn785530(v=ieb.10)">https://docs.microsoft.com/en-us/previous-versions/windows/kinect/dn785530(v=ieb.10)</a></p>
 <p>重点需要关心获取的帧的数据如何存储的，对于骨骼图，SDK中有两个重要的类分别是IBody 和 Joint 分别代表人和骨骼点。</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">IBody : <span class="keyword">public</span> IUnknown</span><br><span class="line">  &#123;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">      <span class="function"><span class="keyword">virtual</span> HRESULT STDMETHODCALLTYPE <span class="title">GetJoints</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* [annotation] */</span> </span></span></span><br><span class="line"><span class="function"><span class="params">          _Pre_equal_to_(JointType_Count)  UINT capacity,</span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* [annotation][size_is][out] */</span> </span></span></span><br><span class="line"><span class="function"><span class="params">          _Out_writes_all_(capacity)  Joint *joints)</span> </span>= <span class="number">0</span>;</span><br><span class="line">      </span><br><span class="line">    ...</span><br><span class="line">      <span class="keyword">virtual</span> <span class="comment">/* [propget] */</span> <span class="function">HRESULT STDMETHODCALLTYPE <span class="title">get_IsTracked</span><span class="params">( </span></span></span><br><span class="line"><span class="function"><span class="params">          <span class="comment">/* [annotation][out][retval] */</span> </span></span></span><br><span class="line"><span class="function"><span class="params">          _Out_  BOOLEAN *tracked)</span> </span>= <span class="number">0</span>;</span><br><span class="line">    ...</span><br><span class="line">   </span><br><span class="line">     </span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
 <p>分别利用GetJoints函数和get_IsTracked函数可以获得Joints和判断是否被记录到了。</p>
@@ -144,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/" data-id="cklcfspie000018vwgbe46e1y" data-title="Kinect获取 骨骼图骨骼三维坐标" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/" data-id="cklcfspie000018vwgbe46e1y" data-title="Kinect获取 骨骼图骨骼三维坐标" class="article-share-link">Share</a>
       
       
       
@@ -204,7 +569,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/huxo%E4%BD%BF%E7%94%A8/" data-id="cklc12gnr0009pgvw7j2ua3qe" data-title="hexo使用" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/02/19/huxo%E4%BD%BF%E7%94%A8/" data-id="cklc12gnr0009pgvw7j2ua3qe" data-title="hexo使用" class="article-share-link">Share</a>
       
       
       
@@ -276,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/String/" data-id="cklc12gnm0003pgvw2qd5hl7f" data-title="Java-String" class="article-share-link">Teilen</a>
+      <a data-url="http://example.com/2021/02/19/String/" data-id="cklc12gnm0003pgvw2qd5hl7f" data-title="Java-String" class="article-share-link">Share</a>
       
       
       
@@ -290,352 +655,12 @@
 
 
   
-    <article id="post-@HotSpotIntrinsicCandidate" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/02/19/@HotSpotIntrinsicCandidate/" class="article-date">
-  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/02/19/@HotSpotIntrinsicCandidate/">Java-@HotSpotIntrinsicCandidate</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="HotSpotIntrinsicCandidate"><a href="#HotSpotIntrinsicCandidate" class="headerlink" title="@HotSpotIntrinsicCandidate"></a>@HotSpotIntrinsicCandidate</h3><p>看源码的时候看到了很多这种注释 ，</p>
-<h4 id="JDK的Object类源码中，被-HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。"><a href="#JDK的Object类源码中，被-HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。" class="headerlink" title="JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。"></a>JDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。</h4><p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/javaer_lee/article/details/87161952">https://blog.csdn.net/javaer_lee/article/details/87161952</a></p>
-<p>下面的源码对其的解释</p>
-<p>The {@code @HotSpotIntrinsicCandidate} annotation is specific to the  HotSpot Virtual Machine. It indicates that an annotated method  may be (but is not guaranteed to be) intrinsified by the HotSpot VM. A method  is intrinsified if the HotSpot VM replaces the annotated method with hand-written  assembly and/or hand-written compiler IR – a compiler intrinsic – to improve  performance. The {@code @HotSpotIntrinsicCandidate} annotation is internal to the  Java libraries and is therefore not supposed to have any relevance for application code. Maintainers of the Java libraries must consider the following when  modifying methods annotated with {@code @HotSpotIntrinsicCandidate}. </p>
-<ul>
-<li></li>
-<li><p>When modifying a method annotated with {@code @HotSpotIntrinsicCandidate},  the corresponding intrinsic code in the HotSpot VM implementation must be  updated to match the semantics of the annotated method.</p>
-</li>
-<li></li>
-<li><p>For some annotated methods, the corresponding intrinsic may omit some low-level * checks that would be performed as a matter of course if the intrinsic is implemented * using Java bytecodes. This is because individual Java bytecodes implicitly check * for exceptions like {@code NullPointerException} and {@code ArrayStoreException}. * If such a method is replaced by an intrinsic coded in assembly language, any * checks performed as a matter of normal bytecode operation must be performed * before entry into the assembly code. These checks must be performed, as * appropriate, on all arguments to the intrinsic, and on other values (if any) obtained * by the intrinsic through those arguments. The checks may be deduced by inspecting * the non-intrinsic Java code for the method, and determining exactly which exceptions * may be thrown by the code, including undeclared implicit {@code RuntimeException}s. * Therefore, depending on the data accesses performed by the intrinsic, * the checks may include: </p>
-<ul>
-<li></li>
-<li><p>null checks on references</p>
-</li>
-<li></li>
-<li><p>range checks on primitive values used as array indexes</p>
-</li>
-<li></li>
-<li><p>other validity checks on primitive values (e.g., for divide-by-zero conditions)</p>
-</li>
-<li></li>
-<li><p>store checks on reference values stored into arrays</p>
-</li>
-<li></li>
-<li><p>array length checks on arrays indexed from within the intrinsic</p>
-</li>
-<li></li>
-<li><p>reference casts (when formal parameters are {@code Object} or some other weak type)</p>
-</li>
-<li></li>
-</ul>
-</li>
-<li><p>Note that the receiver value ({@code this}) is passed as a extra argument * to all non-static methods. If a non-static method is an intrinsic, the receiver * value does not need a null check, but (as stated above) any values loaded by the * intrinsic from object fields must also be checked. As a matter of clarity, it is * better to make intrinisics be static methods, to make the dependency on {@code this} * clear. Also, it is better to explicitly load all required values from object * fields before entering the intrinsic code, and pass those values as explicit arguments. * First, this may be necessary for null checks (or other checks). Second, if the * intrinsic reloads the values from fields and operates on those without checks, * race conditions may be able to introduce unchecked invalid values into the intrinsic. * If the intrinsic needs to store a value back to an object field, that value should be * returned explicitly from the intrinsic; if there are multiple return values, coders * should consider buffering them in an array. Removing field access from intrinsics * not only clarifies the interface with between the JVM and JDK; it also helps decouple * the HotSpot and JDK implementations, since if JDK code before and after the intrinsic * manages all field accesses, then intrinsics can be coded to be agnostic of object * layouts.</p>
-</li>
-<li><p>* * Maintainers of the HotSpot VM must consider the following when modifying intrinsics. * *</p>
-</li>
-<li><ul>
-<li></li>
-<li><p>When adding a new intrinsic, make sure that the corresponding method * in the Java libraries is annotated with {@code @HotSpotIntrinsicCandidate} * and that all possible call sequences that result in calling the intrinsic contain * the checks omitted by the intrinsic (if any).</p>
-</li>
-<li></li>
-<li><p>When modifying an existing intrinsic, the Java libraries must be updated * to match the semantics of the intrinsic and to execute all checks omitted * by the intrinsic (if any).</p>
-</li>
-<li></li>
-</ul>
-</li>
-<li><p>Persons not directly involved with maintaining the Java libraries or the * HotSpot VM can safely ignore the fact that a method is annotated with * {@code @HotSpotIntrinsicCandidate}. * * The HotSpot VM defines (internally) a list of intrinsics. Not all intrinsic * are available on all platforms supported by the HotSpot VM. Furthermore, * the availability of an intrinsic on a given platform depends on the * configuration of the HotSpot VM (e.g., the set of VM flags enabled). * Therefore, annotating a method with {@code @HotSpotIntrinsicCandidate} does * not guarantee that the marked method is intrinsified by the HotSpot VM. * * If the {@code CheckIntrinsics} VM flag is enabled, the HotSpot VM checks * (when loading a class) that (1) all methods of that class that are also on * the VM’s list of intrinsics are annotated with {@code @HotSpotIntrinsicCandidate} * and that (2) for all methods of that class annotated with * {@code @HotSpotIntrinsicCandidate} there is an intrinsic in the list.</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/@HotSpotIntrinsicCandidate/" data-id="cklcdbhhp0000v4vwe90kehi4" data-title="Java-@HotSpotIntrinsicCandidate" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Object" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/02/19/Object/" class="article-date">
-  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/02/19/Object/">Java-Object</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class &#123;@code Object&#125; is the root of the class hierarchy. Every class has &#123;@code Object&#125; as a superclass. All objects, including arrays, implement the methods of this class.</span><br><span class="line">类Object是类层次结构的根。 每个类都把Object作为父类。 所有对象，包括数组，实现该类的方法。</span><br></pre></td></tr></table></figure>
-<p>源码介绍如上。</p>
-<h4 id="1-hashcode"><a href="#1-hashcode" class="headerlink" title="1.hashcode()"></a>1.hashcode()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
-<p>native修饰的方法，不由java实现，hashcode()方法就是将该对象再内存中的位置转换为整数然后返回，所有的对象由JVM管理。</p>
-<h4 id="2-equals"><a href="#2-equals" class="headerlink" title="2.equals()"></a>2.equals()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>==即判断两者的内存地址是否相同。</p>
-<p>对于String来说，其重写了equals()函数，先判断内存地址然后再判断内容。</p>
-<p>需要注意的是必须保证如果两者的hashcode()相同那么equals()为true。即重写的话也要先判断内存地址是否相同，然后对于不同的情况再判断其他的。</p>
-<p><strong>建议但不强制对于不相等的对象的hashCode一定要不同。</strong></p>
-<h4 id="3-clone-方法"><a href="#3-clone-方法" class="headerlink" title="3.clone()方法"></a>3.clone()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">* The method &#123;@code clone&#125; for class &#123;@code Object&#125; performs a</span></span><br><span class="line"><span class="comment"> * specific cloning operation. First, if the class of this object does</span></span><br><span class="line"><span class="comment"> * not implement the interface &#123;@code Cloneable&#125;, then a</span></span><br><span class="line"><span class="comment"> * &#123;@code CloneNotSupportedException&#125; is thrown. Note that all arrays</span></span><br><span class="line"><span class="comment"> * are considered to implement the interface &#123;@code Cloneable&#125; and that</span></span><br><span class="line"><span class="comment"> * the return type of the &#123;@code clone&#125; method of an array type &#123;@code T[]&#125;</span></span><br><span class="line"><span class="comment"> * is &#123;@code T[]&#125; where T is any reference or primitive type.</span></span><br><span class="line"><span class="comment"> * Otherwise, this method creates a new instance of the class of this</span></span><br><span class="line"><span class="comment"> * object and initializes all its fields with exactly the contents of</span></span><br><span class="line"><span class="comment"> * the corresponding fields of this object, as if by assignment; the</span></span><br><span class="line"><span class="comment"> * contents of the fields are not themselves cloned. Thus, this method</span></span><br><span class="line"><span class="comment"> * performs a &quot;shallow copy&quot; of this object, not a &quot;deep copy&quot; operation.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br></pre></td></tr></table></figure>
-<p>只包含了部分注释，这一部分注释解释了该函数的内容：</p>
-<p>如果该类没有实现Cloneable接口，会抛出CloneNotSupportedException异常。</p>
-<p>如果实现了Cloneable接口，那么该方法将会创建该类的新实例，并且初始化所有字段，字段的内容本身不是克隆的。 从而，这种方法执行此对象的“浅拷贝”，而不是“深拷贝”操作</p>
-<h4 id="4-toString"><a href="#4-toString" class="headerlink" title="4.toString()"></a>4.toString()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//It is recommended that all subclasses override this method.</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> getClass().getName() + <span class="string">&quot;@&quot;</span> + Integer.toHexString(hashCode());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>返回类名+@+哈希值（内存地址转换而成）</p>
-<h4 id="5-wait-notify-notifyAll"><a href="#5-wait-notify-notifyAll" class="headerlink" title="5.wait(), notify(), notifyAll()"></a>5.wait(), notify(), notifyAll()</h4><p>java的线程同步函数</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    wait(<span class="number">0L</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (timeoutMillis &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">&quot;timeoutMillis value is negative&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nanos &lt; <span class="number">0</span> || nanos &gt; <span class="number">999999</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">                            <span class="string">&quot;nanosecond timeout value out of range&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (nanos &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        timeoutMillis++;</span><br><span class="line">    &#125;</span><br><span class="line">    wait(timeoutMillis);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="6-finalize-函数"><a href="#6-finalize-函数" class="headerlink" title="6.finalize()函数"></a>6.finalize()函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@Deprecated(since&#x3D;&quot;9&quot;)</span><br><span class="line">protected void finalize() throws Throwable &#123; &#125;</span><br></pre></td></tr></table></figure>
-<p>finalize()方法就是再JVM确定已经没有任何线程可以访问该对象，那么将会清空该内存区域，如果其他类又使用了该类将会报异常。抛出的是Throwable，说明除了常规的异常Exceprion外，还有可能是JVM错误。当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize( )方法。</p>
-<p>@Deprecated(since=”9”)表示自从JDK9已废除该方法</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/Object/" data-id="cklcdbhhs0001v4vw8zop4tkh" data-title="Java-Object" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-native" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2021/02/19/native/" class="article-date">
-  <time class="dt-published" datetime="2021-02-19T06:13:38.000Z" itemprop="datePublished">2021-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2021/02/19/native/">Java-@Native</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>看Object的源码的时候发现了从未见过的修饰符native，雨伞学习一下。</p>
-<p>就是这几个：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@HotSpotIntrinsicCandidate</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">    wait(<span class="number">0L</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeoutMillis, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>参考博客<a target="_blank" rel="noopener" href="https://www.cnblogs.com/KingIceMou/p/7239668.html">https://www.cnblogs.com/KingIceMou/p/7239668.html</a></p>
-<p>被native修饰的方法就是不是由java实现的，而是由C或者C++实现，并且编译成了dll，然后由java调用，调用过程如下：<br><img src="Y:\个人博客\hexo\source_posts\jni.png"></p>
-<p>实现步骤</p>
-<p>　　１、在Java中声明native()方法，然后编译；<br>　　２、用javah产生一个.h文件；<br>　　３、写一个.cpp文件实现native导出方法，其中需要包含第二步产生的.h文件（注意其中又包含了JDK带的jni.h文件）；<br>　　４、将第三步的.cpp文件编译成动态链接库文件；<br>　　５、在Java中用System.loadLibrary()方法加载第四步产生的动态链接库文件，这个native()方法就可以在Java中被访问了。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2021/02/19/native/" data-id="cklcdbhhv0004v4vw44np9pbs" data-title="Java-@Native" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/" rel="tag">Java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-悲惨世界" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/12/04/%E6%82%B2%E6%83%A8%E4%B8%96%E7%95%8C/" class="article-date">
-  <time class="dt-published" datetime="2020-12-03T16:00:00.000Z" itemprop="datePublished">2020-12-04</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/12/04/%E6%82%B2%E6%83%A8%E4%B8%96%E7%95%8C/">悲惨世界</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>人有肉体，这对人来说，既是负担优势诱惑。人拖着肉体，又屈从于肉体。</p>
-<p>有罪的人并不是犯罪的人，而是制造黑暗的人。</p>
-<p>最好看的祭坛，是不幸者因得到了安慰而感谢上帝的一颗心灵</p>
-<p>我在这世上不是守护自己的生命，而是守护灵魂。</p>
-<p>p34-44</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/12/04/%E6%82%B2%E6%83%A8%E4%B8%96%E7%95%8C/" data-id="cklc12gns000apgvw0lmlbodr" data-title="悲惨世界" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" rel="tag">读书笔记</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-SpringBoot" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/11/20/SpringBoot/" class="article-date">
-  <time class="dt-published" datetime="2020-11-19T16:00:00.000Z" itemprop="datePublished">2020-11-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/11/20/SpringBoot/">SpringBoot 学习</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <ul>
-<li><p>依赖：spring-boot-plugin  可以将应用打包成一个jar包</p>
-</li>
-<li><p>@SpringBootApplication 注解可以用来标注主程序</p>
-<p>其实是一个组合注解 @SpringBootConfiguration、@EnableAutoConfiguration等等</p>
-</li>
-<li><p>@Reponse Body 返回主体  @Controller  控制器</p>
-<p>​    这俩合成一个@RestController</p>
-</li>
-<li><p>4.跨域的话+@CrossOrigin</p>
-</li>
-<li><p>5.YAML新的配置文件类型。k： v格式   冒号后面要有空格</p>
-</li>
-<li><p>6.@ConfigurationProperties(prefix=” “)来标识一个配置类，松散绑定</p>
-<p>   @Value()   也可以只不过是标识一个变量，不支持松散绑定</p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/20/SpringBoot/" data-id="cklc12gnj0001pgvwh81ydwto" data-title="SpringBoot 学习" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Linux Window命令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2020/11/16/Linux%20Window%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time class="dt-published" datetime="2020-11-15T16:00:00.000Z" itemprop="datePublished">2020-11-16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2020/11/16/Linux%20Window%E5%91%BD%E4%BB%A4/">Linux/Windows系统命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h6 id="1-Putty-传送文件到服务器："><a href="#1-Putty-传送文件到服务器：" class="headerlink" title="1.Putty 传送文件到服务器："></a>1.Putty 传送文件到服务器：</h6><p>​    打开putty目录：命令行运行 psftp<br>​    put -r  foldername  上传文件夹</p>
-<h6 id="2-Linux获取应用程序位置"><a href="#2-Linux获取应用程序位置" class="headerlink" title="2.Linux获取应用程序位置"></a>2.Linux获取应用程序位置</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -S softwarename 显示包含此软件包的所有位置，</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -L softwarename 显示安装路径。</span><br></pre></td></tr></table></figure>
-<h6 id="3-开启关闭HypeV"><a href="#3-开启关闭HypeV" class="headerlink" title="3.开启关闭HypeV"></a>3.开启关闭HypeV</h6><p> 管理员打开命令行             </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bcdedit &#x2F;set hypervisorlaunchtype off </span><br><span class="line"></span><br><span class="line">   bcdedit &#x2F;set hypervisorlaunchtype Auto</span><br></pre></td></tr></table></figure>
-
-
-<h6 id="4-Linux-命令"><a href="#4-Linux-命令" class="headerlink" title="4.Linux 命令"></a>4.Linux 命令</h6><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">netstat -ntlp  查看端口使用情况</span><br><span class="line"></span><br><span class="line">ps ux 查看nohup进程</span><br><span class="line"></span><br><span class="line">jobs  未退出过终端 查看nohup进程</span><br><span class="line"></span><br><span class="line">kill -9 id</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2020/11/16/Linux%20Window%E5%91%BD%E4%BB%A4/" data-id="cklc12gne0000pgvwhi3t2bcm" data-title="Linux/Windows系统命令" class="article-share-link">Teilen</a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%9D%82%E7%B1%BB/" rel="tag">杂类</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -665,7 +690,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">February 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/11/">November 2020</a></li></ul>
     </div>
@@ -675,28 +700,28 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/">Kinect获取 骨骼图骨骼三维坐标</a>
+            <a href="/2021/02/20/ArrayList/">Java-List</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/">hexo使用</a>
+            <a href="/2021/02/20/LinkedList/">Java-LinkedList</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/String/">Java-String</a>
+            <a href="/2021/02/20/List/">Java-List</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/@HotSpotIntrinsicCandidate/">Java-@HotSpotIntrinsicCandidate</a>
+            <a href="/2021/02/20/transient/">Java-transient</a>
           </li>
         
           <li>
-            <a href="/2021/02/19/Object/">Java-Object</a>
+            <a href="/2021/02/20/Collection/">Java-Collection</a>
           </li>
         
       </ul>
