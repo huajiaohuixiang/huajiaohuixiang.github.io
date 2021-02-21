@@ -1,28 +1,37 @@
-<!DOCTYPE html><html lang="cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> hexo使用 · 花椒茴香的个人博客</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/jekyll.css"><!--[if lt IE 9]>
-<script src="js/html5shiv.min.js"></script>
-<script src="js/respond.min.js"></script>
-<![endif]--><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
-</head><body><header class="row-flex-row limit-width vh-center"><a href="/" class="logo"><img src="/favicon.png"></a><nav><ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-link">Home</a></li><li class="nav-list-item"><a href="/archives/" class="nav-link active">   Blog</a></li><li class="nav-list-item"><a href="https://github.com/xxxxxx" target="_blank" class="nav-link">github</a></li><li class="nav-list-item"><a href="https://coding.net/u/xxxxxx" target="_blank" class="nav-link">coding</a></li><li class="nav-list-item"><a href="http://weibo.com/xxxxxx" target="_blank" class="nav-link">weibo</a></li><li class="nav-list-item"><a href="/atom.xml" class="nav-link">rss</a></li></ul></nav></header><div class="container limit-width"><section class="row-flex-row"><div class="post"><article class="post-block"><h2 class="post-title"><a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/" class="post-title-link">hexo使用</a></h2><div class="post-meta"><ul class="post-tag-list"><li class="post-tag-item"><a href="/tags/博客搭建/" class="post-tag-link">博客搭建</a></li></ul><div class="post-time">Friday, February 19th 2021</div></div><div class="post-content"><p>使用Hexo+Github部署<br>参考官方文档：<a target="_blank" rel="noopener" href="https://hexo.io/docs/">https://hexo.io/docs/</a></p>
-<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli  或者 cnpm install  hexo  安装Hexo</span><br><span class="line">hexo init &lt;foldername&gt;    新建一个Hexo项目</span><br><span class="line">cd foldername             </span><br><span class="line">cnpm install              安装依赖</span><br></pre></td></tr></table></figure>
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-<h4 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo new [layout] &lt;title&gt; 新建一个帖子&#x2F;页面&#x2F;草稿   分别对应layout中post&#x2F;page&#x2F;draft  title是名字  对于草稿写完后还需要 hexo publish [layout] &lt;title&gt;</span><br><span class="line">&#x2F;&#x2F;创建post时可以根据scaffolds中的模板进行创建 命令为 hexo new &lt;模板名字&gt; &lt;post名字&gt; 例如scaffolds中有一个a.md  以它为模板的命令为 hexo new a “hi”</span><br></pre></td></tr></table></figure>
-<h4 id="部署在github上"><a href="#部署在github上" class="headerlink" title="部署在github上"></a>部署在github上</h4><p>首先在github上创建huajiaohuixiang.github.io的Repo<br>然后在本地hexo下  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git init</span><br><span class="line">git branch -M main</span><br><span class="line">git remote add origin https:&#x2F;&#x2F;github.com&#x2F;huajiaohuixiang&#x2F;huajiaohuixiang.github.io.git</span><br><span class="line">git add .</span><br><span class="line">git commit -m &quot;first commit&quot;</span><br><span class="line">git push origin -u origin main  第一次需要-u origin commit</span><br></pre></td></tr></table></figure>
-<p>然后安装hexo-deployer</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cnpm install hexo-deployer-git --save</span><br><span class="line">修改 _config.yml  将deploy修改成下面（huajiaohuixiang应该改成你的repo名字）</span><br><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;huajiaohuixiang&#x2F;huajiaohuixiang.github.io</span><br><span class="line">  branch: main</span><br></pre></td></tr></table></figure>
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+
+{% block page_class %}page-post-detail{% endblock %}
 
 
+{% block content %}
 
-<p>然后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo clean </span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
 
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
+        {% include '_partials/share/duoshuo_share.swig' %}
+      {% endif %}
+    </div>
+  </div>
 
-<p>打开<a target="_blank" rel="noopener" href="https://huajioahuixiang.github.io即可/">https://huajioahuixiang.github.io即可</a><br>本人第一次hexo deploy的时候报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">FATAL &#123;</span><br><span class="line">  err: Error: Spawn failed</span><br><span class="line">      at ChildProcess.&lt;anonymous&gt; (Y:\个人博客\hexo\node_modules\_hexo-util@2.4.0@hexo-util\lib\spawn.js:51:21)</span><br><span class="line">      at ChildProcess.emit (events.js:315:20)</span><br><span class="line">      at ChildProcess.cp.emit (Y:\个人博客\hexo\node_modules\_cross-spawn@7.0.3@cross-spawn\lib\enoent.js:34:29)</span><br><span class="line">      at Process.ChildProcess._handle.onexit (internal&#x2F;child_process.js:277:12) &#123;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>在deploy一次就好了</p>
-<p>可能有用的文章：<br><a target="_blank" rel="noopener" href="https://1187100546.github.io/2019/11/24/spawn-failed/">https://1187100546.github.io/2019/11/24/spawn-failed/</a><br><a target="_blank" rel="noopener" href="https://perry96.com/archives/882898e3.html">https://perry96.com/archives/882898e3.html</a>  这个是回退本地git版本  回退了就好了，很奇怪</p>
-</div></article><div class="pagination"><a href="/2021/02/19/Kinect%E8%8E%B7%E5%8F%96-%E9%AA%A8%E9%AA%BC%E5%9B%BE%E9%AA%A8%E9%AA%BC%E4%B8%89%E7%BB%B4%E5%9D%90%E6%A0%87/" class="pagination-prev">PREV</a><a href="/2021/02/19/String/" class="pagination-next">NEXT</a></div><div class="comments"></div></div><aside class="sidebar"><h3>分类标签</h3><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/" rel="tag">Kinect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E7%B1%BB/" rel="tag">杂类</a></li></ul><h3>最新文章</h3><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E6%9E%9A%E4%B8%BE%E7%B1%BB/">枚举类</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E6%A8%A1%E5%9D%97/">模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E5%A4%9A%E6%80%81/">多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E5%86%85%E9%83%A8%E7%B1%BB/">内部类</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/StringBuffer/">StringBuffer和StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/4%E4%BF%AE%E9%A5%B0%E7%AC%A6/">修饰符</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/20/ArrayList/">Java-ArrayList</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/20/LinkedList/">Java-LinkedList</a></li></ul></aside></section></div><div class="extra"></div><footer class="footer"><div class="row-flex-row limit-width vh-center"><div class="copyright"><P>© 2021 <a href="/">huajiaohuixiang</P></div><div class="power"><p><a target="_blank" rel="noopener" href="http://pinggod.com/">Sean Sun</a>, 
-<a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>, 
-<a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>, 
-<a target="_blank" rel="noopener" href="https://jekyllrb.com/">Jekyll</a></p></div></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-80781234-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ee75cf111111aa99f8540efa2570970";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
+{% endblock %}
+
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
+
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}

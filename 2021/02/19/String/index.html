@@ -1,40 +1,37 @@
-<!DOCTYPE html><html lang="cn"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> Java-String · 花椒茴香的个人博客</title><meta name="description" content="A Blog Powered By Hexo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/jekyll.css"><!--[if lt IE 9]>
-<script src="js/html5shiv.min.js"></script>
-<script src="js/respond.min.js"></script>
-<![endif]--><meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
-</head><body><header class="row-flex-row limit-width vh-center"><a href="/" class="logo"><img src="/favicon.png"></a><nav><ul class="nav-list"><li class="nav-list-item"><a href="/" class="nav-link">Home</a></li><li class="nav-list-item"><a href="/archives/" class="nav-link active">   Blog</a></li><li class="nav-list-item"><a href="https://github.com/xxxxxx" target="_blank" class="nav-link">github</a></li><li class="nav-list-item"><a href="https://coding.net/u/xxxxxx" target="_blank" class="nav-link">coding</a></li><li class="nav-list-item"><a href="http://weibo.com/xxxxxx" target="_blank" class="nav-link">weibo</a></li><li class="nav-list-item"><a href="/atom.xml" class="nav-link">rss</a></li></ul></nav></header><div class="container limit-width"><section class="row-flex-row"><div class="post"><article class="post-block"><h2 class="post-title"><a href="/2021/02/19/String/" class="post-title-link">Java-String</a></h2><div class="post-meta"><ul class="post-tag-list"><li class="post-tag-item"><a href="/tags/Java/" class="post-tag-link">Java</a></li></ul><div class="post-time">Friday, February 19th 2021</div></div><div class="post-content"><p>关于字符串  推荐阅读源码，或者<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/80803507">https://blog.csdn.net/zhxdick/article/details/80803507</a></p>
-<p>以下是几个String的问题，总结一下。</p>
-<h4 id="String-被final修饰-不能被继承"><a href="#String-被final修饰-不能被继承" class="headerlink" title="String 被final修饰  不能被继承"></a>String 被final修饰  不能被继承</h4><p>final的作用：</p>
-<ol>
-<li><p>​    修饰变量    表示变量只能一次赋值以后值不能被修改</p>
-<p>​    如果是修饰了一个基本类型数据，就表示一个常量</p>
-<p>​    如果是引用类型数据，则引用初始化后将永远指向一个内存地址（就相当于一个不能变的指针）</p>
-<p>​    但是该引用对象中的内容是可以变的</p>
-</li>
-<li><p>​    修饰方法    该方法不能被重写，但可以继承</p>
-</li>
-<li><p>​    修饰类   该类不能被继承</p>
-</li>
-</ol>
-<p>final修饰变量的<strong>本质</strong>: final修饰的变量会指向一块固定的内存, 这块内存中的值不能改变.</p>
-<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24309787/article/details/100942044">https://blog.csdn.net/qq_24309787/article/details/100942044</a></p>
-<h4 id="那为何String要被修饰成final？"><a href="#那为何String要被修饰成final？" class="headerlink" title="那为何String要被修饰成final？"></a>那为何String要被修饰成final？</h4><p> 为了实现字符串常量池：字符串常量池可以在程序运行时节约很多内存空间，因为不同的字符串变量指向相同的字面量时，都是指向字符串常量池中的同一个对象。这样一方面能够节约内存，另一方面也提升了性能。</p>
-<p>但是仅有一个final不能保证字符串常量，原因在上面final作用第一条已说明。我们看String源码</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">//String类被final修饰了，表明其不可被继承。</span></span><br><span class="line">    <span class="comment">//实现了 Serializable接口---&gt;使其可以序列化，方便数据的传输</span></span><br><span class="line">    <span class="comment">//实现了Comparable接口，可以调用Collections.sort() 和 Arrays.sort() 方法排序，并且String类实现 compareTo() 方法。</span></span><br><span class="line">    <span class="comment">//实现了CharSequence接口，该接口能表示char值的一个可读序列。几个String兄弟类都实现了此接口。</span></span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Stable</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] value;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span> coder;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中的final修饰的byte数组用来存储String内容，然后再加上private修饰，本身也没有提供修改自己value数组的方法，所以value数组不可变，即字符串不可变，生成了字符串常量池。</p>
-<p>还有因为其不可变所以String是线程安全的，同一个字符串实例可以被多个线程共享。</p>
-<p> 因为字符串是不可变的，所以在它创建的时候<strong>HashCode</strong>就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。</p>
-<p>​        参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/80803507">https://blog.csdn.net/zhxdick/article/details/80803507</a></p>
-<p>​                <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9c7f5daac283">https://www.jianshu.com/p/9c7f5daac283</a></p>
-<h4 id="JDK8-和JDK9-String的变化"><a href="#JDK8-和JDK9-String的变化" class="headerlink" title="JDK8 和JDK9 String的变化"></a>JDK8 和JDK9 String的变化</h4><p>​    再JDK8中 String中是用char数组来存储  char是由UTF16编码咱用两个字节，但是很多都只用了一个字节（ASICII），所有再9中对其进行了优化，将char[]  更改为了 byte [] 以及一个coder来存储。</p>
-<p>​    coder一般只有两个值：分别用来表示8位表示还剩16位表示 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static final byte LATIN1 &#x3D; 0; </span><br><span class="line">static final byte UTF16  &#x3D; 1;</span><br></pre></td></tr></table></figure>
+{% extends '_layout.swig' %}
+{% import '_macro/post.swig' as post_template %}
+{% import '_macro/sidebar.swig' as sidebar_template %}
 
 
-<h4 id="关于-和equal"><a href="#关于-和equal" class="headerlink" title="关于== 和equal()"></a>关于== 和equal()</h4><p>“==”判断的是两个对象的内存地址是否一样，适用于原始数据类型和枚举类型（它们的变量存储的是值本身，而引用类型变量存储的是引用）；equals是Object类的方法，Object对它的实现是比较内存地址，我们可以重写这个方法来自定义“相等”这个概念。比如类库中的String、Date等类就对这个方法进行了重写。<br>综上，对于枚举类型和原始数据类型的相等性比较，应该使用”==”；对于引用类型的相等性比较，应该使用equals方法。</p>
-<p>下面是String的equal函数,equal()函数的object的一个函数，String对其进行了重写，首先它判断了两者内存地址是否一样，然后将anObject转换为String比较内容。 </p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String aString = (String)anObject;</span><br><span class="line">        <span class="keyword">if</span> (coder() == aString.coder()) &#123;</span><br><span class="line">            <span class="keyword">return</span> isLatin1() ? StringLatin1.equals(value, aString.value)</span><br><span class="line">                              : StringUTF16.equals(value, aString.value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</div></article><div class="pagination"><a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/" class="pagination-prev">PREV</a><a href="/2021/02/19/@HotSpotIntrinsicCandidate/" class="pagination-next">NEXT</a></div><div class="comments"></div></div><aside class="sidebar"><h3>分类标签</h3><ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/" rel="tag">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kinect/" rel="tag">Kinect</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringBoot/" rel="tag">SpringBoot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" rel="tag">博客搭建</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%9D%82%E7%B1%BB/" rel="tag">杂类</a></li></ul><h3>最新文章</h3><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E6%9E%9A%E4%B8%BE%E7%B1%BB/">枚举类</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E6%A8%A1%E5%9D%97/">模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E5%A4%9A%E6%80%81/">多态</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/%E5%86%85%E9%83%A8%E7%B1%BB/">内部类</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/StringBuffer/">StringBuffer和StringBuilder</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/21/4%E4%BF%AE%E9%A5%B0%E7%AC%A6/">修饰符</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/20/ArrayList/">Java-ArrayList</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/02/20/LinkedList/">Java-LinkedList</a></li></ul></aside></section></div><div class="extra"></div><footer class="footer"><div class="row-flex-row limit-width vh-center"><div class="copyright"><P>© 2021 <a href="/">huajiaohuixiang</P></div><div class="power"><p><a target="_blank" rel="noopener" href="http://pinggod.com/">Sean Sun</a>, 
-<a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a>, 
-<a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>, 
-<a target="_blank" rel="noopener" href="https://jekyllrb.com/">Jekyll</a></p></div></div></footer><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-80781234-1",'auto');ga('send','pageview');</script><script>var _hmt = _hmt || [];(function() {var hm = document.createElement("script");hm.src = "//hm.baidu.com/hm.js?ee75cf111111aa99f8540efa2570970";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(hm, s);})();</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script></body></html>
+{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+
+{% block page_class %}page-post-detail{% endblock %}
+
+
+{% block content %}
+
+  <div id="posts" class="posts-expand">
+    {{ post_template.render(page) }}
+
+    <div class="post-spread">
+      {% if theme.jiathis %}
+        {% include '_partials/share/jiathis.swig' %}
+      {% elseif theme.baidushare %}
+        {% include '_partials/share/baidushare.swig' %}
+      {% elseif theme.add_this_id %}
+        {% include '_partials/share/add-this.swig' %}
+      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
+        {% include '_partials/share/duoshuo_share.swig' %}
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block sidebar %}
+  {{ sidebar_template.render(true) }}
+{% endblock %}
+
+{% block script_extra %}
+  {% include '_scripts/pages/post-details.swig' %}
+{% endblock %}
