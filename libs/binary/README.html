@@ -1,0 +1,69 @@
+<h1 id="binary"><a href="#binary" class="headerlink" title="binary"></a>binary</h1><p>Unpack multibyte binary values from buffers and streams.<br>You can specify the endianness and signedness of the fields to be unpacked too.</p>
+<p>This module is a cleaner and more complete version of<br><a href="https://github.com/substack/node-bufferlist">bufferlist</a>‘s binary module that<br>runs on pre-allocated buffers instead of a linked list.</p>
+<p><a href="http://travis-ci.org/substack/node-binary"><img src="https://secure.travis-ci.org/substack/node-binary.png" alt="build status"></a></p>
+<h1 id="examples"><a href="#examples" class="headerlink" title="examples"></a>examples</h1><h2 id="stream-js"><a href="#stream-js" class="headerlink" title="stream.js"></a>stream.js</h2><pre><code class="js">var binary = require(&#39;binary&#39;);
+
+var ws = binary()
+    .word32lu(&#39;x&#39;)
+    .word16bs(&#39;y&#39;)
+    .word16bu(&#39;z&#39;)
+    .tap(function (vars) {
+        console.dir(vars);
+    })
+;
+process.stdin.pipe(ws);
+process.stdin.resume();
+</code></pre>
+<p>output:</p>
+<pre><code>$ node examples/stream.js
+abcdefgh
+{ x: 1684234849, y: 25958, z: 26472 }
+^D
+</code></pre>
+<h2 id="parse-js"><a href="#parse-js" class="headerlink" title="parse.js"></a>parse.js</h2><pre><code class="js">var buf = new Buffer([ 97, 98, 99, 100, 101, 102, 0 ]);
+
+var binary = require(&#39;binary&#39;);
+var vars = binary.parse(buf)
+    .word16ls(&#39;ab&#39;)
+    .word32bu(&#39;cf&#39;)
+    .word8(&#39;x&#39;)
+    .vars
+;
+console.dir(vars);
+</code></pre>
+<p>output:</p>
+<pre><code>{ ab: 25185, cf: 1667523942, x: 0 }
+</code></pre>
+<h1 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h1><p><code>var binary = require(&#39;binary&#39;)</code></p>
+<h2 id="var-b-binary"><a href="#var-b-binary" class="headerlink" title="var b = binary()"></a>var b = binary()</h2><p>Return a new writable stream <code>b</code> that has the chainable methods documented below<br>for buffering binary input.</p>
+<h2 id="binary-parse-buf"><a href="#binary-parse-buf" class="headerlink" title="binary.parse(buf)"></a>binary.parse(buf)</h2><p>Parse a static buffer in one pass. Returns a chainable interface with the<br>methods below plus a <code>vars</code> field to get at the variable stash as the last item<br>in a chain.</p>
+<p>In parse mode, methods will set their keys to <code>null</code> if the buffer isn’t big<br>enough except <code>buffer()</code> and <code>scan()</code> which read up up to the end of the buffer<br>and stop.</p>
+<h2 id="b-word-8-16-32-64-l-b-e-u-s-key"><a href="#b-word-8-16-32-64-l-b-e-u-s-key" class="headerlink" title="b.word{8,16,32,64}{l,b}{e,u,s}(key)"></a>b.word{8,16,32,64}{l,b}{e,u,s}(key)</h2><p>Parse bytes in the buffer or stream given:</p>
+<ul>
+<li>number of bits</li>
+<li>endianness ( l : little, b : big ),</li>
+<li>signedness ( u and e : unsigned, s : signed )</li>
+</ul>
+<p>These functions won’t start parsing until all previous parser functions have run<br>and the data is available.</p>
+<p>The result of the parse goes into the variable stash at <code>key</code>.<br>If <code>key</code> has dots (<code>.</code>s), it refers to a nested address. If parent container<br>values don’t exist they will be created automatically, so for instance you can<br>assign into <code>dst.addr</code> and <code>dst.port</code> and the <code>dst</code> key in the variable stash<br>will be <code>{ addr : x, port : y }</code> afterwards.</p>
+<h2 id="b-buffer-key-size"><a href="#b-buffer-key-size" class="headerlink" title="b.buffer(key, size)"></a>b.buffer(key, size)</h2><p>Take <code>size</code> bytes directly off the buffer stream, putting the resulting buffer<br>slice in the variable stash at <code>key</code>. If <code>size</code> is a string, use the value at<br><code>vars[size]</code>. The key follows the same dotted address rules as the word<br>functions.</p>
+<h2 id="b-scan-key-buffer"><a href="#b-scan-key-buffer" class="headerlink" title="b.scan(key, buffer)"></a>b.scan(key, buffer)</h2><p>Search for <code>buffer</code> in the stream and store all the intervening data in the<br>stash at at <code>key</code>, excluding the search buffer. If <code>buffer</code> passed as a string,<br>it will be converted into a Buffer internally.</p>
+<p>For example, to read in a line you can just do:</p>
+<pre><code class="js">var b = binary()
+    .scan(&#39;line&#39;, new Buffer(&#39;\r\n&#39;))
+    .tap(function (vars) {
+        console.log(vars.line)
+    })
+;
+stream.pipe(b);
+</code></pre>
+<h2 id="b-tap-cb"><a href="#b-tap-cb" class="headerlink" title="b.tap(cb)"></a>b.tap(cb)</h2><p>The callback <code>cb</code> is provided with the variable stash from all the previous<br>actions once they’ve all finished.</p>
+<p>You can nest additional actions onto <code>this</code> inside the callback.</p>
+<h2 id="b-into-key-cb"><a href="#b-into-key-cb" class="headerlink" title="b.into(key, cb)"></a>b.into(key, cb)</h2><p>Like <code>.tap()</code>, except all nested actions will assign into a <code>key</code> in the <code>vars</code><br>stash.</p>
+<h2 id="b-loop-cb"><a href="#b-loop-cb" class="headerlink" title="b.loop(cb)"></a>b.loop(cb)</h2><p>Loop, each time calling <code>cb(end, vars)</code> for function <code>end</code> and the variable<br>stash with <code>this</code> set to a new chain for nested parsing. The loop terminates<br>once <code>end</code> is called.</p>
+<h2 id="b-flush"><a href="#b-flush" class="headerlink" title="b.flush()"></a>b.flush()</h2><p>Clear the variable stash entirely.</p>
+<h1 id="installation"><a href="#installation" class="headerlink" title="installation"></a>installation</h1><p>To install with <a href="http://github.com/isaacs/npm">npm</a>:</p>
+<pre><code>npm install binary
+</code></pre>
+<h1 id="notes"><a href="#notes" class="headerlink" title="notes"></a>notes</h1><p>The word64 functions will only return approximations since javascript uses ieee<br>floating point for all number types. Mind the loss of precision.</p>
+<h1 id="license"><a href="#license" class="headerlink" title="license"></a>license</h1><p>MIT</p>
