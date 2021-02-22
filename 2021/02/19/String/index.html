@@ -1,37 +1,421 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-{% block page_class %}page-post-detail{% endblock %}
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","Muse | Mist":320,"Pisces | Gemini":240,"width":300,"display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="关于字符串  推荐阅读源码，或者https:&#x2F;&#x2F;blog.csdn.net&#x2F;zhxdick&#x2F;article&#x2F;details&#x2F;80803507 以下是几个String的问题，总结一下。 String 被final修饰  不能被继承final的作用：  ​    修饰变量    表示变量只能一次赋值以后值不能被修改 ​    如果是修饰了一个基本类型数据，就表示一个常量 ​    如果是引用类型数据，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java-String">
+<meta property="og:url" content="http://example.com/2021/02/19/String/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="关于字符串  推荐阅读源码，或者https:&#x2F;&#x2F;blog.csdn.net&#x2F;zhxdick&#x2F;article&#x2F;details&#x2F;80803507 以下是几个String的问题，总结一下。 String 被final修饰  不能被继承final的作用：  ​    修饰变量    表示变量只能一次赋值以后值不能被修改 ​    如果是修饰了一个基本类型数据，就表示一个常量 ​    如果是引用类型数据，">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-02-19T06:13:38.000Z">
+<meta property="article:modified_time" content="2021-02-19T11:50:36.287Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/02/19/String/">
 
 
-{% block content %}
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
 
-  <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+  <title>Java-String | 花椒茴香的个人博客</title>
+  
 
-    <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
 
-{% endblock %}
+  <div class="site-meta">
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">花椒茴香的个人博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">安得广厦千万间</p>
+  </div>
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives<span class="badge">22</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/19/String/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="huajiaohuixiang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="花椒茴香的个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java-String
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-02-19 14:13:38 / Modified: 19:50:36" itemprop="dateCreated datePublished" datetime="2021-02-19T14:13:38+08:00">2021-02-19</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>关于字符串  推荐阅读源码，或者<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/80803507">https://blog.csdn.net/zhxdick/article/details/80803507</a></p>
+<p>以下是几个String的问题，总结一下。</p>
+<h4 id="String-被final修饰-不能被继承"><a href="#String-被final修饰-不能被继承" class="headerlink" title="String 被final修饰  不能被继承"></a>String 被final修饰  不能被继承</h4><p>final的作用：</p>
+<ol>
+<li><p>​    修饰变量    表示变量只能一次赋值以后值不能被修改</p>
+<p>​    如果是修饰了一个基本类型数据，就表示一个常量</p>
+<p>​    如果是引用类型数据，则引用初始化后将永远指向一个内存地址（就相当于一个不能变的指针）</p>
+<p>​    但是该引用对象中的内容是可以变的</p>
+</li>
+<li><p>​    修饰方法    该方法不能被重写，但可以继承</p>
+</li>
+<li><p>​    修饰类   该类不能被继承</p>
+</li>
+</ol>
+<p>final修饰变量的<strong>本质</strong>: final修饰的变量会指向一块固定的内存, 这块内存中的值不能改变.</p>
+<p>参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24309787/article/details/100942044">https://blog.csdn.net/qq_24309787/article/details/100942044</a></p>
+<h4 id="那为何String要被修饰成final？"><a href="#那为何String要被修饰成final？" class="headerlink" title="那为何String要被修饰成final？"></a>那为何String要被修饰成final？</h4><p> 为了实现字符串常量池：字符串常量池可以在程序运行时节约很多内存空间，因为不同的字符串变量指向相同的字面量时，都是指向字符串常量池中的同一个对象。这样一方面能够节约内存，另一方面也提升了性能。</p>
+<p>但是仅有一个final不能保证字符串常量，原因在上面final作用第一条已说明。我们看String源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">String</span></span></span><br><span class="line"><span class="class">    <span class="keyword">implements</span> <span class="title">java</span>.<span class="title">io</span>.<span class="title">Serializable</span>, <span class="title">Comparable</span>&lt;<span class="title">String</span>&gt;, <span class="title">CharSequence</span> </span>&#123;</span><br><span class="line">    <span class="comment">//String类被final修饰了，表明其不可被继承。</span></span><br><span class="line">    <span class="comment">//实现了 Serializable接口---&gt;使其可以序列化，方便数据的传输</span></span><br><span class="line">    <span class="comment">//实现了Comparable接口，可以调用Collections.sort() 和 Arrays.sort() 方法排序，并且String类实现 compareTo() 方法。</span></span><br><span class="line">    <span class="comment">//实现了CharSequence接口，该接口能表示char值的一个可读序列。几个String兄弟类都实现了此接口。</span></span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Stable</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] value;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">byte</span> coder;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> hash; <span class="comment">// Default to 0</span></span><br><span class="line"></span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的final修饰的byte数组用来存储String内容，然后再加上private修饰，本身也没有提供修改自己value数组的方法，所以value数组不可变，即字符串不可变，生成了字符串常量池。</p>
+<p>还有因为其不可变所以String是线程安全的，同一个字符串实例可以被多个线程共享。</p>
+<p> 因为字符串是不可变的，所以在它创建的时候<strong>HashCode</strong>就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。</p>
+<p>​        参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhxdick/article/details/80803507">https://blog.csdn.net/zhxdick/article/details/80803507</a></p>
+<p>​                <a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9c7f5daac283">https://www.jianshu.com/p/9c7f5daac283</a></p>
+<h4 id="JDK8-和JDK9-String的变化"><a href="#JDK8-和JDK9-String的变化" class="headerlink" title="JDK8 和JDK9 String的变化"></a>JDK8 和JDK9 String的变化</h4><p>​    再JDK8中 String中是用char数组来存储  char是由UTF16编码咱用两个字节，但是很多都只用了一个字节（ASICII），所有再9中对其进行了优化，将char[]  更改为了 byte [] 以及一个coder来存储。</p>
+<p>​    coder一般只有两个值：分别用来表示8位表示还剩16位表示 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">static final byte LATIN1 &#x3D; 0; </span><br><span class="line">static final byte UTF16  &#x3D; 1;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="关于-和equal"><a href="#关于-和equal" class="headerlink" title="关于== 和equal()"></a>关于== 和equal()</h4><p>“==”判断的是两个对象的内存地址是否一样，适用于原始数据类型和枚举类型（它们的变量存储的是值本身，而引用类型变量存储的是引用）；equals是Object类的方法，Object对它的实现是比较内存地址，我们可以重写这个方法来自定义“相等”这个概念。比如类库中的String、Date等类就对这个方法进行了重写。<br>综上，对于枚举类型和原始数据类型的相等性比较，应该使用”==”；对于引用类型的相等性比较，应该使用equals方法。</p>
+<p>下面是String的equal函数,equal()函数的object的一个函数，String对其进行了重写，首先它判断了两者内存地址是否一样，然后将anObject转换为String比较内容。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object anObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span> == anObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (anObject <span class="keyword">instanceof</span> String) &#123;</span><br><span class="line">        String aString = (String)anObject;</span><br><span class="line">        <span class="keyword">if</span> (coder() == aString.coder()) &#123;</span><br><span class="line">            <span class="keyword">return</span> isLatin1() ? StringLatin1.equals(value, aString.value)</span><br><span class="line">                              : StringUTF16.equals(value, aString.value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/02/19/@HotSpotIntrinsicCandidate/" rel="prev" title="Java-@HotSpotIntrinsicCandidate">
+      <i class="fa fa-chevron-left"></i> Java-@HotSpotIntrinsicCandidate
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/19/huxo%E4%BD%BF%E7%94%A8/" rel="next" title="hexo使用">
+      hexo使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-%E8%A2%ABfinal%E4%BF%AE%E9%A5%B0-%E4%B8%8D%E8%83%BD%E8%A2%AB%E7%BB%A7%E6%89%BF"><span class="nav-number">1.</span> <span class="nav-text">String 被final修饰  不能被继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%82%A3%E4%B8%BA%E4%BD%95String%E8%A6%81%E8%A2%AB%E4%BF%AE%E9%A5%B0%E6%88%90final%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">那为何String要被修饰成final？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JDK8-%E5%92%8CJDK9-String%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">JDK8 和JDK9 String的变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-%E5%92%8Cequal"><span class="nav-number">4.</span> <span class="nav-text">关于&#x3D;&#x3D; 和equal()</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">huajiaohuixiang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/huajiaohuixiang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;huajiaohuixiang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huajiaohuixiang</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
