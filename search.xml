@@ -4,6 +4,167 @@
   
     
     <entry>
+      <title>剑指offer38</title>
+      <link href="2021/02/23/%E5%89%91%E6%8C%87offer38/"/>
+      <url>2021/02/23/%E5%89%91%E6%8C%87offer38/</url>
+      
+        <content type="html"><![CDATA[<p>输入一个字符串，打印出该字符串中字符的所有排列。<br>你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。</p><p>示例:</p><p>输入：s = “abc”<br>输出：[“abc”,”acb”,”bac”,”bca”,”cab”,”cba”]</p><p>一开始的做法，回溯法模拟了一遍全排列；</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt; used;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">permutation</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; result;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt; tempResult;<span class="comment">//因为字符串中可能有重复的元素，所以用了它去重</span></span><br><span class="line">        <span class="built_in">string</span> temp=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> c:s)&#123;used.push_back(<span class="literal">false</span>);&#125;</span><br><span class="line">        huiSu(tempResult,s,temp);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> c:tempResult)&#123;</span><br><span class="line">            result.push_back(c);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">huiSu</span><span class="params">(<span class="built_in">unordered_set</span>&lt;<span class="built_in">string</span>&gt;&amp; result,<span class="built_in">string</span>&amp; s,<span class="built_in">string</span>&amp; temp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(temp.length()==s.length())&#123;</span><br><span class="line">            result.insert(temp);</span><br><span class="line">        &#125;</span><br><span class="line">         <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;s.length();j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(used[j])&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;     </span><br><span class="line">            temp.push_back(s[j]);</span><br><span class="line">            used[j]=<span class="literal">true</span>;</span><br><span class="line">            huiSu(result,s,temp);</span><br><span class="line">            used[j]=<span class="literal">false</span>;</span><br><span class="line">            temp.pop_back();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>对于有重复元素的情况，我使用了set集合先把所有的结果加进去，然后再返回到vector中</p><p>还可以先将字符串排序，排序后相同的元素在一起，然后把他们看成一个即可。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt;res;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(<span class="built_in">string</span> s,<span class="built_in">string</span>&amp; temp,<span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;&amp; used)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(temp.size()==s.size())</span><br><span class="line">        &#123;</span><br><span class="line">            res.push_back(temp);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;s.size();i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(!used[i])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(i&gt;=<span class="number">1</span>&amp;&amp;s[i<span class="number">-1</span>]==s[i]&amp;&amp;!used[i<span class="number">-1</span>])</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                temp.push_back(s[i]);</span><br><span class="line">                used[i]=<span class="literal">true</span>;</span><br><span class="line">                backtrack(s,temp,used);</span><br><span class="line">                used[i]=<span class="literal">false</span>;</span><br><span class="line">                temp.pop_back();</span><br><span class="line">            &#125;   </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">permutation</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(s.size()==<span class="number">0</span>)</span><br><span class="line">            <span class="keyword">return</span>&#123;&#125;;</span><br><span class="line">        <span class="built_in">string</span> temp=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        sort(s.begin(),s.end());</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">bool</span>&gt;used(s.size());</span><br><span class="line">        backtrack(s,temp,used);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>进行通过字符交换来实现全排列,然后使用unordered_set去重（这个去重与上面的作用完全不一样），如果某个已经交换过了，就不用在交换了</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; <span class="title">permutation</span><span class="params">(<span class="built_in">string</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; res;</span><br><span class="line">        dfs(s, res, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; &amp;res, <span class="keyword">int</span> depth)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(depth &gt;= s.size()<span class="number">-1</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            res.push_back(s);</span><br><span class="line">            <span class="keyword">return</span> ;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">unordered_set</span>&lt;<span class="keyword">char</span>&gt; used;  <span class="comment">//局部set去重</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = depth; i &lt; s.size(); ++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(used.find(s[i]) != used.end())   <span class="keyword">continue</span>;   <span class="comment">//去重</span></span><br><span class="line">            used.insert(s[i]);</span><br><span class="line">            swap(s[depth],s[i]);</span><br><span class="line">            dfs(s, res, depth+<span class="number">1</span>);</span><br><span class="line">            swap(s[depth],s[i]);        <span class="comment">//回溯撤销操作</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">作者：zrita</span><br><span class="line">链接：https:<span class="comment">//leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/solution/chui-su-z-by-zrita-gvc0/</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> leetcode </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Lambda</title>
+      <link href="2021/02/22/Lambda/"/>
+      <url>2021/02/22/Lambda/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>maven</title>
+      <link href="2021/02/22/maven/"/>
+      <url>2021/02/22/maven/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>多线程</title>
+      <link href="2021/02/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+      <url>2021/02/22/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>单元测试</title>
+      <link href="2021/02/22/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+      <url>2021/02/22/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>IO</title>
+      <link href="2021/02/22/IO/"/>
+      <url>2021/02/22/IO/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>集合</title>
+      <link href="2021/02/22/%E9%9B%86%E5%90%88/"/>
+      <url>2021/02/22/%E9%9B%86%E5%90%88/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>泛型</title>
+      <link href="2021/02/22/%E6%B3%9B%E5%9E%8B/"/>
+      <url>2021/02/22/%E6%B3%9B%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>注解</title>
+      <link href="2021/02/22/%E6%B3%A8%E8%A7%A3/"/>
+      <url>2021/02/22/%E6%B3%A8%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>反射</title>
+      <link href="2021/02/22/%E5%8F%8D%E5%B0%84/"/>
+      <url>2021/02/22/%E5%8F%8D%E5%B0%84/</url>
+      
+        <content type="html"><![CDATA[<p>重点的几个类 Class ，Field ，Method ，Constructor，</p><p>动态代理实现接口</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>异常错误</title>
+      <link href="2021/02/22/%E5%BC%82%E5%B8%B8/"/>
+      <url>2021/02/22/%E5%BC%82%E5%B8%B8/</url>
+      
+        <content type="html"><![CDATA[<p>p</p><h4 id="1-异常和错误都是类，基类Throwable-只实现了序列化接口。"><a href="#1-异常和错误都是类，基类Throwable-只实现了序列化接口。" class="headerlink" title="1.异常和错误都是类，基类Throwable 只实现了序列化接口。"></a>1.异常和错误都是类，基类Throwable 只实现了序列化接口。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Throwable</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>2.printStackTrace()</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printStackTrace</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    printStackTrace(System.err);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printStackTrace</span><span class="params">(PrintStream s)</span> </span>&#123;</span><br><span class="line">    printStackTrace(<span class="keyword">new</span> WrappedPrintStream(s));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">printStackTrace</span><span class="params">(PrintStreamOrWriter s)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Guard against malicious overrides of Throwable.equals by</span></span><br><span class="line">    <span class="comment">// using a Set with identity equality semantics.</span></span><br><span class="line">    Set&lt;Throwable&gt; dejaVu = Collections.newSetFromMap(<span class="keyword">new</span> IdentityHashMap&lt;&gt;());</span><br><span class="line">    dejaVu.add(<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (s.lock()) &#123;</span><br><span class="line">        <span class="comment">// Print our stack trace</span></span><br><span class="line">        s.println(<span class="keyword">this</span>);</span><br><span class="line">        StackTraceElement[] trace = getOurStackTrace();</span><br><span class="line">        <span class="keyword">for</span> (StackTraceElement traceElement : trace)</span><br><span class="line">            s.println(<span class="string">&quot;\tat &quot;</span> + traceElement);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Print suppressed exceptions, if any</span></span><br><span class="line">        <span class="keyword">for</span> (Throwable se : getSuppressed())</span><br><span class="line">            se.printEnclosedStackTrace(s, trace, SUPPRESSED_CAPTION, <span class="string">&quot;\t&quot;</span>, dejaVu);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Print cause, if any</span></span><br><span class="line">        Throwable ourCause = getCause();</span><br><span class="line">        <span class="keyword">if</span> (ourCause != <span class="keyword">null</span>)</span><br><span class="line">            ourCause.printEnclosedStackTrace(s, trace, CAUSE_CAPTION, <span class="string">&quot;&quot;</span>, dejaVu);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="3-捕获异常-都很熟悉"><a href="#3-捕获异常-都很熟悉" class="headerlink" title="3.捕获异常  (都很熟悉)"></a>3.捕获异常  (都很熟悉)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">&#125;<span class="keyword">catch</span>(IOException e1)&#123;</span><br><span class="line">e1.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">catch</span>(Exception e2)&#123;</span><br><span class="line">e2.printStackTrace();</span><br><span class="line">&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="4-抛出异常"><a href="#4-抛出异常" class="headerlink" title="4.抛出异常"></a>4.抛出异常</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用throw + 异常对象</span></span><br><span class="line">Exception exception2=<span class="keyword">new</span> Exception();</span><br><span class="line"><span class="keyword">throw</span> exception2;</span><br><span class="line"></span><br><span class="line">或者<span class="keyword">throw</span> <span class="keyword">new</span> Exception();</span><br></pre></td></tr></table></figure><h4 id="5-Java异常体系"><a href="#5-Java异常体系" class="headerlink" title="5.Java异常体系"></a>5.Java异常体系</h4><p>Java标准库定义的常用异常包括：</p><figure class="highlight md"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">Exception</span><br><span class="line">│</span><br><span class="line">├─ RuntimeException</span><br><span class="line">│  │</span><br><span class="line">│  ├─ NullPointerException</span><br><span class="line">│  │</span><br><span class="line">│  ├─ IndexOutOfBoundsException</span><br><span class="line">│  │</span><br><span class="line">│  ├─ SecurityException</span><br><span class="line">│  │</span><br><span class="line">│  └─ IllegalArgumentException</span><br><span class="line">│     │</span><br><span class="line">│     └─ NumberFormatException</span><br><span class="line">│</span><br><span class="line">├─ IOException</span><br><span class="line">│  │</span><br><span class="line">│  ├─ UnsupportedCharsetException</span><br><span class="line">│  │</span><br><span class="line">│  ├─ FileNotFoundException</span><br><span class="line">│  │</span><br><span class="line">│  └─ SocketException</span><br><span class="line">│</span><br><span class="line">├─ ParseException</span><br><span class="line">│</span><br><span class="line">├─ GeneralSecurityException</span><br><span class="line">│</span><br><span class="line">├─ SQLException</span><br><span class="line">│</span><br><span class="line">└─ TimeoutException</span><br></pre></td></tr></table></figure><h4 id="6-assert关键字"><a href="#6-assert关键字" class="headerlink" title="6.assert关键字"></a>6.assert关键字</h4><p>assert用来开发的时候使用，如果断言失败会抛出异常</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">assert</span> x&gt;<span class="number">0</span>; </span><br><span class="line"><span class="keyword">assert</span> x&gt;=<span class="number">0</span> : <span class="string">&quot;x must &gt;= 0&quot;</span>;</span><br></pre></td></tr></table></figure><p>JVM默认关闭断言，开启断言需要编译时额外参数，实际上一般不用断言，都是使用JUnit。</p><h4 id="7-使用Logger日志系统代替System-out-println"><a href="#7-使用Logger日志系统代替System-out-println" class="headerlink" title="7.使用Logger日志系统代替System.out.println()"></a>7.使用Logger日志系统代替System.out.println()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getGlobal();</span><br><span class="line">logger.info(<span class="string">&quot;start process...&quot;</span>);</span><br><span class="line">logger.warning(<span class="string">&quot;memory is running out...&quot;</span>);</span><br><span class="line">logger.fine(<span class="string">&quot;ignored.&quot;</span>);</span><br><span class="line">logger.severe(<span class="string">&quot;process will be terminated...&quot;</span>);</span><br></pre></td></tr></table></figure><p>logger一共有七个等级</p><ul><li><p>SEVERE</p></li><li><p>WARNING</p></li><li><p>INFO</p></li><li><p>CONFIG</p></li><li><p>FINE</p></li><li><p>FINER</p></li><li><p>FINEST</p><p>Config和下面的都不会打印出来。</p></li></ul><p>实际上一般也不用，也需要额外的参数。</p><h4 id="8-日志库Commons-Logging"><a href="#8-日志库Commons-Logging" class="headerlink" title="8.日志库Commons Logging"></a>8.日志库Commons Logging</h4><p>Commons Logging定义了6个日志级别：</p><ul><li>FATAL</li><li>ERROR</li><li>WARNING</li><li>INFO</li><li>DEBUG</li><li>TRACE</li></ul><p>使用的话Log log = LogFactory.getLog(Class名);</p><h4 id="9-广泛使用的Log4j日志系统，xml配置麻烦，搭配SpringBoot应该会简单吧"><a href="#9-广泛使用的Log4j日志系统，xml配置麻烦，搭配SpringBoot应该会简单吧" class="headerlink" title="9.广泛使用的Log4j日志系统，xml配置麻烦，搭配SpringBoot应该会简单吧"></a>9.广泛使用的Log4j日志系统，xml配置麻烦，搭配SpringBoot应该会简单吧</h4><h4 id="10-和89对应的分别是SLF4J和Logback"><a href="#10-和89对应的分别是SLF4J和Logback" class="headerlink" title="10.和89对应的分别是SLF4J和Logback"></a>10.和89对应的分别是SLF4J和Logback</h4>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>StringBuffer和StringBuilder</title>
       <link href="2021/02/21/StringBuffer/"/>
       <url>2021/02/21/StringBuffer/</url>
