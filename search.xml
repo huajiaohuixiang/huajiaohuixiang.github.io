@@ -4,6 +4,88 @@
   
     
     <entry>
+      <title>Synchronize</title>
+      <link href="2021/02/25/Synchronize/"/>
+      <url>2021/02/25/Synchronize/</url>
+      
+        <content type="html"><![CDATA[<p>Synchronized的用法<br><a href="https://blog.csdn.net/luoweifu/article/details/46613015">https://blog.csdn.net/luoweifu/article/details/46613015</a></p><p>额外：<br>同步与互斥的区别：<a href="https://www.cnblogs.com/baizhanshi/p/6844356.html">https://www.cnblogs.com/baizhanshi/p/6844356.html</a></p><p>进程线程基础<br><a href="https://blog.csdn.net/luoweifu/article/details/46595285">https://blog.csdn.net/luoweifu/article/details/46595285</a><br>java中的 多线程<a href="https://blog.csdn.net/luoweifu/article/details/46673975">https://blog.csdn.net/luoweifu/article/details/46673975</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> 操作系统 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Ubuntu安装Redis、Mysql</title>
+      <link href="2021/02/23/%E5%AE%89%E8%A3%85Redis%EF%BC%8CMysql/"/>
+      <url>2021/02/23/%E5%AE%89%E8%A3%85Redis%EF%BC%8CMysql/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Linux-Ubuntu18-01安装redis和Mysql"><a href="#Linux-Ubuntu18-01安装redis和Mysql" class="headerlink" title="Linux Ubuntu18.01安装redis和Mysql"></a>Linux Ubuntu18.01安装redis和Mysql</h3><h4 id="1-安装redis"><a href="#1-安装redis" class="headerlink" title="1.安装redis"></a>1.安装redis</h4><p>​    </p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install redis-server</span><br></pre></td></tr></table></figure><h4 id="2-启动redis"><a href="#2-启动redis" class="headerlink" title="2.启动redis"></a>2.启动redis</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server</span><br></pre></td></tr></table></figure><h4 id="3-让其他电脑可以访问"><a href="#3-让其他电脑可以访问" class="headerlink" title="3.让其他电脑可以访问"></a>3.让其他电脑可以访问</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -S redis_server 显示包含此软件包的所有位置，</span><br></pre></td></tr></table></figure><p>有一个/etc/redis/redis.conf  文件</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/redis/redis.conf  <span class="comment">//打开</span></span><br></pre></td></tr></table></figure><p>关闭保护模式并将127.0.0.1换成0.0.0.0</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind 127.0.0.1 ::1     换成 bind 0.0.0.0 ::1</span><br><span class="line">protected-mode yes     换成 protected-mode no</span><br></pre></td></tr></table></figure><p>保存退出重启</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl restart redis-server</span><br></pre></td></tr></table></figure><h4 id="1-安装Mysql"><a href="#1-安装Mysql" class="headerlink" title="1.安装Mysql"></a>1.安装Mysql</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install mysql-server</span><br><span class="line">sudo systemctl status mysql  //安装完成后输入这个看看状态</span><br></pre></td></tr></table></figure><h4 id="2-然后可以根据阿里云的这个增加一下数据库安全"><a href="#2-然后可以根据阿里云的这个增加一下数据库安全" class="headerlink" title="2.然后可以根据阿里云的这个增加一下数据库安全"></a>2.然后可以根据阿里云的这个增加一下数据库安全</h4><p><a href="https://yq.aliyun.com/articles/758177">https://yq.aliyun.com/articles/758177</a></p><h4 id="3-配置外网访问"><a href="#3-配置外网访问" class="headerlink" title="3.配置外网访问"></a>3.配置外网访问</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/mysql</span><br><span class="line"></span><br><span class="line">//然后ls一下 我的有下面这些东西，配置文件在mysql.conf.d中</span><br><span class="line">//conf.d      debian-start  my.cnf.fallback  mysql.conf.d</span><br><span class="line">//debian.cnf  my.cnf        mysql.cnf</span><br><span class="line"></span><br><span class="line">cd mysql.conf.d</span><br><span class="line">vim mysqld.cnf</span><br><span class="line">     //将地址127.0.0.1 改成0.0.0.0</span><br><span class="line">service mysql restart</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+            <tag> Redis </tag>
+            
+            <tag> Mysql </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HashTable</title>
+      <link href="2021/02/23/HashTable/"/>
+      <url>2021/02/23/HashTable/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>拦截器</title>
+      <link href="2021/02/23/%E6%8B%A6%E6%88%AA%E5%99%A8/"/>
+      <url>2021/02/23/%E6%8B%A6%E6%88%AA%E5%99%A8/</url>
+      
+        <content type="html"><![CDATA[<h3 id="SpringBoot配置拦截器"><a href="#SpringBoot配置拦截器" class="headerlink" title="SpringBoot配置拦截器"></a>SpringBoot配置拦截器</h3><h4 id="1-实现一个拦截器"><a href="#1-实现一个拦截器" class="headerlink" title="1.实现一个拦截器"></a>1.实现一个拦截器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">实现HandlerInterceptor</span><br><span class="line">重写preHandle方法，postHandler，afterCompletion方法</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testInterceptor</span> <span class="keyword">implements</span> <span class="title">HandlerInterceptor</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span></span></span><br><span class="line"><span class="function">            <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//这里就可以根据request判断token session等等。</span></span><br><span class="line">        System.out.println(<span class="string">&quot;进入拦截器啦！&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="meta">@Nullable</span> ModelAndView modelAndView)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Bye!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;执行了TestInterceptor的afterCompletion方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><p>2.将拦截器配置到SpringBoot程序中，在Spring中，使用XML的方式，而在Boot中只需要定义一个带有@Configuration的配置类即可，需要实现WebMvcConfigure接口</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">testMvcConfigure</span> <span class="keyword">implements</span> <span class="title">WebMvcConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> </span>&#123;</span><br><span class="line">        InterceptorRegistration registration = registry.addInterceptor(<span class="keyword">new</span> testInterceptor());</span><br><span class="line">        registration.addPathPatterns(<span class="string">&quot;/**&quot;</span>);                      <span class="comment">//所有路径都被拦截</span></span><br><span class="line">        registration.excludePathPatterns(                         <span class="comment">//添加不拦截路径</span></span><br><span class="line">                <span class="string">&quot;/vip/wang&quot;</span>          </span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> SpringBoot </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>剑指offer38</title>
       <link href="2021/02/23/%E5%89%91%E6%8C%87offer38/"/>
       <url>2021/02/23/%E5%89%91%E6%8C%87offer38/</url>
