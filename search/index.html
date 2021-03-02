@@ -1,835 +1,392 @@
 <!DOCTYPE html>
-<html style="display: none;" lang="en">
-    <head>
-    <meta charset="utf-8">
-    <!--
-        © Material Theme
-        https://github.com/viosey/hexo-theme-material
-        Version: 1.5.6 -->
-    <script>
-        window.materialVersion = "1.5.6"
-        // Delete localstorage with these tags
-        window.oldVersion = [
-            'codestartv1',
-            '1.3.4',
-            '1.4.0',
-            '1.4.0b1',
-            '1.5.0',
-            '1.5.2',
-            '1.5.5'
-        ]
-    </script>
+<html lang="en">
 
-    <!-- dns prefetch -->
-    <meta http-equiv="x-dns-prefetch-control" content="on">
 
-        
-                
 
-                        
 
-                                                
+<head>
 
-                                                                
-                                                                    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-                                                                    
-
-                                                                                        
-
-    <!-- Meta & Info -->
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-    <meta name="renderer" content="webkit">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-
-    <!-- Title -->
-    
-    <title>
-        
-            search | 
-        
-        花椒茴香的个人博客
-    </title>
-
-    <!-- Favicons -->
-    <link rel="icon shortcut" type="image/ico" href="/img/favicon.png">
-    <link rel="icon" href="/img/favicon.png">
-
-    <meta name="format-detection" content="telephone=no"/>
-    <meta name="description" itemprop="description" content="">
-    <meta name="keywords" content="">
-    <meta name="theme-color" content="#0097A7">
-
-    <!-- Disable Fucking Bloody Baidu Tranformation -->
-    <meta http-equiv="Cache-Control" content="no-transform" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-
-    <!--[if lte IE 9]>
-        <link rel="stylesheet" href="/css/ie-blocker.css">
-
-        
-            <script src="/js/ie-blocker.en.js"></script>
-        
-    <![endif]-->
-
-    <!-- Import lsloader -->
-    <script>(function(){window.lsloader={jsRunSequence:[],jsnamemap:{},cssnamemap:{}};lsloader.removeLS=function(a){try{localStorage.removeItem(a)}catch(b){}};lsloader.setLS=function(a,c){try{localStorage.setItem(a,c)}catch(b){}};lsloader.getLS=function(a){var c="";try{c=localStorage.getItem(a)}catch(b){c=""}return c};versionString="/*"+(window.materialVersion||"unknownVersion")+"*/";lsloader.clean=function(){try{var b=[];for(var a=0;a<localStorage.length;a++){b.push(localStorage.key(a))}b.forEach(function(e){var f=lsloader.getLS(e);if(window.oldVersion){var d=window.oldVersion.reduce(function(g,h){return g||f.indexOf("/*"+h+"*/")!==-1},false);if(d){lsloader.removeLS(e)}}})}catch(c){}};lsloader.clean();lsloader.load=function(f,a,b,d){if(typeof b==="boolean"){d=b;b=undefined}d=d||false;b=b||function(){};var e;e=this.getLS(f);if(e&&e.indexOf(versionString)===-1){this.removeLS(f);this.requestResource(f,a,b,d);return}if(e){var c=e.split(versionString)[0];if(c!=a){console.log("reload:"+a);this.removeLS(f);this.requestResource(f,a,b,d);return}e=e.split(versionString)[1];if(d){this.jsRunSequence.push({name:f,code:e});this.runjs(a,f,e)}else{document.getElementById(f).appendChild(document.createTextNode(e));b()}}else{this.requestResource(f,a,b,d)}};lsloader.requestResource=function(b,e,a,c){var d=this;if(c){this.iojs(e,b,function(h,f,g){d.setLS(f,h+versionString+g);d.runjs(h,f,g)})}else{this.iocss(e,b,function(f){document.getElementById(b).appendChild(document.createTextNode(f));d.setLS(b,e+versionString+f)},a)}};lsloader.iojs=function(d,b,g){var a=this;a.jsRunSequence.push({name:b,code:""});try{var f=new XMLHttpRequest();f.open("get",d,true);f.onreadystatechange=function(){if(f.readyState==4){if((f.status>=200&&f.status<300)||f.status==304){if(f.response!=""){g(d,b,f.response);return}}a.jsfallback(d,b)}};f.send(null)}catch(c){a.jsfallback(d,b)}};lsloader.iocss=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.iofonts=function(f,c,h,a){var b=this;try{var g=new XMLHttpRequest();g.open("get",f,true);g.onreadystatechange=function(){if(g.readyState==4){if((g.status>=200&&g.status<300)||g.status==304){if(g.response!=""){h(g.response);a();return}}b.cssfallback(f,c,a)}};g.send(null)}catch(d){b.cssfallback(f,c,a)}};lsloader.runjs=function(f,c,e){if(!!c&&!!e){for(var b in this.jsRunSequence){if(this.jsRunSequence[b].name==c){this.jsRunSequence[b].code=e}}}if(!!this.jsRunSequence[0]&&!!this.jsRunSequence[0].code&&this.jsRunSequence[0].status!="failed"){var a=document.createElement("script");a.appendChild(document.createTextNode(this.jsRunSequence[0].code));a.type="text/javascript";document.getElementsByTagName("head")[0].appendChild(a);this.jsRunSequence.shift();if(this.jsRunSequence.length>0){this.runjs()}}else{if(!!this.jsRunSequence[0]&&this.jsRunSequence[0].status=="failed"){var d=this;var a=document.createElement("script");a.src=this.jsRunSequence[0].path;a.type="text/javascript";this.jsRunSequence[0].status="loading";a.onload=function(){d.jsRunSequence.shift();if(d.jsRunSequence.length>0){d.runjs()}};document.body.appendChild(a)}}};lsloader.tagLoad=function(b,a){this.jsRunSequence.push({name:a,code:"",path:b,status:"failed"});this.runjs()};lsloader.jsfallback=function(c,b){if(!!this.jsnamemap[b]){return}else{this.jsnamemap[b]=b}for(var a in this.jsRunSequence){if(this.jsRunSequence[a].name==b){this.jsRunSequence[a].code="";this.jsRunSequence[a].status="failed";this.jsRunSequence[a].path=c}}this.runjs()};lsloader.cssfallback=function(e,c,b){if(!!this.cssnamemap[c]){return}else{this.cssnamemap[c]=1}var d=document.createElement("link");d.type="text/css";d.href=e;d.rel="stylesheet";d.onload=d.onerror=b;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(d,a)};lsloader.runInlineScript=function(c,b){var a=document.getElementById(b).innerText;this.jsRunSequence.push({name:c,code:a});this.runjs()}})();</script>
-
-    <!-- Import queue -->
-    <script>function Queue(){this.dataStore=[];this.offer=b;this.poll=d;this.execNext=a;this.debug=false;this.startDebug=c;function b(e){if(this.debug){console.log("Offered a Queued Function.")}if(typeof e==="function"){this.dataStore.push(e)}else{console.log("You must offer a function.")}}function d(){if(this.debug){console.log("Polled a Queued Function.")}return this.dataStore.shift()}function a(){var e=this.poll();if(e!==undefined){if(this.debug){console.log("Run a Queued Function.")}e()}}function c(){this.debug=true}}var queue=new Queue();</script>
-
-    <!-- Import CSS -->
-    
-        <style id="material_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_css","/css/material.min.css?Z7a72R1E4SxzBKR/WGctOA==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-        <style id="style_css"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("style_css","/css/style.min.css?NKhlKQkXw/c66TR5p4wO+w==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-
-        
-
-    
-
-    
-
-    <!-- Config CSS -->
-
-<!-- Other Styles -->
-<style>
-  body, html {
-    font-family: Roboto, "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    overflow-x: hidden !important;
-  }
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
   
-  code {
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-  }
+      <title>Search - 花椒茴香的个人博客</title>
+  
 
-  a {
-    color: #00838F;
-  }
+  
+  
+  <meta name="description" content="">
+  <meta name="author" content="huajiaohuixiang">
 
-  .mdl-card__media,
-  #search-label,
-  #search-form-label:after,
-  #scheme-Paradox .hot_tags-count,
-  #scheme-Paradox .sidebar_archives-count,
-  #scheme-Paradox .sidebar-colored .sidebar-header,
-  #scheme-Paradox .sidebar-colored .sidebar-badge{
-    background-color: #0097A7 !important;
-  }
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  /* Sidebar User Drop Down Menu Text Color */
-  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:hover,
-  #scheme-Paradox .sidebar-colored .sidebar-nav>.dropdown>.dropdown-menu>li>a:focus {
-    color: #0097A7 !important;
-  }
-
-  #post_entry-right-info,
-  .sidebar-colored .sidebar-nav li:hover > a,
-  .sidebar-colored .sidebar-nav li:hover > a i,
-  .sidebar-colored .sidebar-nav li > a:hover,
-  .sidebar-colored .sidebar-nav li > a:hover i,
-  .sidebar-colored .sidebar-nav li > a:focus i,
-  .sidebar-colored .sidebar-nav > .open > a,
-  .sidebar-colored .sidebar-nav > .open > a:hover,
-  .sidebar-colored .sidebar-nav > .open > a:focus,
-  #ds-reset #ds-ctx .ds-ctx-entry .ds-ctx-head a {
-    color: #0097A7 !important;
-  }
-
-  .toTop {
-    background: #757575 !important;
-  }
-
-  .material-layout .material-post>.material-nav,
-  .material-layout .material-index>.material-nav,
-  .material-nav a {
-    color: #757575;
-  }
-
-  #scheme-Paradox .MD-burger-layer {
-    background-color: #757575;
-  }
-
-  #scheme-Paradox #post-toc-trigger-btn {
-    color: #757575;
-  }
-
-  .post-toc a:hover {
-    color: #00838F;
-    text-decoration: underline;
-  }
-
-</style>
+  <!-- load loadjs.js -->
+  
+<script src="/libs/loadjs/dist/loadjs.min.js"></script>
 
 
-<!-- Theme Background Related-->
 
-    <style>
-      body{
-        background-color: #F5F5F5;
-      }
+<link rel="stylesheet" href="/libs/animate.css/animate.min.css">
 
-      /* blog_info bottom background */
-      #scheme-Paradox .material-layout .something-else .mdl-card__supporting-text{
-        background-color: #fff;
-      }
-    </style>
+  <!-- load lightgallery -->
+
+<link rel="stylesheet" href="/css/lightgallery.css">
+
+
+<link rel="stylesheet" href="/libs/noty/lib/noty.css">
+
+<script
+src="https://code.jquery.com/jquery-3.3.1.min.js"
+integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+crossorigin="anonymous"></script>
+  
 
 
 
 
-<!-- Fade Effect -->
 
-    <style>
-      .fade {
-        transition: all 800ms linear;
-        -webkit-transform: translate3d(0,0,0);
-        -moz-transform: translate3d(0,0,0);
-        -ms-transform: translate3d(0,0,0);
-        -o-transform: translate3d(0,0,0);
-        transform: translate3d(0,0,0);
-        opacity: 1;
-      }
-
-      .fade.out{
-        opacity: 0;
-      }
-    </style>
-
-
-<!-- Import Font -->
-<!-- Import Roboto -->
-
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
-
-
-<!-- Import Material Icons -->
-
-
-    <style id="material_icons"></style><script>if(typeof window.lsLoadCSSMaxNums === "undefined")window.lsLoadCSSMaxNums = 0;window.lsLoadCSSMaxNums++;lsloader.load("material_icons","/css/material-icons.css?pqhB/Rd/ab0H2+kZp0RDmw==",function(){if(typeof window.lsLoadCSSNums === "undefined")window.lsLoadCSSNums = 0;window.lsLoadCSSNums++;if(window.lsLoadCSSNums == window.lsLoadCSSMaxNums)document.documentElement.style.display="";}, false)</script>
-
-
-
-
-    <!-- Import jQuery -->
-    
-        <script>lsloader.load("jq_js","/js/jquery.min.js?qcusAULNeBksqffqUM2+Ig==", true)</script>
-    
-
-    <!-- WebAPP Icons -->
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="花椒茴香的个人博客">
-    <meta name="msapplication-starturl" content="https://huajiaohuixiang.github.io/search/">
-    <meta name="msapplication-navbutton-color" content="#0097A7">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="花椒茴香的个人博客">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="apple-touch-icon" href="/img/favicon.png">
-
-    <!-- Site Verification -->
-    
-    
-
-    <!-- RSS -->
-    
-
-    <!-- The Open Graph protocol -->
-    <meta property="og:url" content="https://huajiaohuixiang.github.io/search/">
-    <meta property="og:type" content="blog">
-    <meta property="og:title" content="search | 花椒茴香的个人博客">
-    <meta property="og:image" content="/img/favicon.png">
-    <meta property="og:description" content="">
-    
 
     
+<link rel="stylesheet" href="/css/taurus.css">
 
-    <!-- The Twitter Card protocol -->
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Add canonical link for SEO -->
-    
-        <link rel="canonical" href="https://huajiaohuixiang.github.io/search/index.html" />
-    
-
-    <!-- Structured-data for SEO -->
     
         
-
-
+<link rel="stylesheet" href="/css/scheme-taurus/animations.css">
 
     
 
-    <!-- Analytics -->
-    
-    
-    
 
-    <!-- Custom Head -->
-    
 
+<link rel="stylesheet" href="/.css">
+
+
+  <!-- load font awesome 5 -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+  </script>
+  <!-- load mathjax -->
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax//libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+  <!-- load js-cookie -->
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    
+<script src="/js/social-share.min.js"></script>
+
+    
+<script src="/js/theme.js"></script>
+
+
+  <!-- include cookie.js -->
+  
+  
+
+  <!-- include comment system code -->
+  
+    <script src="/js/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  
+  <link rel="icon" href="/images/logo.png">
 <meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
 </head>
+<body style="display: flex; flex-direction: column; min-height: 100vh;">
 
+ 
 
-    
-        <body id="scheme-Paradox" class="lazy">
-            <div class="material-layout  mdl-js-layout has-drawer is-upgraded">
-                
-
-                <!-- Main Container -->
-                <main class="material-layout__content" id="main">
-
-                    <!-- Top Anchor -->
-                    <div id="top"></div>
-
-                    
-                        <!-- Hamburger Button -->
-                        <button class="MD-burger-icon sidebar-toggle">
-                            <span id="MD-burger-id" class="MD-burger-layer"></span>
-                        </button>
-                    
-
-                    <!-- Post TOC -->
-
-
-<!-- Layouts -->
-
-    <!-- Post Module -->
-    <div class="material-post_container">
-
-        <div class="material-post mdl-grid">
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-
-                <!-- Post Header(Thumbnail & Title) -->
-                
-    <!-- Paradox Post Header -->
-    
-        
-            <!-- Random Thumbnail -->
-            <div class="post_thumbnail-random mdl-card__media mdl-color-text--grey-50">
-            <script type="text/ls-javascript" id="post-thumbnail-script">
-    var randomNum = Math.floor(Math.random() * 19 + 1);
-
-    $('.post_thumbnail-random').attr('data-original', '/img/random/material-' + randomNum + '.png');
-    $('.post_thumbnail-random').addClass('lazy');
-</script>
-
-        
-    
-            <p class="article-headline-p">
-                search
-            </p>
-        </div>
+<header id="header" class='header'>
+	<div class="header-title">
+		
+		<div class='header-logo'>
+			<a href='/'>
+				<img src='/images/logo.svg' />
+			</a>
+		</div>
+		<div class='header-text'>
+			<h1>
+				<a href="/">花椒茴香的个人博客</a>
+			</h1>
+			<subtitle>
+				安得广厦千万间
+			</subtitle>
+		</div>
+		
+	</div>
+	<div id='header-nav'>
+		
 
 
 
-
-
-                
-                    <!-- Paradox Post Info -->
-                    <div class="mdl-color-text--grey-700 mdl-card__supporting-text meta">
-
-    <!-- Author Avatar -->
-    <div id="author-avatar">
-        <img src="/img/avatar.png" width="44px" height="44px" alt="Author Avatar"/>
-    </div>
-    <!-- Author Name & Date -->
-    <div>
-        <strong>huajiaohuixiang</strong>
-        <span>Feb 22, 2021</span>
-    </div>
-
-    <div class="section-spacer"></div>
-
-    <!-- Favorite -->
-    <!--
-        <button id="article-functions-like-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon btn-like">
-            <i class="material-icons" role="presentation">favorite</i>
-            <span class="visuallyhidden">favorites</span>
-        </button>
-    -->
-
-    <!-- Qrcode -->
-    
-
-    <!-- Tags (bookmark) -->
-    
-
-    <!-- Share -->
-    
-        <button id="article-fuctions-share-button" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
-    <i class="material-icons" role="presentation">share</i>
-    <span class="visuallyhidden">share</span>
-</button>
-<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="article-fuctions-share-button">
-    
-
-    
-
-    <!-- Share Weibo -->
-    
-        <a class="post_share-link" href="http://service.weibo.com/share/share.php?appkey=&title=search&url=https://huajiaohuixiang.github.io/search/index.html&pic=https://huajiaohuixiang.github.io/img/favicon.png&searchPic=false&style=simple" target="_blank">
-            <li class="mdl-menu__item">
-                Share to Weibo
-            </li>
-        </a>
-    
-
-    <!-- Share Twitter -->
-    
-        <a class="post_share-link" href="https://twitter.com/intent/tweet?text=search&url=https://huajiaohuixiang.github.io/search/index.html&via=huajiaohuixiang" target="_blank">
-            <li class="mdl-menu__item">
-                Share to Twitter
-            </li>
-        </a>
-    
-
-    <!-- Share Facebook -->
-    
-        <a class="post_share-link" href="https://www.facebook.com/sharer/sharer.php?u=https://huajiaohuixiang.github.io/search/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                Share to Facebook
-            </li>
-        </a>
-    
-
-    <!-- Share Google+ -->
-    
-        <a class="post_share-link" href="https://plus.google.com/share?url=https://huajiaohuixiang.github.io/search/index.html" target="_blank">
-            <li class="mdl-menu__item">
-                Share to Google+
-            </li>
-        </a>
-    
-
-    <!-- Share LinkedIn -->
-    
-
-    <!-- Share QQ -->
-    
-
-    <!-- Share Telegram -->
-    
-</ul>
-
-    
-</div>
-
-                
-
-                <!-- Post Content -->
-                <div id="post-content" class="mdl-color-text--grey-700 mdl-card__supporting-text fade out">
-    
-        
-        
-    
-
-    
-</div>
-
-
-                
-
-                <!-- Post Comments -->
-                
-                    
-                
-            </div>
-
-            <!-- Post Prev & Next Nav -->
-            <nav class="material-nav mdl-color-text--grey-50 mdl-cell mdl-cell--12-col">
-    <!-- Prev Nav -->
-    
-
-    <!-- Section Spacer -->
-    <div class="section-spacer"></div>
-
-    <!-- Next Nav -->
-    
+<nav id="nav">
+	
+	
+	
+	<div class='nav-item' id='nav-item-archive'>
+		
+				<div class='nav-icon'>
+				
+			<a href="/archives/" title='Archives'>
+			<img src="/images/icons/blue-shadow/archive.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class='nav-item' id='nav-item-search'>
+		
+		<div class='nav-icon active_dot'>
+		
+			<a href="/search/" title='Search'>
+			<img src="/images/icons/blue-shadow/search.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="nav-item" id='nav-item-more'>
+		<div class="nav-icon">
+				<a href='#' onclick='onClickMenuIcon(event);' ontouchstart='onClickMenuIcon(event);'>
+				<img src="/images/icons/blue-shadow/menu.svg" alt="">
+				</a>
+		</div>
+		<div class="nav-more-menu">
+				<i class="far fa-times-circle" id='nav-more-menu-close' onclick='onClickNavMenuClose(event);' ontouchstart='onClickNavMenuClose(event);'></i>
+		
+		
+	</div>
+	</div>
 </nav>
 
-        </div>
-    </div>
+	</div>
+</header>
+
+ 
 
 
 
-                    
-                        <!-- Overlay For Active Sidebar -->
-<div class="sidebar-overlay"></div>
 
-<!-- Material sidebar -->
-<aside id="sidebar" class="sidebar sidebar-colored sidebar-fixed-left" role="navigation">
-    <div id="sidebar-main">
-        <!-- Sidebar Header -->
-        <div class="sidebar-header header-cover" style="background-image: url(/img/sidebar_header.png);">
-    <!-- Top bar -->
-    <div class="top-bar"></div>
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div style="flex: 1;">
+      <style>
+    body {
+        background-color: white;
+    }
+</style>
+<div class='search-container'>
+	<input type="text" id='search-form'>
 
-    <!-- Sidebar toggle button -->
-    <button type="button" class="sidebar-toggle mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" style="display: initial;" data-upgraded=",MaterialButton,MaterialRipple">
-        <i class="material-icons">clear_all</i>
-        <span class="mdl-button__ripple-container">
-            <span class="mdl-ripple">
-            </span>
-        </span>
-    </button>
+	<ul class="cat-list">
+		
+	</ul>
 
-    <!-- Sidebar Avatar -->
-    <div class="sidebar-image">
-        <img src="/img/avatar.png" alt="huajiaohuixiang's avatar">
-    </div>
-
-    <!-- Sidebar Email -->
-    <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
-        huajiaohuixiang@qq.com
-        <b class="caret"></b>
-    </a>
+	<div class="archive-cards">
+			<div class='Card-archive' style='display:none'>
+				<div class="Card-body">
+					<h3 class='Card-title'>
+						<a>
+						</a>
+					</h3>
+					<div class="Card-meta">
+						<ul>
+							<li><i class='fa fa-calendar'></i> <span class='Card-date'></span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 </div>
 
 
-        <!-- Sidebar Navigation  -->
-        <ul class="nav sidebar-nav">
-    <!-- User dropdown  -->
-    <li class="dropdown">
-        <ul id="settings-dropdown" class="dropdown-menu">
-            
-                <li>
-                    <a href="#" target="_blank" title="Email Me">
-                        
-                            <i class="material-icons sidebar-material-icons sidebar-indent-left1pc-element">email</i>
-                        
-                        Email Me
-                    </a>
-                </li>
-            
-        </ul>
-    </li>
+<script src="/libs/fuse.js/dist/fuse.min.js"></script>
 
-    <!-- Homepage -->
-    
-        <li id="sidebar-first-li">
-            <a href="/">
-                
-                    <i class="material-icons sidebar-material-icons">home</i>
-                
-                Home
-            </a>
-        </li>
-        
-    
-
-    <!-- Archives  -->
-    
-        <li class="dropdown">
-            <a href="#" class="ripple-effect dropdown-toggle" data-toggle="dropdown">
-                
-                    <i class="material-icons sidebar-material-icons">inbox</i>
-                
-                    Archives
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-            <li>
-                <a class="sidebar_archives-link" href="/archives/2021/03/">March 2021<span class="sidebar_archives-count">3</span></a></li><li><a class="sidebar_archives-link" href="/archives/2021/02/">February 2021<span class="sidebar_archives-count">28</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/12/">December 2020<span class="sidebar_archives-count">1</span></a></li><li><a class="sidebar_archives-link" href="/archives/2020/11/">November 2020<span class="sidebar_archives-count">2</span></a>
-            </ul>
-        </li>
-        
-    
-
-    <!-- Categories  -->
-    
-
-    <!-- Pages  -->
-    
-        <li>
-            <a href="tags" title="标签">
-                
-                    <i class="material-icons sidebar-material-icons">person</i>
-                
-                标签
-            </a>
-        </li>
-        
-    
-        <li>
-            <a href="timeline" title="时间轴">
-                
-                    <i class="material-icons sidebar-material-icons">person</i>
-                
-                时间轴
-            </a>
-        </li>
-        
-    
-
-    <!-- Article Number  -->
-    
-</ul>
-
-
-        <!-- Sidebar Footer -->
-        <!--
-I'm glad you use this theme, the development is no so easy, I hope you can keep the copyright, I will thank you so much.
-If you still want to delete the copyrights, could you still retain the first one? Which namely "Theme Material"
-It will not impact the appearance and can give developers a lot of support :)
-
-很高兴您使用并喜欢该主题，开发不易 十分谢谢与希望您可以保留一下版权声明。
-如果您仍然想删除的话 能否只保留第一项呢？即 "Theme Material"
-它不会影响美观并可以给开发者很大的支持和动力。 :)
--->
-
-<!-- Sidebar Divider -->
-
-    <div class="sidebar-divider"></div>
-
-
-<!-- Theme Material -->
-
-    <a href="https://github.com/viosey/hexo-theme-material"  class="sidebar-footer-text-a" target="_blank">
-        <div class="sidebar-text mdl-button mdl-js-button mdl-js-ripple-effect sidebar-footer-text-div" data-upgraded=",MaterialButton,MaterialRipple">
-            Theme - Material
-            <span class="sidebar-badge badge-circle">i</span>
-        </div>
-    </a>
-
-
-<!-- Help & Support -->
-<!--
-
--->
-
-<!-- Feedback -->
-<!--
-
--->
-
-<!-- About Theme -->
-<!--
-
--->
-
-    </div>
-
-    <!-- Sidebar Image -->
-    
-
-</aside>
-
-                    
-
-                    
-
-                    <!--Footer-->
-<footer class="mdl-mini-footer" id="bottom">
-    
-        <!-- Paradox Footer Left Section -->
-        <div class="mdl-mini-footer--left-section sns-list">
-    <!-- Twitter -->
-    
-
-    <!-- Facebook -->
-    
-
-    <!-- Google + -->
-    
-
-    <!-- Weibo -->
-    
-
-    <!-- Instagram -->
-    
-
-    <!-- Tumblr -->
-    
-
-    <!-- Github -->
-    
-        <a href="https://github.com/huajiaohuixiang" target="_blank">
-            <button class="mdl-mini-footer--social-btn social-btn footer-sns-github">
-                <span class="visuallyhidden">Github</span>
-            </button><!--
-     --></a>
-    
-
-    <!-- LinkedIn -->
-    
-
-    <!-- Zhihu -->
-    
-        <a href="https://www.zhihu.com/people/hua-jiao-54-37" target="_blank">
-            <button class="mdl-mini-footer--social-btn social-btn footer-sns-zhihu">
-                <span class="visuallyhidden">Zhihu</span>
-            </button><!--
-     --></a>
-    
-
-    <!-- Bilibili -->
-    
-        <a href="https://space.bilibili.com/426169421" target="_blank">
-            <button class="mdl-mini-footer--social-btn social-btn footer-sns-bilibili">
-                <span class="visuallyhidden">Bilibili</span>
-            </button><!--
-     --></a>
-    
-
-    <!-- Telegram -->
-    
-
-    <!-- V2EX -->
-    
-
-    <!-- Segmentfault -->
-    
-</div>
-
-
-        <!--Copyright-->
-        <div id="copyright">
-            Copyright&nbsp;©&nbsp;<span year></span>&nbsp;花椒茴香的个人博客
-            
-        </div>
-
-        <!-- Paradox Footer Right Section -->
-
-        <!--
-        I am glad you use this theme, the development is no so easy, I hope you can keep the copyright.
-        It will not impact the appearance and can give developers a lot of support :)
-
-        很高兴您使用该主题，开发不易，希望您可以保留一下版权声明。
-        它不会影响美观并可以给开发者很大的支持。 :)
-        -->
-
-        <div class="mdl-mini-footer--right-section">
-            <div>
-                <div class="footer-develop-div">Powered by <a href="https://hexo.io" target="_blank" class="footer-develop-a">Hexo</a></div>
-                <div class="footer-develop-div">Theme - <a href="https://github.com/viosey/hexo-theme-material" target="_blank" class="footer-develop-a">Material</a></div>
-            </div>
-        </div>
-    
-</footer>
-
-
-                    <!-- Import JS File -->
-
-    <script>lsloader.load("lazyload_js","/js/lazyload.min.js?1BcfzuNXqV+ntF6gq+5X3Q==", true)</script>
-
-
-
-    <script>lsloader.load("js_js","/js/js.min.js?Bn9UzEm8RrBSxqyZB0zPjA==", true)</script>
-
-
-
-    <script>lsloader.load("np_js","/js/nprogress.js?pl3Qhb9lvqR1FlyLUna1Yw==", true)</script>
-
-
-<script type="text/ls-javascript" id="NProgress-script">
-    NProgress.configure({
-        showSpinner: true
-    });
-    NProgress.start();
-    $('#nprogress .bar').css({
-        'background': '#29d'
-    });
-    $('#nprogress .peg').css({
-        'box-shadow': '0 0 10px #29d, 0 0 15px #29d'
-    });
-    $('#nprogress .spinner-icon').css({
-        'border-top-color': '#29d',
-        'border-left-color': '#29d'
-    });
-    setTimeout(function() {
-        NProgress.done();
-        $('.fade').removeClass('out');
-    }, 800);
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- UC Browser Compatible -->
 <script>
-	var agent = navigator.userAgent.toLowerCase();
-	if(agent.indexOf('ucbrowser')>0) {
-		document.write('
-<link rel="stylesheet" href="/css/uc.css">
-');
-	   alert('由于 UC 浏览器使用极旧的内核，而本网站使用了一些新的特性。\n为了您能更好的浏览，推荐使用 Chrome 或 Firefox 浏览器。');
+	var options = {
+		shouldSort: true,
+		threshold: 0.4,
+		tokenize: true,
+		location: 0,
+		distance: 100,
+		maxPatternLength: 32,
+		minMatchCharLength: 2,
+		keys: [
+			"title",
+			"author",
+			"tags"
+		]
+	};
+	var s = '[{"title":"修饰符","date":"2021-02-21T02:31:04.000Z","content":"1.private  只能自己访问，子类extends后也不能访问\nprotected  子类可以访问\n默认的（无） 同一个包内\npublic 所有都可以访问\n继承关系final  该类不能被继承\nsealed + permits 指定某些类继承\n123public sealed class Shape permits a,b,c&#123;\t...&#125;\n\n\ninterface接口的default方法因为接口没有字段，所以接口无法定义非抽象的函数，这时候需要default修饰符来实现default方法，可以给予实现。default方法的目的主要是因为如果想往接口中增加一个方法但是又会影响所有实现接口的类都要实现该新增的方法，使用default便可以不影响所有类。\nstaticstatic  fields​    静态字段\n​    对于接口来说是不能拥有fields的，但是如果你直接写 int a;是不会报错的，因为编译器自动将其转换为了static final int a;\nstatic methods​    静态方法主要用于工具方法和辅助方法，例如：\n123Arrays.sort();public static void main()&#123;...&#125;;\n","tags":["Java"],"path":"2021/02/21/4修饰符/","external_link":""},{"title":"Java-@HotSpotIntrinsicCandidate","date":"2021-02-19T06:13:38.000Z","content":"@HotSpotIntrinsicCandidate看源码的时候看到了很多这种注释 ，\nJDK的Object类源码中，被@HotSpotIntrinsicCandidate标注的方法，在HotSpot中都有一套高效的实现，该高效实现基于CPU指令，运行时，HotSpot维护的高效实现会替代JDK的源码实现，从而获得更高的效率。参考https:blog.csdn.netjavaer_leearticledetails87161952\n下面的源码对其的解释\nThe {@code @HotSpotIntrinsicCandidate} annotation is specific to the  HotSpot Virtual Machine. It indicates that an annotated method  may be (but is not guaranteed to be) intrinsified by the HotSpot VM. A method  is intrinsified if the HotSpot VM replaces the annotated method with hand-written  assembly andor hand-written compiler IR – a compiler intrinsic – to improve  performance. The {@code @HotSpotIntrinsicCandidate} annotation is internal to the  Java libraries and is therefore not supposed to have any relevance for application code. Maintainers of the Java libraries must consider the following when  modifying methods annotated with {@code @HotSpotIntrinsicCandidate}. \n\n\nWhen modifying a method annotated with {@code @HotSpotIntrinsicCandidate},  the corresponding intrinsic code in the HotSpot VM implementation must be  updated to match the semantics of the annotated method.\n\n\nFor some annotated methods, the corresponding intrinsic may omit some low-level * checks that would be performed as a matter of course if the intrinsic is implemented * using Java bytecodes. This is because individual Java bytecodes implicitly check * for exceptions like {@code NullPointerException} and {@code ArrayStoreException}. * If such a method is replaced by an intrinsic coded in assembly language, any * checks performed as a matter of normal bytecode operation must be performed * before entry into the assembly code. These checks must be performed, as * appropriate, on all arguments to the intrinsic, and on other values (if any) obtained * by the intrinsic through those arguments. The checks may be deduced by inspecting * the non-intrinsic Java code for the method, and determining exactly which exceptions * may be thrown by the code, including undeclared implicit {@code RuntimeException}s. * Therefore, depending on the data accesses performed by the intrinsic, * the checks may include: \n\n\nnull checks on references\n\n\nrange checks on primitive values used as array indexes\n\n\nother validity checks on primitive values (e.g., for divide-by-zero conditions)\n\n\nstore checks on reference values stored into arrays\n\n\narray length checks on arrays indexed from within the intrinsic\n\n\nreference casts (when formal parameters are {@code Object} or some other weak type)\n\n\n\n\nNote that the receiver value ({@code this}) is passed as a extra argument * to all non-static methods. If a non-static method is an intrinsic, the receiver * value does not need a null check, but (as stated above) any values loaded by the * intrinsic from object fields must also be checked. As a matter of clarity, it is * better to make intrinisics be static methods, to make the dependency on {@code this} * clear. Also, it is better to explicitly load all required values from object * fields before entering the intrinsic code, and pass those values as explicit arguments. * First, this may be necessary for null checks (or other checks). Second, if the * intrinsic reloads the values from fields and operates on those without checks, * race conditions may be able to introduce unchecked invalid values into the intrinsic. * If the intrinsic needs to store a value back to an object field, that value should be * returned explicitly from the intrinsic; if there are multiple return values, coders * should consider buffering them in an array. Removing field access from intrinsics * not only clarifies the interface with between the JVM and JDK; it also helps decouple * the HotSpot and JDK implementations, since if JDK code before and after the intrinsic * manages all field accesses, then intrinsics can be coded to be agnostic of object * layouts.\n\n* * Maintainers of the HotSpot VM must consider the following when modifying intrinsics. * *\n\n\n\nWhen adding a new intrinsic, make sure that the corresponding method * in the Java libraries is annotated with {@code @HotSpotIntrinsicCandidate} * and that all possible call sequences that result in calling the intrinsic contain * the checks omitted by the intrinsic (if any).\n\n\nWhen modifying an existing intrinsic, the Java libraries must be updated * to match the semantics of the intrinsic and to execute all checks omitted * by the intrinsic (if any).\n\n\n\n\nPersons not directly involved with maintaining the Java libraries or the * HotSpot VM can safely ignore the fact that a method is annotated with * {@code @HotSpotIntrinsicCandidate}. * * The HotSpot VM defines (internally) a list of intrinsics. Not all intrinsic * are available on all platforms supported by the HotSpot VM. Furthermore, * the availability of an intrinsic on a given platform depends on the * configuration of the HotSpot VM (e.g., the set of VM flags enabled). * Therefore, annotating a method with {@code @HotSpotIntrinsicCandidate} does * not guarantee that the marked method is intrinsified by the HotSpot VM. * * If the {@code CheckIntrinsics} VM flag is enabled, the HotSpot VM checks * (when loading a class) that (1) all methods of that class that are also on * the VM’s list of intrinsics are annotated with {@code @HotSpotIntrinsicCandidate} * and that (2) for all methods of that class annotated with * {@code @HotSpotIntrinsicCandidate} there is an intrinsic in the list.\n\n\n","tags":["Java"],"path":"2021/02/19/@HotSpotIntrinsicCandidate/","external_link":""},{"title":"Java-ArrayList","date":"2021-02-20T06:13:38.000Z","content":"12public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable\nArrayList  数组列表，分别实现了列表、随机访问、可克隆、序列化，继承了抽象列表,其关系如下所示：\n\n1.几个参数12345678910111213141516private static final long serialVersionUID = 8683452581122892189L;private static final int DEFAULT_CAPACITY = 10;private static final Object[] EMPTY_ELEMENTDATA = &#123;&#125;;private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;transient Object[] elementData;  non-private to simplify nested class accessprivate int size;\n2.主要方法构造方法123456789101112131415public ArrayList(int initialCapacity) &#123;    if (initialCapacity &gt; 0) &#123;        this.elementData = new Object[initialCapacity];    &#125; else if (initialCapacity == 0) &#123;        this.elementData = EMPTY_ELEMENTDATA;    &#125; else &#123;        throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+                                           initialCapacity);    &#125;&#125;public ArrayList() &#123;    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;&#125;\n传入另一个集合，先将collection转为数组，然后copy到elementData中\n123456789101112public ArrayList(Collection&lt;? extends E&gt; c) &#123;    elementData = c.toArray();    if ((size = elementData.length) != 0) &#123;         defend against c.toArray (incorrectly) not returning Object[]         (see e.g. https:bugs.openjdk.java.netbrowseJDK-6260652)        if (elementData.getClass() != Object[].class)            elementData = Arrays.copyOf(elementData, size, Object[].class);    &#125; else &#123;         replace with empty array.        this.elementData = EMPTY_ELEMENTDATA;    &#125;&#125;\n3.trimToSize()修剪大小到size12345678public void trimToSize() &#123;    modCount++;    if (size &lt; elementData.length) &#123;        elementData = (size == 0)          ? EMPTY_ELEMENTDATA          : Arrays.copyOf(elementData, size);    &#125;&#125;\n4. 增加容量123456789public void ensureCapacity(int minCapacity) &#123;    if (minCapacity &gt; elementData.length        &amp;&amp; !(elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA             &amp;&amp; minCapacity &lt;= DEFAULT_CAPACITY)) &#123;        modCount++;        grow(minCapacity);    &#125;&#125;用到了grow() ,newCapacity(minCapacity) ,hugeCapacity(int minCapacity)方法\n5.得到O地址1234567891011121314151617int indexOfRange(Object o, int start, int end) &#123;    Object[] es = elementData;    if (o == null) &#123;        for (int i = start; i &lt; end; i++) &#123;            if (es[i] == null) &#123;                return i;            &#125;        &#125;    &#125; else &#123;        for (int i = start; i &lt; end; i++) &#123;            if (o.equals(es[i])) &#123;                return i;            &#125;        &#125;    &#125;    return -1;&#125;","tags":["Java"],"path":"2021/02/20/ArrayList/","external_link":""},{"title":"HashTable","date":"2021-03-01T14:59:01.000Z","content":"12345public class Hashtable&lt;K,V&gt;    extends Dictionary&lt;K,V&gt;    implements Map&lt;K,V&gt;, Cloneable, java.io.Serializable &#123;\t&#125;\n\nHashTable继承于Dictionary类，字典类是一个抽象类，而且已经被废弃了\n12NOTE: This class is obsolete.  New implementations shouldimplement the Map interface, rather than extending this class.\n对于Hashtable使用场景也很少，因为JDK中有一个和他类似的类，HashMap。\nHashtable和Hashmap的区别：\n1(The &#123;@code HashMap&#125;class is roughly equivalent to &#123;@code Hashtable&#125;, except that it is unsynchronized and permits nulls.) \nHashTable比HashMap多了同步，少了对null的支持，，所以我们可以直接移步到HashMap。\n","tags":["Java"],"path":"2021/03/01/HashTable/","external_link":""},{"title":"Java-Collection","date":"2021-02-20T02:45:38.000Z","content":"interface Collection集合层次结构中的根接口。集合代表一组对象，称为其元素。一些集合允许重复的元素，而另一些则不允许。有些是有序的，而另一些则是无序的。JDK不提供 此接口的任何直接实现：它提供了更多特定子接口的实现，例如{@code Set}和{@code List}。该接口通常用于传递集合并在需要最大通用性的地方操纵它们。\nBags或multisets（可能包含重复元素的无序集合）应直接实现此接口。\n所有通用的{@code Collection}实现类（通常通过其子接口之一间接实现{@code Collection}）应提供两个“标准”构造函数：void（无自变量）构造函数，该构造函数创建一个空的集合，以及一个带有单个实参类型为{@code Collection}的构造函数，该构造函数创建一个新集合，其元素与实参相同。实际上，后一个构造函数允许用户复制任何集合，从而产生所需实现类型的等效集合。没有强制执行此约定的方法（因为接口不能包含构造函数），但是Java平台库中的所有通用{@code Collection} 实现都可以遵循。\n12345678910@see     Set@see     List@see     SortedSet@see     HashSet@see     TreeSet@see     ArrayList@see     LinkedList@see     Vector@see     AbstractCollection    以上这些实现了Collection接口\n\n\n方法解析1.size()返回集合大小\n12345678** * Returns the number of elements in this collection.  If this collection * contains more than &#123;@code Integer.MAX_VALUE&#125; elements, returns * &#123;@code Integer.MAX_VALUE&#125;. * * @return the number of elements in this collection *int size();\n2.isEmpty() \n123456** * Returns &#123;@code true&#125; if this collection contains no elements. * * @return &#123;@code true&#125; if this collection contains no elements *boolean isEmpty();\n3.contains(Object o)\n123456789101112131415161718** * Returns &#123;@code true&#125; if this collection contains the specified element. * More formally, returns &#123;@code true&#125; if and only if this collection * contains at least one element &#123;@code e&#125; such that * &#123;@code Objects.equals(o, e)&#125;. * * @param o element whose presence in this collection is to be tested * @return &#123;@code true&#125; if this collection contains the specified *         element * @throws ClassCastException if the type of the specified element *         is incompatible with this collection *         (&lt;a href=&quot;&#123;@docRoot&#125;java.basejavautilCollection.html#optional-restrictions&quot;&gt;optional&lt;a&gt;) * @throws NullPointerException if the specified element is null and this *         collection does not permit null elements *         (&lt;a href=&quot;&#123;@docRoot&#125;java.basejavautilCollection.html#optional-restrictions&quot;&gt;optional&lt;a&gt;) *boolean contains(Object o);\n4.iterator()返回一个迭代器\n123456789** * Returns an iterator over the elements in this collection.  There are no * guarantees concerning the order in which the elements are returned * (unless this collection is an instance of some class that provides a * guarantee). * * @return an &#123;@code Iterator&#125; over the elements in this collection *Iterator&lt;E&gt; iterator();\n5.toArray()转换成数组 \n12345678Object[] toArray();&lt;T&gt; T[] toArray(T[] a);default &lt;T&gt; T[] toArray(IntFunction&lt;T[]&gt; generator) &#123;    return toArray(generator.apply(0));&#125;\n6.add()添加元素\n1boolean add(E e);\n7.去除元素\n1boolean remove(Object o);\n8.containAll()返回是否包含该集合的所有元素\n12345678910111213141516171819** * Returns &#123;@code true&#125; if this collection contains all of the elements * in the specified collection. * * @param  c collection to be checked for containment in this collection * @return &#123;@code true&#125; if this collection contains all of the elements *         in the specified collection * @throws ClassCastException if the types of one or more elements *         in the specified collection are incompatible with this *         collection *         (&lt;a href=&quot;&#123;@docRoot&#125;java.basejavautilCollection.html#optional-restrictions&quot;&gt;optional&lt;a&gt;) * @throws NullPointerException if the specified collection contains one *         or more null elements and this collection does not permit null *         elements *         (&lt;a href=&quot;&#123;@docRoot&#125;java.basejavautilCollection.html#optional-restrictions&quot;&gt;optional&lt;a&gt;), *         or if the specified collection is null. * @see    #contains(Object) *boolean containsAll(Collection&lt;?&gt; c);\n9.addALL()\n1boolean addAll(Collection&lt;? extends E&gt; c);\n10.removeAll\n1boolean removeAll(Collection&lt;?&gt; c);\n11.removesif()去除所有符合条件的元素\n12345678910111213default boolean removeIf(Predicate&lt;? super E&gt; filter) &#123;    Objects.requireNonNull(filter);    boolean removed = false;    final Iterator&lt;E&gt; each = iterator();    while (each.hasNext()) &#123;        if (filter.test(each.next())) &#123;            each.remove();            removed = true;        &#125;    &#125;    return removed;&#125;\n12.retainAll()去除所有不在c中的元素\n12345678910boolean retainAll(Collection&lt;?&gt; c);** * Removes all of the elements from this collection (optional operation). * The collection will be empty after this method returns. * * @throws UnsupportedOperationException if the &#123;@code clear&#125; operation *         is not supported by this collection *\n13.clear()清楚所有\n1void clear();\n14.equals和hashcode\n15.可分割迭代器\n1234@Overridedefault Spliterator&lt;E&gt; spliterator() &#123;    return Spliterators.spliterator(this, 0);&#125;\n16.Stream  获得流\n1234这个是串行流default Stream&lt;E&gt; stream() &#123;    return StreamSupport.stream(spliterator(), false);&#125;\nJava 8 API添加了一个新的抽象称为流Stream，可以让你以一种声明的方式处理数据。\nStream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。\nStream API可以极大提高Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。\n这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。\n元素流在管道中经过中间操作（intermediate operation）的处理，最后由最终操作(terminal operation)得到前面处理的结果。\n123+--------------------+       +------+   +------+   +---+   +-------+| stream of elements +-----&gt; |filter+-&gt; |sorted+-&gt; |map+-&gt; |collect|+--------------------+       +------+   +------+   +---+   +-------+\n以上的流程转换为 Java 代码为：\n123456List&lt;Integer&gt; transactionsIds = widgets.stream()             .filter(b -&gt; b.getColor() == RED)             .sorted((x,y) -&gt; x.getWeight() - y.getWeight())             .mapToInt(Widget::getWeight)             .sum();\n参考https:www.runoob.comjavajava8-streams.html\n17.获得并行流\n1234并行流default Stream&lt;E&gt; parallelStream() &#123;    return StreamSupport.stream(spliterator(), true);&#125;","tags":["Java"],"path":"2021/02/20/Collection/","external_link":""},{"title":"Java-Iterable","date":"2021-02-20T02:45:38.000Z","content":"interface Iterable介绍1234567* Implementing this interface allows an object to be the target of the enhanced* &#123;@code for&#125; statement (sometimes called the &quot;for-each loop&quot; statement).** @param &lt;T&gt; the type of elements returned by the iterator** @since 1.5* @jls 14.14.2 The enhanced &#123;@code for&#125; statement\n实现此接口允许一个对象成为增强for语句的目标,就是下面这样。\n123456789a.forEach(        new Consumer&lt;Object&gt;() &#123;            @Override            public void accept(Object o) &#123;            &#125;        &#125;);\n\n\n构造函数123456** * Returns an iterator over elements of type &#123;@code T&#125;. * * @return an Iterator. *Iterator&lt;T&gt; iterator();\n\n\nforEach()函数，重点12345678910111213141516171819202122232425262728** * Performs the given action for each element of the &#123;@code Iterable&#125; * until all elements have been processed or the action throws an * exception.  Actions are performed in the order of iteration, if that * order is specified.  Exceptions thrown by the action are relayed to the * caller. * &lt;p&gt; * The behavior of this method is unspecified if the action performs * side-effects that modify the underlying source of elements, unless an * overriding class has specified a concurrent modification policy. * * @implSpec * &lt;p&gt;The default implementation behaves as if: * &lt;pre&gt;&#123;@code *     for (T t : this) *         action.accept(t); * &#125;&lt;pre&gt; * * @param action The action to be performed for each element * @throws NullPointerException if the specified action is null * @since 1.8 *default void forEach(Consumer&lt;? super T&gt; action) &#123;    Objects.requireNonNull(action);    for (T t : this) &#123;        action.accept(t);    &#125;&#125;\n使用的话可以通过匿名类、lamda表达式、现有方法的名称。\nSpliterator spliterator()Spliterator是一个可分割迭代器(splitable iterator)，可以和iterator顺序遍历迭代器一起看。jdk1.8发布后，对于并行处理的能力大大增强，Spliterator就是为了并行遍历元素而设计的一个迭代器。\n123456789101112131415161718192021222324** * Creates a &#123;@link Spliterator&#125; over the elements described by this * &#123;@code Iterable&#125;. * * @implSpec * The default implementation creates an * &lt;em&gt;&lt;a href=&quot;..utilSpliterator.html#binding&quot;&gt;early-binding&lt;a&gt;&lt;em&gt; * spliterator from the iterable&#x27;s &#123;@code Iterator&#125;.  The spliterator * inherits the &lt;em&gt;fail-fast&lt;em&gt; properties of the iterable&#x27;s iterator. * * @implNote * The default implementation should usually be overridden.  The * spliterator returned by the default implementation has poor splitting * capabilities, is unsized, and does not report any spliterator * characteristics. Implementing classes can nearly always provide a * better implementation. * * @return a &#123;@code Spliterator&#125; over the elements described by this * &#123;@code Iterable&#125;. * @since 1.8 *default Spliterator&lt;T&gt; spliterator() &#123;    return Spliterators.spliteratorUnknownSize(iterator(), 0);&#125;","tags":["Java"],"path":"2021/02/20/Iterable/","external_link":""},{"title":"Kinect获取 骨骼图骨骼三维坐标","date":"2021-02-19T14:14:50.000Z","content":"Kinect获取 骨骼图骨骼三维坐标该项目需要我们利用KinectV2 获取骨骼图并得到头部坐标，每一秒取一帧，一共五分钟，将坐标输出。\nKinectV2 可以获得色彩图、深度图、骨骼图等等，其实一开始我也不知道该从哪里下手，但对骨骼图的代码进行了一下分析找到了突破点。\n对KinectV2大体了解：Kinect一共有三个坐标空间，分别是相机空间、深度空间、色彩空间，相机空间对应骨骼图等，深度空间对应深度图，色彩空间对应色彩图，并且KInectSDK中有CoordinateMapper类来实现深度空间到相机空间和深度空间到色彩空间的转换。具体查看官方文档：https:docs.microsoft.comen-usprevious-versionswindowskinectdn785530(v=ieb.10)\n重点需要关心获取的帧的数据如何存储的，对于骨骼图，SDK中有两个重要的类分别是IBody 和 Joint 分别代表人和骨骼点。\n1234567891011121314151617IBody : public IUnknown  &#123;  public:      virtual HRESULT STDMETHODCALLTYPE GetJoints(           * [annotation] *           _Pre_equal_to_(JointType_Count)  UINT capacity,          * [annotation][size_is][out] *           _Out_writes_all_(capacity)  Joint *joints) = 0;          ...      virtual * [propget] * HRESULT STDMETHODCALLTYPE get_IsTracked(           * [annotation][out][retval] *           _Out_  BOOLEAN *tracked) = 0;    ...          &#125;;\n分别利用GetJoints函数和get_IsTracked函数可以获得Joints和判断是否被记录到了。\n对于Joints\n12345678910#ifndef _Joint_#define _Joint_typedef struct _Joint    &#123;    JointType JointType;    CameraSpacePoint Position;    TrackingState TrackingState;    &#125; \tJoint;#endif  _Joint_\n\n\n一个struct  里面有Joint类型、相机空间位置、追踪状态（是否被观测到），接着往里看CameSpacePoint\n12345678910#ifndef _CameraSpacePoint_#define _CameraSpacePoint_typedef struct _CameraSpacePoint    &#123;    float X;    float Y;    float Z;    &#125; \tCameraSpacePoint;#endif  _CameraSpacePoint_\n到这里就很清楚了，直接就可以得到相机空间地址了。（本来我以为需要先获得深度图地址，然后自己进行坐标计算的。。。）\n然后SDK还定义了一下常量和其他类，在这里贴一下以防看代码的时候不懂\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566enum _JointType    &#123;        JointType_SpineBase\t= 0,        JointType_SpineMid\t= 1,        JointType_Neck\t= 2,        JointType_Head\t= 3,        JointType_ShoulderLeft\t= 4,        JointType_ElbowLeft\t= 5,        JointType_WristLeft\t= 6,        JointType_HandLeft\t= 7,        JointType_ShoulderRight\t= 8,        JointType_ElbowRight\t= 9,        JointType_WristRight\t= 10,        JointType_HandRight\t= 11,        JointType_HipLeft\t= 12,        JointType_KneeLeft\t= 13,        JointType_AnkleLeft\t= 14,        JointType_FootLeft\t= 15,        JointType_HipRight\t= 16,        JointType_KneeRight\t= 17,        JointType_AnkleRight\t= 18,        JointType_FootRight\t= 19,        JointType_SpineShoulder\t= 20,        JointType_HandTipLeft\t= 21,        JointType_ThumbLeft\t= 22,        JointType_HandTipRight\t= 23,        JointType_ThumbRight\t= 24,        JointType_Count\t= ( JointType_ThumbRight + 1 )     &#125; ;#endif  _JointType_#ifndef _TrackingState_#define _TrackingState_typedef enum _TrackingState TrackingState;enum _TrackingState    &#123;        TrackingState_NotTracked\t= 0,        TrackingState_Inferred\t= 1,        TrackingState_Tracked\t= 2    &#125; ;#endif  _TrackingState_ IBodyFrame : public IUnknown    &#123;    public:        virtual HRESULT STDMETHODCALLTYPE GetAndRefreshBodyData(             UINT capacity,            * [annotation][size_is][out][in] *             _Inout_updates_all_(capacity)  IBody **bodies) = 0;                virtual * [propget] * HRESULT STDMETHODCALLTYPE get_FloorClipPlane(             * [annotation][out][retval] *             _Out_  Vector4 *floorClipPlane) = 0;                virtual * [propget] * HRESULT STDMETHODCALLTYPE get_RelativeTime(             * [annotation][out][retval] *             _Out_  TIMESPAN *relativeTime) = 0;                virtual * [propget] * HRESULT STDMETHODCALLTYPE get_BodyFrameSource(             * [annotation][out][retval] *             _COM_Outptr_  IBodyFrameSource **bodyFrameSource) = 0;            &#125;;\n\n\n\n\n下面是项目代码的详细步骤：\n第一步需要安装Kinect 的SDK，然后再Visual Studio进行项目配置，具体可以参考一下文章：\nhttps:blog.csdn.netlizhiguo18articledetails51037672\nhttps:blog.csdn.netweixin_43850620articledetails103874847\n对项目配置好后就可以写代码啦。\n1.这一步应该是获取Kinect，然后打开。\n123IKinectSensor   * mySensor = nullptr;GetDefaultKinectSensor(&amp;mySensor);mySensor-&gt;Open();\n2.准备读取ColorFrame\n1234567891011   IColorFrameSource   * myColorSource = nullptr;mySensor-&gt;get_ColorFrameSource(&amp;myColorSource);IColorFrameReader   * myColorReader = nullptr;myColorSource-&gt;OpenReader(&amp;myColorReader);int colorHeight = 0, colorWidth = 0;IFrameDescription   * myDescription = nullptr;myColorSource-&gt;get_FrameDescription(&amp;myDescription);myDescription-&gt;get_Height(&amp;colorHeight);myDescription-&gt;get_Width(&amp;colorWidth);IColorFrame * myColorFrame = nullptr;Mat original(colorHeight, colorWidth, CV_8UC4);\n3.准备读取BodyFrame\n123456789   IBodyFrameSource    * myBodySource = nullptr;mySensor-&gt;get_BodyFrameSource(&amp;myBodySource);IBodyFrameReader    * myBodyReader = nullptr;myBodySource-&gt;OpenReader(&amp;myBodyReader);int myBodyCount = 0;myBodySource-&gt;get_BodyCount(&amp;myBodyCount);IBodyFrame  * myBodyFrame = nullptr;ICoordinateMapper   * myMapper = nullptr;mySensor-&gt;get_CoordinateMapper(&amp;myMapper);\n4.每30帧获取一帧然后输出\n123456789101112131415161718192021222324252627282930313233343536373839   int fps = 0;while (1)&#123;\twhile (myColorReader-&gt;AcquireLatestFrame(&amp;myColorFrame) != S_OK);\tmyColorFrame-&gt;CopyConvertedFrameDataToArray(colorHeight * colorWidth * 4, original.data, ColorImageFormat_Bgra);\tMat copy = original.clone();        读取彩色图像并输出到矩阵\twhile (myBodyReader-&gt;AcquireLatestFrame(&amp;myBodyFrame) != S_OK); 读取身体图像\tIBody   **  myBodyArr = new IBody *[myBodyCount];       为存身体数据的数组做准备\tif (fps != 0) &#123;\t\tfps++;\t\tfps = fps % 30;\t\tdelete[]myBodyArr;\t\tmyBodyFrame-&gt;Release();\t\tmyColorFrame-&gt;Release();\t\tcontinue;\t&#125;\tfps++;\tfor (int i = 0; i &lt; myBodyCount; i++)\t\tmyBodyArr[i] = nullptr;\tif (myBodyFrame-&gt;GetAndRefreshBodyData(myBodyCount, myBodyArr) == S_OK)     把身体数据输入数组\t\tfor (int i = 0; i &lt; myBodyCount; i++)\t\t&#123;\t\t\tBOOLEAN     result = false;\t\t\tif (myBodyArr[i]-&gt;get_IsTracked(&amp;result) == S_OK &amp;&amp; result) 先判断是否侦测到\t\t\t&#123;\t\t\t\tJoint   myJointArr[JointType_Count];\t\t\t\tif (myBodyArr[i]-&gt;GetJoints(JointType_Count, myJointArr) == S_OK)  \t\t\t\t&#123;\t\t\t\t\tdraw(copy, myJointArr[JointType_Head], myJointArr[JointType_Neck], myMapper);\t\t\t\t&#125;\t\t\t&#125;\t\t&#125;\tdelete[]myBodyArr;\tmyBodyFrame-&gt;Release();\tmyColorFrame-&gt;Release();\tif (countFrame == 330) &#123;\t\tbreak;\t&#125;\t&#125;\n5.关闭Kinect并退出\n123456789myMapper-&gt;Release();myDescription-&gt;Release();myColorReader-&gt;Release();myColorSource-&gt;Release();myBodyReader-&gt;Release();myBodySource-&gt;Release();mySensor-&gt;Close();mySensor-&gt;Release();return  0;\n6.函数draw()\n​    获取时间然后直接输出坐标。\n123456789101112131415161718192021void    draw(Mat &amp; img, Joint &amp; r_1, Joint &amp; r_2, ICoordinateMapper * myMapper)&#123;\tcountFrame++;\tif (r_1.TrackingState &#x3D;&#x3D; TrackingState_Tracked )\t&#123;\t\tnow &#x3D; clock();\t\tofstream fout(&quot;01.txt&quot;, ios::app);\t\tcout &lt;&lt; now;\t\t\tcout &lt;&lt; r_1.Position.X &lt;&lt; r_1.Position.Y &lt;&lt; r_1.Position.Z &lt;&lt; &#39;t ,&#39;&lt;&lt;countFrame&lt;&lt;endl;\t\tfout &lt;&lt; r_1.Position.X&lt;&lt;&#39;,&#39; &lt;&lt; r_1.Position.Y &lt;&lt; &#39;,&#39; &lt;&lt; r_1.Position.Z &lt;&lt;&#39;,&#39;&lt;&lt;now&lt;&lt; endl;\t\tfout.close();\t&#125;\telse &#123;\t\tnow &#x3D; clock();\t\tofstream fout(&quot;01.txt&quot;, ios::app);\t\tcout &lt;&lt; now;\t\tcout &lt;&lt; 0 &lt;&lt; 0 &lt;&lt;0 &lt;&lt; endl;\t\tfout &lt;&lt; 0 &lt;&lt; &#39;,&#39; &lt;&lt;0 &lt;&lt; &#39;,&#39; &lt;&lt; 0 &lt;&lt; &#39;,&#39; &lt;&lt; now&lt;&lt;endl;\t\tfout.close();\t&#125;&#125;\n\n\n\n\n\n\n完整代码如下：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126完整代码其实本项目并没有用到opencv  我这是copy的别人的代码然后修改了一下。代码有很多和本项目无关的东西，等有时间删除精炼一下#include &lt;iostream&gt;#include &lt;opencv2imgproc.hpp&gt;\topencv头文件#include &lt;opencv2calib3d.hpp&gt;#include &lt;opencv2highgui.hpp&gt;#include &lt;Kinect.h&gt;\tKinect头文件#include&lt;fstream&gt;#include&lt;ctime&gt;using   namespace   std;using   namespace   cv;int countFrame = 0;clock_t pre, now;clock_t begintime, endtime;void    draw(Mat &amp; img, Joint &amp; r_1, Joint &amp; r_2, ICoordinateMapper * myMapper);int main(void)&#123;\tbegintime = clock();\tIKinectSensor   * mySensor = nullptr;\tGetDefaultKinectSensor(&amp;mySensor);\tmySensor-&gt;Open();\tIColorFrameSource   * myColorSource = nullptr;\tmySensor-&gt;get_ColorFrameSource(&amp;myColorSource);\tIColorFrameReader   * myColorReader = nullptr;\tmyColorSource-&gt;OpenReader(&amp;myColorReader);\tint colorHeight = 0, colorWidth = 0;\tIFrameDescription   * myDescription = nullptr;\tmyColorSource-&gt;get_FrameDescription(&amp;myDescription);\tmyDescription-&gt;get_Height(&amp;colorHeight);\tmyDescription-&gt;get_Width(&amp;colorWidth);\tIColorFrame * myColorFrame = nullptr;\tMat original(colorHeight, colorWidth, CV_8UC4);\t**********************以上为ColorFrame的读取前准备**************************\tIBodyFrameSource    * myBodySource = nullptr;\tmySensor-&gt;get_BodyFrameSource(&amp;myBodySource);\tIBodyFrameReader    * myBodyReader = nullptr;\tmyBodySource-&gt;OpenReader(&amp;myBodyReader);\tint myBodyCount = 0;\tmyBodySource-&gt;get_BodyCount(&amp;myBodyCount);\tIBodyFrame  * myBodyFrame = nullptr;\tICoordinateMapper   * myMapper = nullptr;\tmySensor-&gt;get_CoordinateMapper(&amp;myMapper);\tint fps = 0;\t**********************以上为BodyFrame以及Mapper的准备***********************\twhile (1)\t&#123;\t\twhile (myColorReader-&gt;AcquireLatestFrame(&amp;myColorFrame) != S_OK);\t\tmyColorFrame-&gt;CopyConvertedFrameDataToArray(colorHeight * colorWidth * 4, original.data, ColorImageFormat_Bgra);\t\tMat copy = original.clone();        读取彩色图像并输出到矩阵\t\t\t\twhile (myBodyReader-&gt;AcquireLatestFrame(&amp;myBodyFrame) != S_OK); 读取身体图像\t\tIBody   **  myBodyArr = new IBody *[myBodyCount];       为存身体数据的数组做准备\t\tif (fps != 0) &#123;\t\t\tcout &lt;&lt; fps &lt;&lt; endl;\t\t\tfps++;\t\t\tfps = fps % 30;\t\t\tdelete[]myBodyArr;\t\t\tmyBodyFrame-&gt;Release();\t\t\tmyColorFrame-&gt;Release();\t\t\tcontinue;\t\t&#125;\t\tfps++;\t\tfor (int i = 0; i &lt; myBodyCount; i++)\t\t\tmyBodyArr[i] = nullptr;\t\tif (myBodyFrame-&gt;GetAndRefreshBodyData(myBodyCount, myBodyArr) == S_OK)     把身体数据输入数组\t\t\tfor (int i = 0; i &lt; myBodyCount; i++)\t\t\t&#123;\t\t\t\tBOOLEAN     result = false;\t\t\t\tif (myBodyArr[i]-&gt;get_IsTracked(&amp;result) == S_OK &amp;&amp; result) 先判断是否侦测到\t\t\t\t&#123;\t\t\t\t\tJoint   myJointArr[JointType_Count];\t\t\t\t\tif (myBodyArr[i]-&gt;GetJoints(JointType_Count, myJointArr) == S_OK)   如果侦测到就把关节数据输入到数组并画图\t\t\t\t\t&#123;\t\t\t\t\t\tdraw(copy, myJointArr[JointType_Head], myJointArr[JointType_Neck], myMapper);\t\t\t\t\t&#125;\t\t\t\t&#125;\t\t\t&#125;\t\tdelete[]myBodyArr;\t\tmyBodyFrame-&gt;Release();\t\tmyColorFrame-&gt;Release();\t\tif (countFrame == 330) &#123;\t\t\tbreak;\t\t&#125;\t\t&#125;\tmyMapper-&gt;Release();\tmyDescription-&gt;Release();\tmyColorReader-&gt;Release();\tmyColorSource-&gt;Release();\tmyBodyReader-&gt;Release();\tmyBodySource-&gt;Release();\tmySensor-&gt;Close();\tmySensor-&gt;Release();\treturn  0;&#125;void    draw(Mat &amp; img, Joint &amp; r_1, Joint &amp; r_2, ICoordinateMapper * myMapper)&#123;\tcountFrame++;\tif (r_1.TrackingState == TrackingState_Tracked )\t&#123;\t\tnow = clock();\t\tofstream fout(&quot;01.txt&quot;, ios::app);\t\tcout &lt;&lt; now;\t\t\tcout &lt;&lt; r_1.Position.X &lt;&lt; r_1.Position.Y &lt;&lt; r_1.Position.Z &lt;&lt; &#x27;t ,&#x27;&lt;&lt;countFrame&lt;&lt;endl;\t\tfout &lt;&lt; r_1.Position.X&lt;&lt;&#x27;,&#x27; &lt;&lt; r_1.Position.Y &lt;&lt; &#x27;,&#x27; &lt;&lt; r_1.Position.Z &lt;&lt;&#x27;,&#x27;&lt;&lt;now&lt;&lt; endl;\t\tfout.close();\t&#125;\telse &#123;\t\tnow = clock();\t\tofstream fout(&quot;01.txt&quot;, ios::app);\t\tcout &lt;&lt; now;\t\tcout &lt;&lt; 0 &lt;&lt; 0 &lt;&lt;0 &lt;&lt; endl;\t\tfout &lt;&lt; 0 &lt;&lt; &#x27;,&#x27; &lt;&lt;0 &lt;&lt; &#x27;,&#x27; &lt;&lt; 0 &lt;&lt; &#x27;,&#x27; &lt;&lt; now&lt;&lt;endl;\t\tfout.close();\t&#125;&#125;\n\n","tags":["Kinect"],"path":"2021/02/19/Kinect获取-骨骼图骨骼三维坐标/","external_link":""},{"title":"Lambda","date":"2021-02-22T09:07:05.000Z","content":"","tags":[],"path":"2021/02/22/Lambda/","external_link":""},{"title":"Java-LinkedList","date":"2021-02-20T06:13:38.000Z","content":"123public class LinkedList&lt;E&gt;    extends AbstractSequentialList&lt;E&gt;    implements List&lt;E&gt;, Deque&lt;E&gt;, Cloneable, java.io.Serializable\n\n比ArrayList多实现了Queue和Deque 即实现了双向队列，ArrayList直接继承AbstractList，LinkedList继承于AbstractSequentialList,即顺序访问，AbstractList适合随机访问。\nLinkedList底层就是链表实现，有内部类Node ，然后又first节点、last节点。\n1234567891011transient int size = 0;** * Pointer to first node. *transient Node&lt;E&gt; first;** * Pointer to last node. *transient Node&lt;E&gt; last;\nNode类，item内容，前指针和后指针，双向链表\n1234567891011private static class Node&lt;E&gt; &#123;    E item;    Node&lt;E&gt; next;    Node&lt;E&gt; prev;    Node(Node&lt;E&gt; prev, E element, Node&lt;E&gt; next) &#123;        this.item = element;        this.next = next;        this.prev = prev;    &#125;&#125;\n剩下的就是对链表的一些操作以及toArray等等。\n","tags":["Java"],"path":"2021/02/20/LinkedList/","external_link":""},{"title":"Linux/Windows系统命令","date":"2020-11-15T16:00:00.000Z","content":"1.Putty 传送文件到服务器：​    打开putty目录：命令行运行 psftp​    put -r  foldername  上传文件夹\n2.Linux获取应用程序位置1dpkg -S softwarename 显示包含此软件包的所有位置，\n1dpkg -L softwarename 显示安装路径。\n3.开启关闭HypeV 管理员打开命令行             \n123bcdedit &#x2F;set hypervisorlaunchtype off    bcdedit &#x2F;set hypervisorlaunchtype Auto\n\n\n4.Linux 命令1234567netstat -ntlp  查看端口使用情况ps ux 查看nohup进程jobs  未退出过终端 查看nohup进程kill -9 id","tags":["杂类"],"path":"2020/11/16/Linux Window命令/","external_link":""},{"title":"Java-Object","date":"2021-02-19T06:13:38.000Z","content":"12Class &#123;@code Object&#125; is the root of the class hierarchy. Every class has &#123;@code Object&#125; as a superclass. All objects, including arrays, implement the methods of this class.类Object是类层次结构的根。 每个类都把Object作为父类。 所有对象，包括数组，实现该类的方法。\n源码介绍如上。\n1.hashcode()12@HotSpotIntrinsicCandidatepublic native int hashCode();\nnative修饰的方法，不由java实现，hashcode()方法就是将该对象再内存中的位置转换为整数然后返回，所有的对象由JVM管理。\n2.equals()123public boolean equals(Object obj) &#123;    return (this == obj);&#125;\n==即判断两者的内存地址是否相同。\n对于String来说，其重写了equals()函数，先判断内存地址然后再判断内容。\n需要注意的是必须保证如果两者的hashcode()相同那么equals()为true。即重写的话也要先判断内存地址是否相同，然后对于不同的情况再判断其他的。\n建议但不强制对于不相等的对象的hashCode一定要不同。\n3.clone()方法12345678910111213141516* * The method &#123;@code clone&#125; for class &#123;@code Object&#125; performs a * specific cloning operation. First, if the class of this object does * not implement the interface &#123;@code Cloneable&#125;, then a * &#123;@code CloneNotSupportedException&#125; is thrown. Note that all arrays * are considered to implement the interface &#123;@code Cloneable&#125; and that * the return type of the &#123;@code clone&#125; method of an array type &#123;@code T[]&#125; * is &#123;@code T[]&#125; where T is any reference or primitive type. * Otherwise, this method creates a new instance of the class of this * object and initializes all its fields with exactly the contents of * the corresponding fields of this object, as if by assignment; the * contents of the fields are not themselves cloned. Thus, this method * performs a &quot;shallow copy&quot; of this object, not a &quot;deep copy&quot; operation.     *@HotSpotIntrinsicCandidateprotected native Object clone() throws CloneNotSupportedException;\n只包含了部分注释，这一部分注释解释了该函数的内容：\n如果该类没有实现Cloneable接口，会抛出CloneNotSupportedException异常。\n如果实现了Cloneable接口，那么该方法将会创建该类的新实例，并且初始化所有字段，字段的内容本身不是克隆的。 从而，这种方法执行此对象的“浅拷贝”，而不是“深拷贝”操作\n4.toString()1234It is recommended that all subclasses override this method.public String toString() &#123;    return getClass().getName() + &quot;@&quot; + Integer.toHexString(hashCode());&#125;\n返回类名+@+哈希值（内存地址转换而成）\n5.wait(), notify(), notifyAll()java的线程同步函数\n12345678910111213141516171819202122232425@HotSpotIntrinsicCandidatepublic final native void notify();@HotSpotIntrinsicCandidatepublic final native void notifyAll();public final void wait() throws InterruptedException &#123;    wait(0L);&#125;public final native void wait(long timeoutMillis) throws InterruptedException;public final void wait(long timeoutMillis, int nanos) throws InterruptedException &#123;    if (timeoutMillis &lt; 0) &#123;        throw new IllegalArgumentException(&quot;timeoutMillis value is negative&quot;);    &#125;    if (nanos &lt; 0 || nanos &gt; 999999) &#123;        throw new IllegalArgumentException(                            &quot;nanosecond timeout value out of range&quot;);    &#125;    if (nanos &gt; 0) &#123;        timeoutMillis++;    &#125;    wait(timeoutMillis);&#125;\n6.finalize()函数12@Deprecated(since&#x3D;&quot;9&quot;)protected void finalize() throws Throwable &#123; &#125;\nfinalize()方法就是再JVM确定已经没有任何线程可以访问该对象，那么将会清空该内存区域，如果其他类又使用了该类将会报异常。抛出的是Throwable，说明除了常规的异常Exceprion外，还有可能是JVM错误。当一个对象在回收前想要执行一些操作，就要覆写Object类中的finalize( )方法。\n@Deprecated(since=”9”)表示自从JDK9已废除该方法\n","tags":["Java"],"path":"2021/02/19/Object/","external_link":""},{"title":"Java-List","date":"2021-02-20T06:13:38.000Z","content":"List接口实现了Collection接口，主要有以下函数：\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195返回大小int size();判空boolean isEmpty();判断是否包含boolean contains(Object o);Iterator&lt;E&gt; iterator();Object[] toArray();&lt;T&gt; T[] toArray(T[] a);boolean add(E e);boolean remove(Object o);boolean containsAll(Collection&lt;?&gt; c);boolean addAll(Collection&lt;? extends E&gt; c);boolean addAll(int index, Collection&lt;? extends E&gt; c);boolean removeAll(Collection&lt;?&gt; c);删除掉不在c中的元素boolean retainAll(Collection&lt;?&gt; c);default void replaceAll(UnaryOperator&lt;E&gt; operator) &#123;    Objects.requireNonNull(operator);    final ListIterator&lt;E&gt; li = this.listIterator();    while (li.hasNext()) &#123;        li.set(operator.apply(li.next()));    &#125;&#125;@SuppressWarnings(&#123;&quot;unchecked&quot;, &quot;rawtypes&quot;&#125;)default void sort(Comparator&lt;? super E&gt; c) &#123;    Object[] a = this.toArray();    Arrays.sort(a, (Comparator) c);    ListIterator&lt;E&gt; i = this.listIterator();    for (Object e : a) &#123;        i.next();        i.set((E) e);    &#125;&#125;void clear();boolean equals(Object o);int hashCode();下面是比Collection多的方法E get(int index);E set(int index, E element);void add(int index, E element);E remove(int index);int indexOf(Object o);int lastIndexOf(Object o); List IteratorsListIterator&lt;E&gt; listIterator();ListIterator&lt;E&gt; listIterator(int index); ViewList&lt;E&gt; subList(int fromIndex, int toIndex);重写了Collection的可分割迭代器@Overridedefault Spliterator&lt;E&gt; spliterator() &#123;    if (this instanceof RandomAccess) &#123;        return new AbstractList.RandomAccessSpliterator&lt;&gt;(this);    &#125; else &#123;        return Spliterators.spliterator(this, Spliterator.ORDERED);    &#125;&#125;下面的暂时还没看static &lt;E&gt; List&lt;E&gt; of() &#123;    return ImmutableCollections.emptyList();&#125;static &lt;E&gt; List&lt;E&gt; of(E e1) &#123;    return new ImmutableCollections.List12&lt;&gt;(e1);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2) &#123;    return new ImmutableCollections.List12&lt;&gt;(e1, e2);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4, E e5) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4, E e5, E e6) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,                                            e6);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4, E e5, E e6, E e7) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,                                            e6, e7);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,                                            e6, e7, e8);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,                                            e6, e7, e8, e9);&#125;static &lt;E&gt; List&lt;E&gt; of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10) &#123;    return new ImmutableCollections.ListN&lt;&gt;(e1, e2, e3, e4, e5,                                            e6, e7, e8, e9, e10);&#125;@SafeVarargs@SuppressWarnings(&quot;varargs&quot;)static &lt;E&gt; List&lt;E&gt; of(E... elements) &#123;    switch (elements.length) &#123;  implicit null check of elements        case 0:            return ImmutableCollections.emptyList();        case 1:            return new ImmutableCollections.List12&lt;&gt;(elements[0]);        case 2:            return new ImmutableCollections.List12&lt;&gt;(elements[0], elements[1]);        default:            return new ImmutableCollections.ListN&lt;&gt;(elements);    &#125;&#125;static &lt;E&gt; List&lt;E&gt; copyOf(Collection&lt;? extends E&gt; coll) &#123;    return ImmutableCollections.listCopy(coll);&#125;","tags":["Java"],"path":"2021/02/20/List/","external_link":""},{"title":"SpringBoot 学习","date":"2020-11-19T16:00:00.000Z","content":"\n依赖：spring-boot-plugin  可以将应用打包成一个jar包\n\n@SpringBootApplication 注解可以用来标注主程序\n其实是一个组合注解 @SpringBootConfiguration、@EnableAutoConfiguration等等\n\n@Reponse Body 返回主体  @Controller  控制器\n​    这俩合成一个@RestController\n\n4.跨域的话+@CrossOrigin\n\n5.YAML新的配置文件类型。k： v格式   冒号后面要有空格\n\n6.@ConfigurationProperties(prefix=” “)来标识一个配置类，松散绑定\n   @Value()   也可以只不过是标识一个变量，不支持松散绑定\n\n\n","tags":["SpringBoot"],"path":"2020/11/20/SpringBoot/","external_link":""},{"title":"Java-String","date":"2021-02-19T06:13:38.000Z","content":"关于字符串  推荐阅读源码，或者https:blog.csdn.netzhxdickarticledetails80803507\n以下是几个String的问题，总结一下。\nString 被final修饰  不能被继承final的作用：\n\n​    修饰变量    表示变量只能一次赋值以后值不能被修改\n​    如果是修饰了一个基本类型数据，就表示一个常量\n​    如果是引用类型数据，则引用初始化后将永远指向一个内存地址（就相当于一个不能变的指针）\n​    但是该引用对象中的内容是可以变的\n\n​    修饰方法    该方法不能被重写，但可以继承\n\n​    修饰类   该类不能被继承\n\n\nfinal修饰变量的本质: final修饰的变量会指向一块固定的内存, 这块内存中的值不能改变.\n参考https:blog.csdn.netqq_24309787articledetails100942044\n那为何String要被修饰成final？ 为了实现字符串常量池：字符串常量池可以在程序运行时节约很多内存空间，因为不同的字符串变量指向相同的字面量时，都是指向字符串常量池中的同一个对象。这样一方面能够节约内存，另一方面也提升了性能。\n但是仅有一个final不能保证字符串常量，原因在上面final作用第一条已说明。我们看String源码\n123456789101112131415public final class String    implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &#123;    String类被final修饰了，表明其不可被继承。    实现了 Serializable接口---&gt;使其可以序列化，方便数据的传输    实现了Comparable接口，可以调用Collections.sort() 和 Arrays.sort() 方法排序，并且String类实现 compareTo() 方法。    实现了CharSequence接口，该接口能表示char值的一个可读序列。几个String兄弟类都实现了此接口。     @Stable    private final byte[] value;    private final byte coder;        private int hash;  Default to 0\t...&#125;\n其中的final修饰的byte数组用来存储String内容，然后再加上private修饰，本身也没有提供修改自己value数组的方法，所以value数组不可变，即字符串不可变，生成了字符串常量池。\n还有因为其不可变所以String是线程安全的，同一个字符串实例可以被多个线程共享。\n 因为字符串是不可变的，所以在它创建的时候HashCode就被缓存了，不需要重新计算。这就使得字符串很适合作为Map中的键，字符串的处理速度要快过其它的键对象。这就是HashMap中的键往往都使用字符串。\n​        参考https:blog.csdn.netzhxdickarticledetails80803507\n​                https:www.jianshu.comp9c7f5daac283\nJDK8 和JDK9 String的变化​    再JDK8中 String中是用char数组来存储  char是由UTF16编码咱用两个字节，但是很多都只用了一个字节（ASICII），所有再9中对其进行了优化，将char[]  更改为了 byte [] 以及一个coder来存储。\n​    coder一般只有两个值：分别用来表示8位表示还剩16位表示 \n12static final byte LATIN1 &#x3D; 0; static final byte UTF16  &#x3D; 1;\n\n\n关于== 和equal()“==”判断的是两个对象的内存地址是否一样，适用于原始数据类型和枚举类型（它们的变量存储的是值本身，而引用类型变量存储的是引用）；equals是Object类的方法，Object对它的实现是比较内存地址，我们可以重写这个方法来自定义“相等”这个概念。比如类库中的String、Date等类就对这个方法进行了重写。综上，对于枚举类型和原始数据类型的相等性比较，应该使用”==”；对于引用类型的相等性比较，应该使用equals方法。\n下面是String的equal函数,equal()函数的object的一个函数，String对其进行了重写，首先它判断了两者内存地址是否一样，然后将anObject转换为String比较内容。 \n12345678910111213public boolean equals(Object anObject) &#123;    if (this == anObject) &#123;        return true;    &#125;    if (anObject instanceof String) &#123;        String aString = (String)anObject;        if (coder() == aString.coder()) &#123;            return isLatin1() ? StringLatin1.equals(value, aString.value)                              : StringUTF16.equals(value, aString.value);        &#125;    &#125;    return false;&#125;\n","tags":["Java"],"path":"2021/02/19/String/","external_link":""},{"title":"Synchronize","date":"2021-02-25T08:53:35.000Z","content":"Synchronized的用法https:blog.csdn.netluoweifuarticledetails46613015\n额外：同步与互斥的区别：https:www.cnblogs.combaizhanship6844356.html\n进程线程基础https:blog.csdn.netluoweifuarticledetails46595285java中的 多线程https:blog.csdn.netluoweifuarticledetails46673975\n32更新\nSynchronized的原理：\n详细https:blog.csdn.netjavazejianarticledetails72828483\n简单https:blog.csdn.netu011212394articledetails82228321\n","tags":["Java","操作系统"],"path":"2021/02/25/Synchronize/","external_link":""},{"title":"StringBuffer和StringBuilder","date":"2021-02-21T02:47:49.000Z","content":"\n\n首先两者继承的类，实现的接口都是一模一样，所提供的接口也是完全相同，不同的是StringBuffer是线程安全的，StringBuilder是不安全的。\n","tags":["Java"],"path":"2021/02/21/StringBuffer/","external_link":""},{"title":"hexo使用","date":"2021-02-19T07:52:56.000Z","content":"使用Hexo+Github部署参考官方文档：https:hexo.iodocs\n安装1234cnpm install -g hexo-cli  或者 cnpm install  hexo  安装Hexohexo init &lt;foldername&gt;    新建一个Hexo项目cd foldername             cnpm install              安装依赖\n\n\n写博客12hexo new [layout] &lt;title&gt; 新建一个帖子&#x2F;页面&#x2F;草稿   分别对应layout中post&#x2F;page&#x2F;draft  title是名字  对于草稿写完后还需要 hexo publish [layout] &lt;title&gt;&#x2F;&#x2F;创建post时可以根据scaffolds中的模板进行创建 命令为 hexo new &lt;模板名字&gt; &lt;post名字&gt; 例如scaffolds中有一个a.md  以它为模板的命令为 hexo new a “hi”\n部署在github上首先在github上创建huajiaohuixiang.github.io的Repo然后在本地hexo下  \n123456git initgit branch -M maingit remote add origin https:&#x2F;&#x2F;github.com&#x2F;huajiaohuixiang&#x2F;huajiaohuixiang.github.io.gitgit add .git commit -m &quot;first commit&quot;git push origin -u origin main  第一次需要-u origin commit\n然后安装hexo-deployer\n123456cnpm install hexo-deployer-git --save修改 _config.yml  将deploy修改成下面（huajiaohuixiang应该改成你的repo名字）deploy:  type: git  repo: https:&#x2F;&#x2F;github.com&#x2F;huajiaohuixiang&#x2F;huajiaohuixiang.github.io  branch: main\n\n\n\n然后\n12hexo clean hexo deploy\n\n\n打开https:huajioahuixiang.github.io即可本人第一次hexo deploy的时候报错\n1234567FATAL &#123;  err: Error: Spawn failed      at ChildProcess.&lt;anonymous&gt; (Y:个人博客hexonode_modules_hexo-util@2.4.0@hexo-utillibspawn.js:51:21)      at ChildProcess.emit (events.js:315:20)      at ChildProcess.cp.emit (Y:个人博客hexonode_modules_cross-spawn@7.0.3@cross-spawnlibenoent.js:34:29)      at Process.ChildProcess._handle.onexit (internal&#x2F;child_process.js:277:12) &#123;  &#125;\n在deploy一次就好了\n可能有用的文章：https:1187100546.github.io20191124spawn-failedhttps:perry96.comarchives882898e3.html  这个是回退本地git版本  回退了就好了，很奇怪\n","tags":["博客搭建"],"path":"2021/02/19/huxo使用/","external_link":""},{"title":"maven","date":"2021-02-22T09:06:43.000Z","content":"","tags":[],"path":"2021/02/22/maven/","external_link":""},{"title":"Java-transient","date":"2021-02-20T06:13:38.000Z","content":"参考资料https:www.cnblogs.comlanxuezaipiaop3369962.html\nhttps:www.liaoxuefeng.comwiki12525995483437441298366845681698\n在java中，只要实现了java.io.Serializable接口，该类就可以序列化。\ntransient关键字用来标明不想序列化的某个属性，例如在ArrayList源码中，elementData就不想被序列化，则使用了transient。\n12345678910public class ArrayList&lt;E&gt; extends AbstractList&lt;E&gt;        implements List&lt;E&gt;, RandomAccess, Cloneable, java.io.Serializable&#123;    private static final long serialVersionUID = 8683452581122892189L;    private static final int DEFAULT_CAPACITY = 10;    private static final Object[] EMPTY_ELEMENTDATA = &#123;&#125;;    private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = &#123;&#125;;    transient Object[] elementData;  non-private to simplify nested class access    ...&#125;","tags":["Java"],"path":"2021/02/20/transient/","external_link":""},{"title":"Java-@Native","date":"2021-02-19T06:13:38.000Z","content":"看Object的源码的时候发现了从未见过的修饰符native，雨伞学习一下。\n就是这几个：\n123456789101112131415161718192021private static native void registerNatives();public final native Class&lt;?&gt; getClass(); public native int hashCode();@HotSpotIntrinsicCandidatepublic final native void notify();@HotSpotIntrinsicCandidatepublic final native void notifyAll();public final void wait() throws InterruptedException &#123;    wait(0L);&#125;public final native void wait(long timeoutMillis) throws InterruptedException;public final void wait(long timeoutMillis, int nanos) throws InterruptedException &#123;  ...&#125;\n参考博客https:www.cnblogs.comKingIceMoup7239668.html\n被native修饰的方法就是不是由java实现的，而是由C或者C++实现，并且编译成了dll，然后由java调用，调用过程如下：\n实现步骤\n　　１、在Java中声明native()方法，然后编译；　　２、用javah产生一个.h文件；　　３、写一个.cpp文件实现native导出方法，其中需要包含第二步产生的.h文件（注意其中又包含了JDK带的jni.h文件）；　　４、将第三步的.cpp文件编译成动态链接库文件；　　５、在Java中用System.loadLibrary()方法加载第四步产生的动态链接库文件，这个native()方法就可以在Java中被访问了。\n","tags":["Java"],"path":"2021/02/19/native/","external_link":""},{"title":"内部类","date":"2021-02-21T02:47:49.000Z","content":"参考：https:www.liaoxuefeng.comwiki12525995483437441376414781669409\n嵌套类分为三种内部类 ,匿名类，静态内部类\nInnerClass和匿名类本质上相同，都需要依靠外部类才能实现，静态内部类不需要依赖外部类。\n","tags":["Java"],"path":"2021/02/21/内部类/","external_link":""},{"title":"剑指offer38","date":"2021-02-23T02:40:18.000Z","content":"输入一个字符串，打印出该字符串中字符的所有排列。你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。\n示例:\n输入：s = “abc”输出：[“abc”,”acb”,”bac”,”bca”,”cab”,”cba”]\n一开始的做法，回溯法模拟了一遍全排列；\n123456789101112131415161718192021222324252627282930class Solution &#123;    vector&lt;bool&gt; used;public:    vector&lt;string&gt; permutation(string s) &#123;        vector&lt;string&gt; result;        unordered_set&lt;string&gt; tempResult;因为字符串中可能有重复的元素，所以用了它去重        string temp=&quot;&quot;;        for(auto c:s)&#123;used.push_back(false);&#125;        huiSu(tempResult,s,temp);        for(auto c:tempResult)&#123;            result.push_back(c);        &#125;        return result;    &#125;    void huiSu(unordered_set&lt;string&gt;&amp; result,string&amp; s,string&amp; temp)&#123;        if(temp.length()==s.length())&#123;            result.insert(temp);        &#125;         for(int j=0;j&lt;s.length();j++)&#123;            if(used[j])&#123;                continue;            &#125;                 temp.push_back(s[j]);            used[j]=true;            huiSu(result,s,temp);            used[j]=false;            temp.pop_back();        &#125;    &#125;&#125;;\n对于有重复元素的情况，我使用了set集合先把所有的结果加进去，然后再返回到vector中\n还可以先将字符串排序，排序后相同的元素在一起，然后把他们看成一个即可。\n1234567891011121314151617181920212223242526272829303132333435class Solution &#123;public:    vector&lt;string&gt;res;    void backtrack(string s,string&amp; temp,vector&lt;bool&gt;&amp; used)    &#123;        if(temp.size()==s.size())        &#123;            res.push_back(temp);            return;        &#125;        for(int i=0;i&lt;s.size();i++)        &#123;            if(!used[i])            &#123;                if(i&gt;=1&amp;&amp;s[i-1]==s[i]&amp;&amp;!used[i-1])                    continue;                temp.push_back(s[i]);                used[i]=true;                backtrack(s,temp,used);                used[i]=false;                temp.pop_back();            &#125;           &#125;    &#125;    vector&lt;string&gt; permutation(string s) &#123;        if(s.size()==0)            return&#123;&#125;;        string temp=&quot;&quot;;        sort(s.begin(),s.end());        vector&lt;bool&gt;used(s.size());        backtrack(s,temp,used);        return res;    &#125;&#125;;\n\n\n\n\n进行通过字符交换来实现全排列,然后使用unordered_set去重（这个去重与上面的作用完全不一样），如果某个已经交换过了，就不用在交换了\n1234567891011121314151617181920212223242526272829class Solution &#123;public:    vector&lt;string&gt; permutation(string s) &#123;        vector&lt;string&gt; res;        dfs(s, res, 0);        return res;    &#125;    void dfs(string &amp;s, vector&lt;string&gt; &amp;res, int depth)    &#123;        if(depth &gt;= s.size()-1)        &#123;            res.push_back(s);            return ;        &#125;        unordered_set&lt;char&gt; used;  局部set去重        for(int i = depth; i &lt; s.size(); ++i)        &#123;            if(used.find(s[i]) != used.end())   continue;   去重            used.insert(s[i]);            swap(s[depth],s[i]);            dfs(s, res, depth+1);            swap(s[depth],s[i]);        回溯撤销操作        &#125;    &#125;&#125;;作者：zrita链接：https:leetcode-cn.comproblemszi-fu-chuan-de-pai-lie-lcofsolutionchui-su-z-by-zrita-gvc0\n","tags":["leetcode"],"path":"2021/02/23/剑指offer38/","external_link":""},{"title":"Java-Reference","date":"2021-02-20T02:45:38.000Z","content":"Java四种引用：强引用、软引用、弱引用、虚引用\n强引用：new一个对象就是强引用，可以通过赋null来取消引用，被强引用的对象永远都不会被回收即使Out of memory。\n软引用：SoftReference，被软引用的对象将会在内存不够用时被GC回收\n弱引用：WeakReference，将会在下一轮GC被回收，如果对象有finalize()，将会先执行finalize()，然后再回收，这时可能会延后一个GC\n虚引用：用来标记对象是否要回收，如果一个对象只有虚引用，那么将会回收\n参考：https:zhanghaoxin.blog.csdn.netarticledetails80991802\n​            https:www.cnblogs.comskywang12345p3154474.html\n","tags":["Java"],"path":"2021/02/20/四种引用/","external_link":""},{"title":"单元测试","date":"2021-02-22T09:06:17.000Z","content":"","tags":[],"path":"2021/02/22/单元测试/","external_link":""},{"title":"多态","date":"2021-02-21T02:47:49.000Z","content":"多态：对于某个类型的方法调用，实际调用的方法取决于运行时实际类型的方法。\n12345678910111213141516171819202122public void run(Person p)&#123;\tp.run();&#125;Class Person&#123;\tvoid run()&#123;\t\tSystem.out.println(&quot;Person&quot;);\t&#125;&#125;Class Teacher extends Person&#123; \t@override\tvoid run()&#123;\t\tSystem.out.println(&quot;Teacher&quot;);\t\t&#125;&#125;public static void main(String [] args)&#123;\tPerson p1=new Person();\tPerson p2=new Teacher();\trun(p1);    run(p2);&#125;\n以上代码分别会打印各自的run  ， 因为两者的实际类型不同，通过声明类型传值\n","tags":["Java"],"path":"2021/02/21/多态/","external_link":""},{"title":"Ubuntu安装Redis、Mysql","date":"2021-02-23T09:06:01.000Z","content":"Linux Ubuntu18.01安装redis和Mysql1.安装redis​    \n12sudo apt-get updatesudo apt-get install redis-server\n2.启动redis1redis-server\n3.让其他电脑可以访问1dpkg -S redis_server 显示包含此软件包的所有位置，\n有一个etcredisredis.conf  文件\n1sudo vim etcredisredis.conf  打开\n关闭保护模式并将127.0.0.1换成0.0.0.0\n12bind 127.0.0.1 ::1     换成 bind 0.0.0.0 ::1protected-mode yes     换成 protected-mode no\n保存退出重启\n1sudo systemctl restart redis-server\n\n\n\n\n\n\n1.安装Mysql12sudo apt install mysql-serversudo systemctl status mysql  安装完成后输入这个看看状态\n2.然后可以根据阿里云的这个增加一下数据库安全https:yq.aliyun.comarticles758177\n3.配置外网访问12345678910cd etcmysql然后ls一下 我的有下面这些东西，配置文件在mysql.conf.d中conf.d      debian-start  my.cnf.fallback  mysql.conf.ddebian.cnf  my.cnf        mysql.cnfcd mysql.conf.dvim mysqld.cnf     将地址127.0.0.1 改成0.0.0.0service mysql restart\n","tags":["Ubuntu","Redis","Mysql"],"path":"2021/02/23/安装Redis，Mysql/","external_link":""},{"title":"悲惨世界","date":"2020-12-03T16:00:00.000Z","content":"人有肉体，这对人来说，既是负担优势诱惑。人拖着肉体，又屈从于肉体。\n有罪的人并不是犯罪的人，而是制造黑暗的人。\n最好看的祭坛，是不幸者因得到了安慰而感谢上帝的一颗心灵\n我在这世上不是守护自己的生命，而是守护灵魂。\np34-44\n","tags":["读书笔记"],"path":"2020/12/04/悲惨世界/","external_link":""},{"title":"异常错误","date":"2021-02-22T06:09:06.000Z","content":"p\n1.异常和错误都是类，基类Throwable 只实现了序列化接口。123public class Throwable implements Serializable &#123;\t...&#125;\n2.printStackTrace()\n1234567891011121314151617181920212223242526272829303132public void printStackTrace() &#123;    printStackTrace(System.err);&#125;public void printStackTrace(PrintStream s) &#123;    printStackTrace(new WrappedPrintStream(s));&#125;private void printStackTrace(PrintStreamOrWriter s) &#123;     Guard against malicious overrides of Throwable.equals by     using a Set with identity equality semantics.    Set&lt;Throwable&gt; dejaVu = Collections.newSetFromMap(new IdentityHashMap&lt;&gt;());    dejaVu.add(this);    synchronized (s.lock()) &#123;         Print our stack trace        s.println(this);        StackTraceElement[] trace = getOurStackTrace();        for (StackTraceElement traceElement : trace)            s.println(&quot;tat &quot; + traceElement);         Print suppressed exceptions, if any        for (Throwable se : getSuppressed())            se.printEnclosedStackTrace(s, trace, SUPPRESSED_CAPTION, &quot;t&quot;, dejaVu);         Print cause, if any        Throwable ourCause = getCause();        if (ourCause != null)            ourCause.printEnclosedStackTrace(s, trace, CAUSE_CAPTION, &quot;&quot;, dejaVu);    &#125;&#125;\n3.捕获异常  (都很熟悉)12345678try&#123;&#125;catch(IOException e1)&#123;\te1.printStackTrace();&#125;catch(Exception e2)&#123;\te2.printStackTrace();&#125;finally&#123;\t&#125;\n4.抛出异常12345使用throw + 异常对象Exception exception2=new Exception();throw exception2;或者throw new Exception();\n5.Java异常体系Java标准库定义的常用异常包括：\n1234567891011121314151617181920212223242526272829Exception│├─ RuntimeException│  ││  ├─ NullPointerException│  ││  ├─ IndexOutOfBoundsException│  ││  ├─ SecurityException│  ││  └─ IllegalArgumentException│     ││     └─ NumberFormatException│├─ IOException│  ││  ├─ UnsupportedCharsetException│  ││  ├─ FileNotFoundException│  ││  └─ SocketException│├─ ParseException│├─ GeneralSecurityException│├─ SQLException│└─ TimeoutException\n6.assert关键字assert用来开发的时候使用，如果断言失败会抛出异常\n12assert x&gt;0; assert x&gt;=0 : &quot;x must &gt;= 0&quot;;\nJVM默认关闭断言，开启断言需要编译时额外参数，实际上一般不用断言，都是使用JUnit。\n7.使用Logger日志系统代替System.out.println()12345Logger logger = Logger.getGlobal();logger.info(&quot;start process...&quot;);logger.warning(&quot;memory is running out...&quot;);logger.fine(&quot;ignored.&quot;);logger.severe(&quot;process will be terminated...&quot;);\nlogger一共有七个等级\n\nSEVERE\n\nWARNING\n\nINFO\n\nCONFIG\n\nFINE\n\nFINER\n\nFINEST\nConfig和下面的都不会打印出来。\n\n\n实际上一般也不用，也需要额外的参数。\n8.日志库Commons LoggingCommons Logging定义了6个日志级别：\n\nFATAL\nERROR\nWARNING\nINFO\nDEBUG\nTRACE\n\n使用的话Log log = LogFactory.getLog(Class名);\n9.广泛使用的Log4j日志系统，xml配置麻烦，搭配SpringBoot应该会简单吧10.和89对应的分别是SLF4J和Logback","tags":["Java"],"path":"2021/02/22/异常/","external_link":""},{"title":"拦截器","date":"2021-02-23T09:06:01.000Z","content":"SpringBoot配置拦截器1.实现一个拦截器12345678910111213141516171819202122实现HandlerInterceptor重写preHandle方法，postHandler，afterCompletion方法public class testInterceptor implements HandlerInterceptor &#123;    @Override    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)            throws Exception &#123;        这里就可以根据request判断token session等等。        System.out.println(&quot;进入拦截器啦！&quot;);        return false;    &#125;    @Override    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,                            @Nullable ModelAndView modelAndView) throws Exception &#123;        System.out.println(&quot;Bye!&quot;);    &#125;    @Override    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) &#123;        System.out.println(&quot;执行了TestInterceptor的afterCompletion方法&quot;);    &#125;&#125;\n2.将拦截器配置到SpringBoot程序中，在Spring中，使用XML的方式，而在Boot中只需要定义一个带有@Configuration的配置类即可，需要实现WebMvcConfigure接口\n123456789101112@Configurationpublic class testMvcConfigure implements WebMvcConfigurer &#123;    @Override    public void addInterceptors(InterceptorRegistry registry) &#123;        InterceptorRegistration registration = registry.addInterceptor(new testInterceptor());        registration.addPathPatterns(&quot;**&quot;);                      所有路径都被拦截        registration.excludePathPatterns(                         添加不拦截路径                &quot;vipwang&quot;                  );    &#125;&#125;","tags":["SpringBoot"],"path":"2021/02/23/拦截器/","external_link":""},{"title":"枚举类","date":"2021-02-21T02:47:49.000Z","content":"枚举类我们可以使用这种方式来实现枚举类：\n12345public class Weekday&#123;\tpublic static final int MON=1;\tpublic static final int Tu=2;\t...&#125;\n虽然可以实现，但是在使用的时候会出现问题，编译器不能检测出不在类中的值。\n1234int day=0;if(day==Weekday.MON)&#123;\t...&#125;\n所以我们用enum来实现枚举类:(编译器会将他们编译成final class Weekday extends Enum{…})\n123enum Weekday&#123;\tMON,Tue,Wed,Thur,Fri,Sat,Sun;&#125;\n与enum类似的还有record类 14后才有。\n用enum实现单例模式\n","tags":["Java"],"path":"2021/02/21/枚举类/","external_link":""},{"title":"集合","date":"2021-02-22T09:06:01.000Z","content":"","tags":[],"path":"2021/02/22/集合/","external_link":""},{"title":"模块","date":"2021-02-21T02:47:49.000Z","content":"java模块\n参考资料：https:www.liaoxuefeng.comwiki12525995483437441281795926523938\n","tags":["Java"],"path":"2021/02/21/模块/","external_link":""},{"title":"单例模式的实现","date":"2021-03-02T08:45:02.000Z","content":"单例模式实现的六种方法1懒汉模式 获取时判断是否为null，然后创建\n 可能会出现线程安全问题，所以对他加上Synchronize\n2.Synchronize修饰的get方法  速度会很慢，通过双重校验锁法来实现\n3.双重校验锁法在get方法中，先判断是否为null，为空则加一个Synchronize代码块，里面还需要再判断一次，因为可能有多个线程同时阻塞在了这里，当第一个创建好后，没有判断的话还会创建其他的。\n实例需要添加volatile修饰符  禁止指令重排序保证线程安全\n4.饿汉模式直接在定义的时候就实现\n5.静态内部类定义一个静态内部类\n通过一个方法返回该内部类\n实现了懒加载\n6.枚举类实现https:cloud.tencent.comdeveloperarticle1497592\n","tags":["Java"],"path":"2021/03/02/单例模式的实现/","external_link":""},{"title":"HashMap","date":"2021-03-01T15:02:58.000Z","content":"1.介绍1234567Hash table based implementation of the &#123;@code Map&#125; interface.  Thisimplementation provides all of the optional map operations, and permits&#123;@code null&#125; values and the &#123;@code null&#125; key. public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;    implements Map&lt;K,V&gt;, Cloneable, Serializable &#123;    *  实现*&#125;\n\n\nHashMap继承于抽象Map类，抽象Map类为Map接口实现了一些操作\n12This implementation provides constant-time performance for the basicoperations (&#123;@code get&#125; and &#123;@code put&#125;), \nHasmMap实现了常量级的get和put操作实现。\n12An instance of &#123;@code HashMap&#125; has two parameters that affect itsperformance: &lt;i&gt;initial capacity&lt;i&gt; and &lt;i&gt;load factor&lt;i&gt;.\nHashMap是不同步的，可以在外面套一个 Collections.synchronizedMap来实现：\n1Map m = Collections.synchronizedMap(new HashMap(...));\nHashMap通常使用数组+链表的实现方式，当bins变得很大时，链表会变成红黑树，每一个bin都相当于TreeMap\n123456789101112** This map usually acts as a binned (bucketed) hash table, but* when bins get too large, they are transformed into bins of* TreeNodes, each structured similarly to those in* java.util.TreeMap. Most methods try to use normal bins, but* relay to TreeNode methods when applicable (simply by checking* instanceof a node).  Bins of TreeNodes may be traversed and* used like any others, but additionally support faster lookup* when overpopulated. However, since the vast majority of bins in* normal use are not overpopulated, checking for existence of* tree bins may be delayed in the course of table methods.    *\n\n\n2.一些参数fieldsDEFAULT_INITIAL_CAPACITY初始化容量，默认16，且必须是2的幂。（为何要2的幂，因为哈希函数为hash(key)&amp; capacity-1 这样就可以很快的确定位置（如果使用hash%数组大小的话也可以，但是会很慢）。https:www.iteye.comtopic539465）\nMAXIMUM_CAPACITY 最大容量小于2^30。\nDEFAULT_LOAD_FACTOR默认加载因子 0.75.\nTREEIFY_THRESHOLD 当bins中的节点大于其是会转化为红黑树\nUNTREEIFY_THRESHOLD 小于其时会变成链表\nMIN_TREEIFY_CAPACITY 最小表容量应大于4*TREEIFY_THRESHOLD\n1234567891011121314151617181920212223242526272829303132333435363738394041** * The default initial capacity - MUST be a power of two. *static final int DEFAULT_INITIAL_CAPACITY = 1 &lt;&lt; 4;  aka 16** * The maximum capacity, used if a higher value is implicitly specified * by either of the constructors with arguments. * MUST be a power of two &lt;= 1&lt;&lt;30. *static final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;** * The load factor used when none specified in constructor. *static final float DEFAULT_LOAD_FACTOR = 0.75f;** * The bin count threshold for using a tree rather than list for a * bin.  Bins are converted to trees when adding an element to a * bin with at least this many nodes. The value must be greater * than 2 and should be at least 8 to mesh with assumptions in * tree removal about conversion back to plain bins upon * shrinkage. *static final int TREEIFY_THRESHOLD = 8;** * The bin count threshold for untreeifying a (split) bin during a * resize operation. Should be less than TREEIFY_THRESHOLD, and at * most 6 to mesh with shrinkage detection under removal. *static final int UNTREEIFY_THRESHOLD = 6;** * The smallest table capacity for which bins may be treeified. * (Otherwise the table is resized if too many nodes in a bin.) * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts * between resizing and treeification thresholds. *static final int MIN_TREEIFY_CAPACITY = 64;\n3.Node类 普通Node和TreNode123456789101112131415161718192021222324252627282930313233343536373839static class Node&lt;K,V&gt; implements Map.Entry&lt;K,V&gt; &#123;    final int hash;    final K key;    V value;    Node&lt;K,V&gt; next;    Node(int hash, K key, V value, Node&lt;K,V&gt; next) &#123;        this.hash = hash;        this.key = key;        this.value = value;        this.next = next;    &#125;    public final K getKey()        &#123; return key; &#125;    public final V getValue()      &#123; return value; &#125;    public final String toString() &#123; return key + &quot;=&quot; + value; &#125;    public final int hashCode() &#123;        return Objects.hashCode(key) ^ Objects.hashCode(value);    &#125;    public final V setValue(V newValue) &#123;        V oldValue = value;        value = newValue;        return oldValue;    &#125;    public final boolean equals(Object o) &#123;        if (o == this)            return true;        if (o instanceof Map.Entry) &#123;            Map.Entry&lt;?,?&gt; e = (Map.Entry&lt;?,?&gt;)o;            if (Objects.equals(key, e.getKey()) &amp;&amp;                Objects.equals(value, e.getValue()))                return true;        &#125;        return false;    &#125;&#125;\n1234567891011static final class TreeNode&lt;K,V&gt; extends LinkedHashMap.Entry&lt;K,V&gt; &#123;    TreeNode&lt;K,V&gt; parent;   red-black tree links    TreeNode&lt;K,V&gt; left;    TreeNode&lt;K,V&gt; right;    TreeNode&lt;K,V&gt; prev;     needed to unlink next upon deletion    boolean red;    TreeNode(int hash, K key, V val, Node&lt;K,V&gt; next) &#123;            super(hash, key, val, next);        &#125;\t...&#125;\n4.类的静态方法\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647static final int hash(Object key) &#123;获得类的哈希值 右移16位    int h;    https:blog.csdn.netqq_42034205articledetails90384772    return (key == null) ? 0 : (h = key.hashCode()) ^ (h &gt;&gt;&gt; 16);&#125;** * Returns x&#x27;s Class if it is of the form &quot;class C implements * Comparable&lt;C&gt;&quot;, else null. *static Class&lt;?&gt; comparableClassFor(Object x) &#123;    if (x instanceof Comparable) &#123;        Class&lt;?&gt; c; Type[] ts, as; ParameterizedType p;        if ((c = x.getClass()) == String.class)  bypass checks            return c;        if ((ts = c.getGenericInterfaces()) != null) &#123;            for (Type t : ts) &#123;                if ((t instanceof ParameterizedType) &amp;&amp;                    ((p = (ParameterizedType) t).getRawType() ==                     Comparable.class) &amp;&amp;                    (as = p.getActualTypeArguments()) != null &amp;&amp;                    as.length == 1 &amp;&amp; as[0] == c)  type arg is c                    return c;            &#125;        &#125;    &#125;    return null;&#125;** * Returns k.compareTo(x) if x matches kc (k&#x27;s screened comparable * class), else 0. *@SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)  for cast to Comparablestatic int compareComparables(Class&lt;?&gt; kc, Object k, Object x) &#123;    return (x == null || x.getClass() != kc ? 0 :            ((Comparable)k).compareTo(x));&#125;** * Returns a power of two size for the given target capacity. 检查所传的参数是否为2的幂次方，且不能为负数（负数变为1），且不能超过常量MAXIMUM_CAPACITY（超过变为MAXIMUM_CAPACITY），如果不为2的幂次方，将其变为，比cap大的最小的2的幂次方的值 *static final int tableSizeFor(int cap) &#123;    int n = -1 &gt;&gt;&gt; Integer.numberOfLeadingZeros(cap - 1);    return (n &lt; 0) ? 1 : (n &gt;= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;&#125;\n5.fieldsNode表transienthttps:www.cnblogs.comlanxuezaipiaop3369962.html\nentrySet键值对集合当前数量size结构性修改的次数modcount123456789101112131415161718192021222324252627** * The table, initialized on first use, and resized as * necessary. When allocated, length is always a power of two. * (We also tolerate length zero in some operations to allow * bootstrapping mechanics that are currently not needed.) *transient Node&lt;K,V&gt;[] table;** * Holds cached entrySet(). Note that AbstractMap fields are used * for keySet() and values(). *transient Set&lt;Map.Entry&lt;K,V&gt;&gt; entrySet;** * The number of key-value mappings contained in this map. *transient int size;** * The number of times this HashMap has been structurally modified * Structural modifications are those that change the number of mappings in * the HashMap or otherwise modify its internal structure (e.g., * rehash).  This field is used to make iterators on Collection-views of * the HashMap fail-fast.  (See ConcurrentModificationException). *transient int modCount;\nthreshold  当size&gt;threhold时变成红黑树。\n加载因子，默认0.751234567891011121314151617** * The next size value at which to resize (capacity * load factor). * * @serial * (The javadoc description is true upon serialization. Additionally, if the table array has not been allocated, this field holds the initial array capacity, or zero signifying DEFAULT_INITIAL_CAPACITY.)int threshold;** * The load factor for the hash table. * * @serial *final float loadFactor;\n6.构造函数123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081** * Constructs an empty &#123;@code HashMap&#125; with the specified initial * capacity and load factor. * * @param  initialCapacity the initial capacity * @param  loadFactor      the load factor * @throws IllegalArgumentException if the initial capacity is negative *         or the load factor is nonpositive *public HashMap(int initialCapacity, float loadFactor) &#123;    if (initialCapacity &lt; 0)        throw new IllegalArgumentException(&quot;Illegal initial capacity: &quot; +                                           initialCapacity);    if (initialCapacity &gt; MAXIMUM_CAPACITY)        initialCapacity = MAXIMUM_CAPACITY;    if (loadFactor &lt;= 0 || Float.isNaN(loadFactor))        throw new IllegalArgumentException(&quot;Illegal load factor: &quot; +                                           loadFactor);    this.loadFactor = loadFactor;    this.threshold = tableSizeFor(initialCapacity);&#125;** * Constructs an empty &#123;@code HashMap&#125; with the specified initial * capacity and the default load factor (0.75). * * @param  initialCapacity the initial capacity. * @throws IllegalArgumentException if the initial capacity is negative. *public HashMap(int initialCapacity) &#123;    this(initialCapacity, DEFAULT_LOAD_FACTOR);&#125;** * Constructs an empty &#123;@code HashMap&#125; with the default initial capacity * (16) and the default load factor (0.75). *public HashMap() &#123;    this.loadFactor = DEFAULT_LOAD_FACTOR;  all other fields defaulted&#125;** * Constructs a new &#123;@code HashMap&#125; with the same mappings as the * specified &#123;@code Map&#125;.  The &#123;@code HashMap&#125; is created with * default load factor (0.75) and an initial capacity sufficient to * hold the mappings in the specified &#123;@code Map&#125;. * * @param   m the map whose mappings are to be placed in this map * @throws  NullPointerException if the specified map is null *public HashMap(Map&lt;? extends K, ? extends V&gt; m) &#123;    this.loadFactor = DEFAULT_LOAD_FACTOR;    putMapEntries(m, false);&#125;** * Implements Map.putAll and Map constructor. * * @param m the map * @param evict false when initially constructing this map, else * true (relayed to method afterNodeInsertion). *final void putMapEntries(Map&lt;? extends K, ? extends V&gt; m, boolean evict) &#123;    int s = m.size();    if (s &gt; 0) &#123;        if (table == null) &#123;  pre-size            float ft = ((float)s  loadFactor) + 1.0F;            int t = ((ft &lt; (float)MAXIMUM_CAPACITY) ?                     (int)ft : MAXIMUM_CAPACITY);            if (t &gt; threshold)                threshold = tableSizeFor(t);        &#125;        else if (s &gt; threshold)            resize();        for (Map.Entry&lt;? extends K, ? extends V&gt; e : m.entrySet()) &#123;            K key = e.getKey();            V value = e.getValue();            putVal(hash(key), key, value, false, evict);        &#125;    &#125;&#125;\n7.get方法123456789101112131415161718192021222324252627282930313233343536**get()方法调用getNode方法，传入hash值和key值 *public V get(Object key) &#123;    Node&lt;K,V&gt; e;    return (e = getNode(hash(key), key)) == null ? null : e.value;&#125;** * @param hash hash for key * @param key the key * @return the node, or null if none 如果 table不为空 table[(n - 1) &amp; hash]不为空，说明该点有值 \t判断第一个是不是，然后往下判断 \t\t如果是TreeNode类型，直接getTreeNode(); \t\t否则链表往下判断； *final Node&lt;K,V&gt; getNode(int hash, Object key) &#123;    Node&lt;K,V&gt;[] tab; Node &lt;K,V&gt; first, e; int n; K k;    if ((tab = table) != null &amp;&amp; (n = tab.length) &gt; 0 &amp;&amp;        (first = tab[(n - 1) &amp; hash]) != null) &#123;        if (first.hash == hash &amp;&amp;  always check first node            ((k = first.key) == key || (key != null &amp;&amp; key.equals(k))))            return first;        if ((e = first.next) != null) &#123;            if (first instanceof TreeNode)                return ((TreeNode&lt;K,V&gt;)first).getTreeNode(hash, key);            do &#123;                if (e.hash == hash &amp;&amp;                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))                    return e;            &#125; while ((e = e.next) != null);        &#125;    &#125;    return null;&#125;\n8.put方法12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667**\t调用putVal方法，设置值或更新值 * @param key key with which the specified value is to be associated * @param value value to be associated with the specified key * @return the previous value associated with &#123;@code key&#125;, or *         &#123;@code null&#125; if there was no mapping for &#123;@code key&#125;. *         (A &#123;@code null&#125; return can also indicate that the map *         previously associated &#123;@code null&#125; with &#123;@code key&#125;.) *public V put(K key, V value) &#123;    return putVal(hash(key), key, value, false, true);&#125;** * @param hash hash for key * @param key the key * @param value the value to put * @param onlyIfAbsent if true, don&#x27;t change existing value * @param evict if false, the table is in creation mode. * @return previous value, or null if none \t  *final V putVal(int hash, K key, V value, boolean onlyIfAbsent,               boolean evict) &#123;    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; int n, i;    if ((tab = table) == null || (n = tab.length) == 0)如果table为空，resize一下        n = (tab = resize()).length;    if ((p = tab[i = (n - 1) &amp; hash]) == null)\t如果当前table中(n - 1) &amp; hash位置为空，则直接插入        tab[i] = newNode(hash, key, value, null);    else &#123;\t如果不为空，找到key的那个entry        Node&lt;K,V&gt; e; K k;        if (p.hash == hash &amp;&amp;            ((k = p.key) == key || (key != null &amp;&amp; key.equals(k))))先判断第一个            e = p;        然后往下判断        else if (p instanceof TreeNode) 如果是Tree实现的，调用树的putTreeVal()方法            e = ((TreeNode&lt;K,V&gt;)p).putTreeVal(this, tab, hash, key, value);        else &#123;说明是链表实现的 循环判断            for (int binCount = 0; ; ++binCount) &#123;                if ((e = p.next) == null) &#123;                    p.next = newNode(hash, key, value, null);                    if (binCount &gt;= TREEIFY_THRESHOLD - 1)  -1 for 1st                        treeifyBin(tab, hash);                    break;                &#125;                if (e.hash == hash &amp;&amp;                    ((k = e.key) == key || (key != null &amp;&amp; key.equals(k))))                    break;                p = e;            &#125;        &#125;        if (e != null) &#123; 查找后存在该点，更新值返回oldValue existing mapping for key            V oldValue = e.value;            if (!onlyIfAbsent || oldValue == null)                e.value = value;            afterNodeAccess(e);            return oldValue;        &#125;    &#125;    走到这里说明原来table中没有带key的entry ，插入了一个新的，判断是否需要resize()    ++modCount;    if (++size &gt; threshold)        resize();    afterNodeInsertion(evict);    return null;&#125;\n9.resize方法分为三步：获取原表、创建新表、为新表添加元素。\n123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116** * Initializes or doubles table size.  If null, allocates in * accord with initial capacity target held in field threshold. * Otherwise, because we are using power-of-two expansion, the * elements from each bin must either stay at same index, or move * with a power of two offset in the new table. * * @return the table *final Node&lt;K,V&gt;[] resize() &#123;            第一部分    Node&lt;K,V&gt;[] oldTab = table;  复制旧表    int oldCap = (oldTab == null) ? 0 : oldTab.length; 获得旧容量    int oldThr = threshold;\t\t\t\t\t\t旧阈值    int newCap, newThr = 0;\t\t\t\t\t\t新容量和新阈值                    第二部分    if (oldCap &gt; 0) &#123;\t        分支1        说明原来表中有东西zMAX_VALUE        可能是添加的时候或者其他时调用了resize方法，然后将xin容量设置为原来的两倍且小于MAXIMUM_CAPACITY        对于阈值：如果本来的oldcap已经是MAXIMUM_CAPACITY，那么将阈值调为整数最大值，其实就是MAXIMUM_CAPACITY，这样不会再扩大容量，如果newcap还是小于MAXIMUM_CAPACITY，则也将新阈值*2        if (oldCap &gt;= MAXIMUM_CAPACITY) &#123;            threshold = Integer.MAX_VALUE;            return oldTab;        &#125;        else if ((newCap = oldCap &lt;&lt; 1) &lt; MAXIMUM_CAPACITY &amp;&amp;                 oldCap &gt;= DEFAULT_INITIAL_CAPACITY)            newThr = oldThr &lt;&lt; 1;  double threshold    &#125;    else if (oldThr &gt; 0)  initial capacity was placed in threshold        分支2        说明原来表里没有元素，但是还调用了resize，说明调用了带初始容量的构造方法        只需要将新容量设置为旧的阈值，然后一会判断一下新阈值是否是0；如果是0，则将新阈值设置为容量*加载因子        newCap = oldThr;    else &#123;                zero initial threshold signifies using defaults        分支3        到这里就是一开始是调用了无参构造方法，只需将容量阈值设置成默认的即可。        newCap = DEFAULT_INITIAL_CAPACITY;        newThr = (int)(DEFAULT_LOAD_FACTOR * DEFAULT_INITIAL_CAPACITY);    &#125;    下面的对分支2没有设置新阈值的情况在判断一下，设置一下新阈值    if (newThr == 0) &#123;        float ft = (float)newCap * loadFactor;        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (float)MAXIMUM_CAPACITY ?                  (int)ft : Integer.MAX_VALUE);    &#125;    threshold = newThr;            第三部分    @SuppressWarnings(&#123;&quot;rawtypes&quot;,&quot;unchecked&quot;&#125;)    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])new Node[newCap];创建新Node数组    table = newTab;\t\t        if (oldTab != null) &#123;    \t如果旧数组为空，则不需要复制；不为空就需要执行下面的赋值        for (int j = 0; j &lt; oldCap; ++j) &#123;循环遍历数组           \t判断下当前位置是否有值，没有则跳过，有就将旧的复制到新的里面            Node&lt;K,V&gt; e;            if ((e = oldTab[j]) != null) &#123;                oldTab[j] = null;                 HashMap使用数组+链表或者数组+红黑树，需要分三种情况讨论                if (e.next == null)                    说明当前桶内只有一个节点，直接复制                    newTab[e.hash &amp; (newCap - 1)] = e;                else if (e instanceof TreeNode)                    说明是TreeNode的情况                    ((TreeNode&lt;K,V&gt;)e).split(this, newTab, j, oldCap);                else &#123;  preserve order                    链表的情况，而且由于新表是原表的两倍大。对于新表的哈希地址其实有两种情况，低位和高位，分别对应c1，c2                    Node&lt;K,V&gt; loHead = null, loTail = null;                    Node&lt;K,V&gt; hiHead = null, hiTail = null;                    Node&lt;K,V&gt; next;                    do &#123;                        next = e.next;                        if ((e.hash &amp; oldCap) == 0) &#123;                            c1  如果等于0 说明e.hash的第i位是0,因为oldcap的第i位是1，当我们把newcap=oldcap&lt;&lt;1时，e.hash&amp;newCap-1不会发生变化                            说明是要放在低位                            if (loTail == null)                                loHead = e;                            else                                loTail.next = e;                            loTail = e;                        &#125;                        else &#123;                            c2                            说明要放在高位                            if (hiTail == null)                                hiHead = e;                            else                                hiTail.next = e;                            hiTail = e;                        &#125;                    &#125; while ((e = next) != null);                    if (loTail != null) &#123;                        将低位链表放在低位                        loTail.next = null;                        newTab[j] = loHead;                    &#125;                    if (hiTail != null) &#123;                        将低位链表放在高位                        hiTail.next = null;                        newTab[j + oldCap] = hiHead;                    &#125;                &#125;            &#125;        &#125;    &#125;    return newTab;&#125;\n下面是TreeNode类的静态方法split，将某个树枝拆分为高位树枝和低位树枝\n1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556** * Splits nodes in a tree bin into lower and upper tree bins, * or untreeifies if now too small. Called only from resize; * see above discussion about split bits and indices. * * @param map the map * @param tab the table for recording bin heads * @param index the index of the table being split * @param bit the bit of hash to split on *final void split(HashMap&lt;K,V&gt; map, Node&lt;K,V&gt;[] tab, int index, int bit) &#123;    TreeNode&lt;K,V&gt; b = this;     Relink into lo and hi lists, preserving order    TreeNode&lt;K,V&gt; loHead = null, loTail = null;    TreeNode&lt;K,V&gt; hiHead = null, hiTail = null;    int lc = 0, hc = 0;    for (TreeNode&lt;K,V&gt; e = b, next; e != null; e = next) &#123;        next = (TreeNode&lt;K,V&gt;)e.next;        e.next = null;        if ((e.hash &amp; bit) == 0) &#123;            if ((e.prev = loTail) == null)                loHead = e;            else                loTail.next = e;            loTail = e;            ++lc;        &#125;        else &#123;            if ((e.prev = hiTail) == null)                hiHead = e;            else                hiTail.next = e;            hiTail = e;            ++hc;        &#125;    &#125;    if (loHead != null) &#123;        if (lc &lt;= UNTREEIFY_THRESHOLD)            tab[index] = loHead.untreeify(map);        else &#123;            tab[index] = loHead;            if (hiHead != null)  (else is already treeified)                loHead.treeify(tab);        &#125;    &#125;    if (hiHead != null) &#123;        if (hc &lt;= UNTREEIFY_THRESHOLD)            tab[index + bit] = hiHead.untreeify(map);        else &#123;            tab[index + bit] = hiHead;            if (loHead != null)                hiHead.treeify(tab);        &#125;    &#125;&#125;\n\n\n202132未完\n","tags":["Java"],"path":"2021/03/01/HashMap/","external_link":""}]';
+
+	s = s.replace(/\\n/g, "\\n")
+               .replace(/\\'/g, "\\'")
+               .replace(/\\"/g, '\\"')
+               .replace(/\\&/g, "\\&")
+               .replace(/\\r/g, "\\r")
+               .replace(/\\t/g, "\\t")
+               .replace(/\\b/g, "\\b")
+               .replace(/\\f/g, "\\f")
+
+// remove non-printable and other non-valid JSON chars
+	s = s.replace(/[\u0000-\u0019]+/g,"");
+	var list = JSON.parse(s);
+	var fuse = new Fuse(list, options);
+	var el = document.getElementById('search-form');
+	var newBox = $('.Card-archive').first().clone();
+	el.oninput = function(event){
+		var searchText = el.value;
+		var result = fuse.search(searchText);
+		$('.archive-cards .Card-archive').remove();
+		for(var i in result){
+			var anotherBox = newBox.clone();
+			var dateStr = new Date(result[i].date);
+			anotherBox.css('display','flex');
+			var url = "";
+			if(result[i].external_link !== ""){
+				url = result[i].external_link;
+			}else{
+				url = '/' + result[i].path;
+			}
+
+			anotherBox.find('.Card-title a').text(result[i].title).attr('href', url);
+			anotherBox.find('.Card-date').text(dateStr.toDateString());
+			anotherBox.appendTo('.archive-cards');
+		}
 	}
 </script>
 
-<!-- Import prettify js  -->
+<div class='tagcloud-container'>
+<div class='tag-cloud'>
+	<a href="/tags/Java/" style="font-size: 2em; color: #d63e0a">Java</a> <a href="/tags/Kinect/" style="font-size: 0.8em; color: #488baf">Kinect</a> <a href="/tags/Mysql/" style="font-size: 0.8em; color: #488baf">Mysql</a> <a href="/tags/Redis/" style="font-size: 0.8em; color: #488baf">Redis</a> <a href="/tags/SpringBoot/" style="font-size: 1.4em; color: #8f655d">SpringBoot</a> <a href="/tags/Ubuntu/" style="font-size: 0.8em; color: #488baf">Ubuntu</a> <a href="/tags/leetcode/" style="font-size: 0.8em; color: #488baf">leetcode</a> <a href="/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/" style="font-size: 0.8em; color: #488baf">博客搭建</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 0.8em; color: #488baf">操作系统</a> <a href="/tags/%E6%9D%82%E7%B1%BB/" style="font-size: 0.8em; color: #488baf">杂类</a> <a href="/tags/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" style="font-size: 0.8em; color: #488baf">读书笔记</a>
+</div>
+</div>
+
+  </div>
+
+  
+
+<footer id='footer'>
+    <div class='footer-copyright'>
+        <div>
+            <p> Copyright by <a href="">huajiaohuixiang </a> @ 2021</p>
+            <p>Designed by: <i class="fas fa-paint-brush"></i> <a target="_blank" rel="noopener" href="https://moober.cn">Moober</a> and <i class="fas fa-graduation-cap"></i> <a target="_blank" rel="noopener" href="https://qutang.github.io">Qu Tang</a> &bull; Theme: <a target="_blank" rel="noopener" href="https://hexo-theme-cutie.qutang.dev">Cutie 2.1.4-Taurus</a> &bull; Powered by <a target="_blank" rel="noopener" href="http://hexo.io">Hexo.</a></p>
+        </div>
+    </div>
+    
+    <div class='footer-social'>
+        
+    </div>
+</footer>
+
+  <br>
+
+  <div id="footer-nav" class='footer-nav'>
+		
 
 
 
-<!-- Window Load -->
-<!-- add class for prettify -->
-<script type="text/ls-javascript" id="window-load">
-    $(window).on('load', function() {
-        // Post_Toc parent position fixed
-        $('.post-toc-wrap').parent('.mdl-menu__container').css('position', 'fixed');
-    });
+<nav id="nav">
+	
+	
+	
+	<div class='nav-item' id='nav-item-archive'>
+		
+				<div class='nav-icon'>
+				
+			<a href="/archives/" title='Archives'>
+			<img src="/images/icons/blue-shadow/archive.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class='nav-item' id='nav-item-search'>
+		
+		<div class='nav-icon active_dot'>
+		
+			<a href="/search/" title='Search'>
+			<img src="/images/icons/blue-shadow/search.svg" alt="">
+			</a>
+		</div>
+	</div>
+	<div class="nav-item" id='nav-item-more'>
+		<div class="nav-icon">
+				<a href='#' onclick='onClickMenuIcon(event);' ontouchstart='onClickMenuIcon(event);'>
+				<img src="/images/icons/blue-shadow/menu.svg" alt="">
+				</a>
+		</div>
+		<div class="nav-more-menu">
+				<i class="far fa-times-circle" id='nav-more-menu-close' onclick='onClickNavMenuClose(event);' ontouchstart='onClickNavMenuClose(event);'></i>
+		
+		
+	</div>
+	</div>
+</nav>
+
+	</div>
+
+  
+
+
 
     
+
+
+
+
+
+
+
     
-</script>
-
-<!-- MathJax Load-->
+<script src="/js/lightgallery.min.js"></script>
 
 
-<!-- Bing Background -->
+<script src="/js/lg-zoom.min.js"></script>
 
-
-<script type="text/ls-javascript" id="lazy-load">
-    // Offer LazyLoad
-    queue.offer(function(){
-        $('.lazy').lazyload({
-            effect : 'show'
+<script type='text/javascript'>
+    $(document).ready(function() {
+        $("#lightgallery").lightGallery(); 
+        $(".article-content img").each(function(){
+            console.log($(this).attr('src'))
+            $(this).attr('data-src', $(this).attr('src')).lightGallery({
+                selector: 'this'
+            })
         });
     });
-
-    // Start Queue
-    $(document).ready(function(){
-        setInterval(function(){
-            queue.execNext();
-        },200);
-    });
 </script>
 
-<!-- Custom Footer -->
 
 
 
-<script>
-    var copyrightNow = new Date().getFullYear();
-    var textContent = document.querySelector('span[year]')
 
-    copyrightSince = 0000;
-    if (copyrightSince === copyrightNow||copyrightSince === 0000) {
-        textContent.textContent = copyrightNow
-    } else {
-        textContent.textContent = copyrightSince + ' - ' + copyrightNow
-    }
 
-    (function(){
-        var scriptList = document.querySelectorAll('script[type="text/ls-javascript"]')
+<script type='text/javascript'>
 
-        for (var i = 0; i < scriptList.length; ++i) {
-            var item = scriptList[i];
-            lsloader.runInlineScript(item.id,item.id);
-        }
-    })()
-console.log('\n %c © Material Theme | Version: 1.5.6 | https://github.com/viosey/hexo-theme-material %c \n', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-left-radius:5px;border-bottom-left-radius:5px;', 'color:#455a64;background:#e0e0e0;padding:5px 0;border-top-right-radius:5px;border-bottom-right-radius:5px;');
+  
 </script>
 
-                </main>
-            </div>
-        </body>
-    
+
+
+<!-- 
+<script src="/js/post.js"></script>
+ -->
+
+
+<script src="/js/headroom.min.js"></script>
+
+
+<script data-no-instant type='text/javascript'>
+
+initHeadroom();
+
+changeLayoutOnTouchScreen();
+
+// 
+</script>
+
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
 </html>
