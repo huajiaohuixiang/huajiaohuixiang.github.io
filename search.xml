@@ -4,6 +4,46 @@
   
     
     <entry>
+      <title>目标模块</title>
+      <link href="2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/"/>
+      <url>2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/</url>
+      
+        <content type="html"><![CDATA[<p>1.Lambda表达式<br>2.Stream流计算<br>3.函数式接口</p><p>4.多线程部分</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>习概笔记</title>
+      <link href="2021/03/04/%E4%B9%A0%E6%A6%82/"/>
+      <url>2021/03/04/%E4%B9%A0%E6%A6%82/</url>
+      
+        <content type="html"><![CDATA[<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>天下为私</p><p>大道之行也，天下为公；</p><p>今大道既隐，天下为家；</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 习概 </tag>
+            
+            <tag> 毛概 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>单例模式的实现</title>
       <link href="2021/03/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
       <url>2021/03/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
