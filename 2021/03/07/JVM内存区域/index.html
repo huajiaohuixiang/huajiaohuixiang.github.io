@@ -6,20 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书### ####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####  JVM内存区域分为五大部分： 虚拟机栈   java线程的栈帧，线程的每一个方法会生成一个栈帧，用于存放该线程的局部变量表、操作数栈、动态连接、方法出口等信息。随着方法的调">
+    <meta name="description" content="###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书#######Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####1.JVM内存区域分为五大部分：虚拟机栈   java线程的栈帧，线程的每一个方法会生成一个栈帧，用于存放该线程的局部变量表、操作数栈、动态连接、方法出口等信息。随着方法的调用与">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM内存区域">
 <meta property="og:url" content="https://huajiaohuixiang.github.io/2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/index.html">
 <meta property="og:site_name" content="花椒茴香的个人博客">
-<meta property="og:description" content="###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书### ####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####  JVM内存区域分为五大部分： 虚拟机栈   java线程的栈帧，线程的每一个方法会生成一个栈帧，用于存放该线程的局部变量表、操作数栈、动态连接、方法出口等信息。随着方法的调">
+<meta property="og:description" content="###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书#######Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####1.JVM内存区域分为五大部分：虚拟机栈   java线程的栈帧，线程的每一个方法会生成一个栈帧，用于存放该线程的局部变量表、操作数栈、动态连接、方法出口等信息。随着方法的调用与">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210307141614043.png">
 <meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210307142929097.png">
 <meta property="article:published_time" content="2021-03-07T02:37:27.000Z">
-<meta property="article:modified_time" content="2021-03-07T06:31:30.228Z">
+<meta property="article:modified_time" content="2021-03-07T16:17:10.126Z">
 <meta property="article:author" content="huajiaohuixiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="JVM">
+<meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210307141614043.png">
     
@@ -86,6 +87,8 @@
     <span id="actions">
       <ul>
         
+        <li><a class="icon" href="/2021/03/07/Java%E5%9F%BA%E7%A1%80/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
         
         <li><a class="icon" href="/2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
         
@@ -115,7 +118,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E4%BA%86%E5%A5%BD%E5%A4%9A%E9%9D%A2%E7%BB%8F%EF%BC%8C%E6%84%9F%E8%A7%89%E8%BF%98%E6%98%AF%E8%A6%81%E7%9C%8B%E4%B9%A6%EF%BC%8C%E7%84%B6%E5%90%8E%E8%87%AA%E5%B7%B1%E6%95%B4%E7%90%86%E4%B8%80%E4%B8%8B-%E4%BA%8E%E6%98%AF%E5%86%B3%E5%AE%9A%E7%9C%8B%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%99%E6%9C%AC%E4%B9%A6"><span class="toc-number">1.</span> <span class="toc-text">###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Java%E4%B8%8EC-%E4%B9%8B%E9%97%B4%E6%9C%89%E4%B8%80%E5%A0%B5%E7%94%B1%E5%86%85%E5%AD%98%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%92%8C%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E6%8A%80%E6%9C%AF%E6%89%80%E5%9B%B4%E6%88%90%E7%9A%84%E9%AB%98%E5%A2%99%EF%BC%8C%E5%A2%99%E5%A4%96%E9%9D%A2%E7%9A%84%E4%BA%BA%E6%83%B3%E8%BF%9B%E5%8E%BB%EF%BC%8C%E5%A2%99%E9%87%8C-%E9%9D%A2%E7%9A%84%E4%BA%BA%E5%8D%B4%E6%83%B3%E5%87%BA%E6%9D%A5%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%86%E4%B8%BA%E4%BA%94%E5%A4%A7%E9%83%A8%E5%88%86%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">1.JVM内存区域分为五大部分：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-number">1.</span> <span class="toc-text">虚拟机栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88-Native%E6%96%B9%E6%B3%95%E7%9A%84%E6%A0%88%E5%B8%A7-%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%E5%B7%AE%E4%B8%8D%E5%A4%9A%EF%BC%8C%E5%8F%AA%E4%B8%8D%E8%BF%87%E6%98%AF%E8%B0%83%E7%94%A8ni%E6%96%B9%E6%B3%95%E7%9A%84%E6%A0%88%E5%B8%A7"><span class="toc-number">2.</span> <span class="toc-text">本地方法栈 Native方法的栈帧  和虚拟机栈差不多，只不过是调用ni方法的栈帧</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A0%86-%E5%87%A0%E4%B9%8E%E6%89%80%E6%9C%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="toc-number">3.</span> <span class="toc-text">堆  几乎所有的对象都在这里分配内存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA-%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">方法区 ：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">程序计数器：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%EF%BC%9A%EF%BC%88%E6%AF%8F%E4%B8%80%E6%AD%A5%E8%AF%A6%E7%BB%86%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-number"></span> <span class="toc-text">2.Java对象的创建过程：（每一步详细实现）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">3.对象访问定位的方式：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%B8%8E%E5%9B%9E%E6%94%B6%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">4.JVM内存分配与回收：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E5%A0%86%E5%86%85%E5%AD%98%E4%B8%AD%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%AD%96%E7%95%A5%EF%BC%9A2%E7%A7%8D"><span class="toc-number"></span> <span class="toc-text">5堆内存中对象分配的基本策略：2种</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">1.</span> <span class="toc-text">并发问题如何解决</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%AD%BB%E4%BA%A1%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">6.如何判断对象是否死亡：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#GCRoots%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">GCRoots有哪些？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%B8%B8%E9%87%8F%E6%98%AF%E5%90%A6%E6%97%A0%E7%94%A8%EF%BC%8C%E7%B1%BB%E6%98%AF%E5%90%A6%E6%97%A0%E7%94%A8%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">7.如何判断常量是否无用，类是否无用？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-GC%E7%9A%84%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F3%E7%A7%8D"><span class="toc-number"></span> <span class="toc-text">8.GC的算法有哪些？3种</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">9.常见的垃圾回收器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-HotSpot%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">10.HotSpot虚拟机实现：</span></a>
     </div>
   </span>
 </div>
@@ -150,7 +153,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/JVM/" rel="tag">JVM</a>, <a class="tag-link-link" href="/tags/Java/" rel="tag">Java</a>
+        <a class="tag-link-link" href="/tags/JVM/" rel="tag">JVM</a>, <a class="tag-link-link" href="/tags/Java/" rel="tag">Java</a>, <a class="tag-link-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
     </div>
 
 
@@ -159,23 +162,49 @@
   
 
   <div class="content" itemprop="articleBody">
-    <p>###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</p>
-<p>####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####</p>
-<p> JVM内存区域分为五大部分：<br> 虚拟机栈   java线程的栈帧，线程的每一个方法会生成一个栈帧，用于存放该线程的局部变量表、操作数栈、动态连接、方法出口等信息。随着方法的调用与结束，对应着入栈与出栈；局部变量表中存放着方法参数和内部定义的局部变量，基本存储单位是方法槽。<br>    动态连接：每个栈帧都包含一个指向运行时常量池中该栈帧所属方法的引用，这个引用是为了支持方法调用过程中的动态连接(DynamicLinking) 这些符号引用一部分会在类加载阶段或者第一次使用的时候就被转化为直接引用，这种转化被称为静态解析  另外一部分符号引用将在每一次运行期间都转化为直接引用，这部分就称为动态连接<br>    操作数栈：java虚拟机栈中的一个用于计算的临时数据存储区</p>
-<p> 本地方法栈 Native方法的栈帧  和虚拟机栈差不多，只不过是调用ni方法的栈帧</p>
-<p> 堆  几乎所有的对象都在这里分配内存     </p>
-<p> 方法区 ：方法区（Method Area）与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载 的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。</p>
-<p> 程序计数器： 当前线程字节码文件的行号指示器，通过改变该计数器的值来获得下一步执行的字节码指令；程序控制流的指示器，程序当中的分支、循环、线程恢复、跳转、异常处理都要由它指示。由于Java虚拟机通过时间片轮转实现多线程，所以每一个线程都需要一个程序计数器记录当前执行的位置。</p>
-<p> 垃圾回收：</p>
-<p> 3个算法：</p>
-<p> HotSpot虚拟机实现：</p>
-<p>七个收集器（三个新生代 三个老年代 G1通吃）</p>
+    <h5 id="看了好多面经，感觉还是要看书，然后自己整理一下-于是决定看深入理解java虚拟机这本书"><a href="#看了好多面经，感觉还是要看书，然后自己整理一下-于是决定看深入理解java虚拟机这本书" class="headerlink" title="###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###"></a>###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</h5><h5 id="Java与C-之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里-面的人却想出来。"><a href="#Java与C-之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里-面的人却想出来。" class="headerlink" title="####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####"></a>####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####</h5><h4 id="1-JVM内存区域分为五大部分："><a href="#1-JVM内存区域分为五大部分：" class="headerlink" title="1.JVM内存区域分为五大部分："></a>1.JVM内存区域分为五大部分：</h4><h5 id="虚拟机栈"><a href="#虚拟机栈" class="headerlink" title="虚拟机栈"></a>虚拟机栈</h5><p>   java线程的栈帧，线程的每一个方法会生成一个栈帧，用于存放该线程的局部变量表、操作数栈、动态连接、方法出口等信息。随着方法的调用与结束，对应着入栈与出栈；局部变量表中存放着方法参数和内部定义的局部变量，基本存储单位是方法槽。<br>    动态连接：每个栈帧都包含一个指向运行时常量池中该栈帧所属方法的引用，这个引用是为了支持方法调用过程中的动态连接(DynamicLinking) 这些符号引用一部分会在类加载阶段或者第一次使用的时候就被转化为直接引用，这种转化被称为静态解析  另外一部分符号引用将在每一次运行期间都转化为直接引用，这部分就称为动态连接<br>    操作数栈：java虚拟机栈中的一个用于计算的临时数据存储区</p>
+<h5 id="本地方法栈-Native方法的栈帧-和虚拟机栈差不多，只不过是调用ni方法的栈帧"><a href="#本地方法栈-Native方法的栈帧-和虚拟机栈差不多，只不过是调用ni方法的栈帧" class="headerlink" title="本地方法栈 Native方法的栈帧  和虚拟机栈差不多，只不过是调用ni方法的栈帧"></a>本地方法栈 Native方法的栈帧  和虚拟机栈差不多，只不过是调用ni方法的栈帧</h5><h5 id="堆-几乎所有的对象都在这里分配内存"><a href="#堆-几乎所有的对象都在这里分配内存" class="headerlink" title="堆  几乎所有的对象都在这里分配内存"></a>堆  几乎所有的对象都在这里分配内存</h5><h5 id="方法区-："><a href="#方法区-：" class="headerlink" title="方法区 ："></a>方法区 ：</h5><p>方法区（Method Area）与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载 的类型信息、常量、静态变量、即时编译器编译后的代码缓存等数据。</p>
+<h5 id="程序计数器："><a href="#程序计数器：" class="headerlink" title="程序计数器："></a>程序计数器：</h5><p> 当前线程字节码文件的行号指示器，通过改变该计数器的值来获得下一步执行的字节码指令；程序控制流的指示器，程序当中的分支、循环、线程恢复、跳转、异常处理都要由它指示。由于Java虚拟机通过时间片轮转实现多线程，所以每一个线程都需要一个程序计数器记录当前执行的位置。</p>
+<h4 id="2-Java对象的创建过程：（每一步详细实现）"><a href="#2-Java对象的创建过程：（每一步详细实现）" class="headerlink" title="2.Java对象的创建过程：（每一步详细实现）"></a>2.Java对象的创建过程：（每一步详细实现）</h4><p>​    检查类是否加载</p>
+<p>​    分配内存，在堆中分配内存</p>
+<p>​    初始化   为变量赋默认值</p>
+<p>​    设置对象头</p>
+<p>​    执行init</p>
+<h4 id="3-对象访问定位的方式："><a href="#3-对象访问定位的方式：" class="headerlink" title="3.对象访问定位的方式："></a>3.对象访问定位的方式：</h4><p>​    句柄池：每一个句柄   数据结构中包括对象数据的指针以及类的指针</p>
+<p>​    直接指针 在对象数据中存放类指针</p>
+<h4 id="4-JVM内存分配与回收："><a href="#4-JVM内存分配与回收：" class="headerlink" title="4.JVM内存分配与回收："></a>4.JVM内存分配与回收：</h4><p>​    大对象直接放在老年代</p>
+<p>​     对象有限在eden分配</p>
+<p>​    长期存活的对象进入老年代</p>
+<h4 id="5堆内存中对象分配的基本策略：2种"><a href="#5堆内存中对象分配的基本策略：2种" class="headerlink" title="5堆内存中对象分配的基本策略：2种"></a>5堆内存中对象分配的基本策略：2种</h4><p>​    碰撞指针、空闲表</p>
+<h5 id="并发问题如何解决"><a href="#并发问题如何解决" class="headerlink" title="并发问题如何解决"></a>并发问题如何解决</h5><p>   CAS乐观锁+失败重试   先创建失败了就重试  </p>
+<p>   TLAB  为每个线程在Eden初设一点内存，现在TLAB分配 当TLAB用完后，用CAS+失败重试</p>
+<h4 id="6-如何判断对象是否死亡："><a href="#6-如何判断对象是否死亡：" class="headerlink" title="6.如何判断对象是否死亡："></a>6.如何判断对象是否死亡：</h4><p>​    如果没有任何一个对象引用该对象则判断为死亡（可达性方法）</p>
+<p>​     （引用计数法）没引用一次加一取消引用减一；不好解决互相引用的问题；</p>
+<h5 id="GCRoots有哪些？"><a href="#GCRoots有哪些？" class="headerlink" title="GCRoots有哪些？"></a>GCRoots有哪些？</h5><p>​        虚拟机栈中引用的对象，本地方法栈中引用的对象</p>
+<p>​        方法区中常量引用的对象，方法区中类静态属性引用的对象</p>
+<h4 id="7-如何判断常量是否无用，类是否无用？"><a href="#7-如何判断常量是否无用，类是否无用？" class="headerlink" title="7.如何判断常量是否无用，类是否无用？"></a>7.如何判断常量是否无用，类是否无用？</h4><p>​    常量无用：没有引用即可</p>
+<p>​    类无用：该Class类没有被引用、没有该类的对象还在存活、该类的ClassLoader已经销毁</p>
+<h4 id="8-GC的算法有哪些？3种"><a href="#8-GC的算法有哪些？3种" class="headerlink" title="8.GC的算法有哪些？3种"></a>8.GC的算法有哪些？3种</h4><p>​    标记-清除 （可以标记被清除的，也可以标记不被清除的）造成空间破碎</p>
+<p>​    标记 复制 （可利用空间减半）</p>
+<p>​    标记 整理 老年代专用</p>
+<h4 id="9-常见的垃圾回收器"><a href="#9-常见的垃圾回收器" class="headerlink" title="9.常见的垃圾回收器"></a>9.常见的垃圾回收器</h4><p>​    七个收集器（三个新生代 三个老年代 G1通吃）</p>
 <img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210307141614043.png" alt="image-20210307141614043" style="zoom: 50%;" />
 
-<p>。而G1跳出了这个樊笼，它可以面向堆内存任 何部分来组成回收集（Collection Set，一般简称CSet）进行回收，衡量标准不再是它属于哪个分代，而 是哪块内存中存放的垃圾数量最多，回收收益最大，这就是G1收集器的Mixed GC模式</p>
+
+
+<p>G1跳出了这个樊笼，它可以面向堆内存任 何部分来组成回收集（Collection Set，一般简称CSet）进行回收，衡量标准不再是它属于哪个分代，而 是哪块内存中存放的垃圾数量最多，回收收益最大，这就是G1收集器的Mixed GC模式</p>
 <p>G1开创的基于Region的堆内存布局是它能够实现这个目标的关键。虽然G1也仍是遵循分代收集理 论设计的，但其堆内存的布局与其他收集器有非常明显的差异：G1不再坚持固定大小以及固定数量的 分代区域划分，而是把连续的Java堆划分为多个大小相等的独立区域（Region），每一个Region都可以根据需要，扮演新生代的Eden空间、Survivor空间，或者老年代空间。收集器能够对扮演不同角色的 Region采用不同的策略去处理，这样无论是新创建的对象还是已经存活了一段时间、熬过多次收集的 旧对象都能获取很好的收集效果。</p>
 <p>两个支持低延迟垃圾收集器（ZGC  、 Sh。。。）以把垃圾收集的停顿时间限制在十毫秒以内的低延迟</p>
 <img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210307142929097.png" alt="image-20210307142929097" style="zoom:50%;" />
+
+
+
+
+
+
+
+<h4 id="10-HotSpot虚拟机实现："><a href="#10-HotSpot虚拟机实现：" class="headerlink" title="10.HotSpot虚拟机实现："></a>10.HotSpot虚拟机实现：</h4><p>根节点枚举、安全点、写屏障</p>
+
   </div>
 </article>
 
@@ -204,7 +233,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%9C%8B%E4%BA%86%E5%A5%BD%E5%A4%9A%E9%9D%A2%E7%BB%8F%EF%BC%8C%E6%84%9F%E8%A7%89%E8%BF%98%E6%98%AF%E8%A6%81%E7%9C%8B%E4%B9%A6%EF%BC%8C%E7%84%B6%E5%90%8E%E8%87%AA%E5%B7%B1%E6%95%B4%E7%90%86%E4%B8%80%E4%B8%8B-%E4%BA%8E%E6%98%AF%E5%86%B3%E5%AE%9A%E7%9C%8B%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%BF%99%E6%9C%AC%E4%B9%A6"><span class="toc-number">1.</span> <span class="toc-text">###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Java%E4%B8%8EC-%E4%B9%8B%E9%97%B4%E6%9C%89%E4%B8%80%E5%A0%B5%E7%94%B1%E5%86%85%E5%AD%98%E5%8A%A8%E6%80%81%E5%88%86%E9%85%8D%E5%92%8C%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E6%8A%80%E6%9C%AF%E6%89%80%E5%9B%B4%E6%88%90%E7%9A%84%E9%AB%98%E5%A2%99%EF%BC%8C%E5%A2%99%E5%A4%96%E9%9D%A2%E7%9A%84%E4%BA%BA%E6%83%B3%E8%BF%9B%E5%8E%BB%EF%BC%8C%E5%A2%99%E9%87%8C-%E9%9D%A2%E7%9A%84%E4%BA%BA%E5%8D%B4%E6%83%B3%E5%87%BA%E6%9D%A5%E3%80%82"><span class="toc-number">2.</span> <span class="toc-text">####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E5%88%86%E4%B8%BA%E4%BA%94%E5%A4%A7%E9%83%A8%E5%88%86%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">1.JVM内存区域分为五大部分：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88"><span class="toc-number">1.</span> <span class="toc-text">虚拟机栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%96%B9%E6%B3%95%E6%A0%88-Native%E6%96%B9%E6%B3%95%E7%9A%84%E6%A0%88%E5%B8%A7-%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%A0%88%E5%B7%AE%E4%B8%8D%E5%A4%9A%EF%BC%8C%E5%8F%AA%E4%B8%8D%E8%BF%87%E6%98%AF%E8%B0%83%E7%94%A8ni%E6%96%B9%E6%B3%95%E7%9A%84%E6%A0%88%E5%B8%A7"><span class="toc-number">2.</span> <span class="toc-text">本地方法栈 Native方法的栈帧  和虚拟机栈差不多，只不过是调用ni方法的栈帧</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A0%86-%E5%87%A0%E4%B9%8E%E6%89%80%E6%9C%89%E7%9A%84%E5%AF%B9%E8%B1%A1%E9%83%BD%E5%9C%A8%E8%BF%99%E9%87%8C%E5%88%86%E9%85%8D%E5%86%85%E5%AD%98"><span class="toc-number">3.</span> <span class="toc-text">堆  几乎所有的对象都在这里分配内存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E5%8C%BA-%EF%BC%9A"><span class="toc-number">4.</span> <span class="toc-text">方法区 ：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E8%AE%A1%E6%95%B0%E5%99%A8%EF%BC%9A"><span class="toc-number">5.</span> <span class="toc-text">程序计数器：</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Java%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B%EF%BC%9A%EF%BC%88%E6%AF%8F%E4%B8%80%E6%AD%A5%E8%AF%A6%E7%BB%86%E5%AE%9E%E7%8E%B0%EF%BC%89"><span class="toc-number"></span> <span class="toc-text">2.Java对象的创建过程：（每一步详细实现）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AF%B9%E8%B1%A1%E8%AE%BF%E9%97%AE%E5%AE%9A%E4%BD%8D%E7%9A%84%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">3.对象访问定位的方式：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-JVM%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E4%B8%8E%E5%9B%9E%E6%94%B6%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">4.JVM内存分配与回收：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5%E5%A0%86%E5%86%85%E5%AD%98%E4%B8%AD%E5%AF%B9%E8%B1%A1%E5%88%86%E9%85%8D%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%AD%96%E7%95%A5%EF%BC%9A2%E7%A7%8D"><span class="toc-number"></span> <span class="toc-text">5堆内存中对象分配的基本策略：2种</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-number">1.</span> <span class="toc-text">并发问题如何解决</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E6%AD%BB%E4%BA%A1%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">6.如何判断对象是否死亡：</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#GCRoots%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">GCRoots有哪些？</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E5%B8%B8%E9%87%8F%E6%98%AF%E5%90%A6%E6%97%A0%E7%94%A8%EF%BC%8C%E7%B1%BB%E6%98%AF%E5%90%A6%E6%97%A0%E7%94%A8%EF%BC%9F"><span class="toc-number"></span> <span class="toc-text">7.如何判断常量是否无用，类是否无用？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-GC%E7%9A%84%E7%AE%97%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F3%E7%A7%8D"><span class="toc-number"></span> <span class="toc-text">8.GC的算法有哪些？3种</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="toc-number"></span> <span class="toc-text">9.常见的垃圾回收器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-HotSpot%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%9E%E7%8E%B0%EF%BC%9A"><span class="toc-number"></span> <span class="toc-text">10.HotSpot虚拟机实现：</span></a>
     </div>
 
     <div id="share-footer" style="display: none">
