@@ -4,11 +4,32 @@
   
     
     <entry>
+      <title>JVM内存区域</title>
+      <link href="2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/"/>
+      <url>2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</url>
+      
+        <content type="html"><![CDATA[<p>###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</p><p>####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。#### </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> JVM </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>目标模块</title>
       <link href="2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/"/>
       <url>2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/</url>
       
-        <content type="html"><![CDATA[<p>1.Lambda表达式<br>2.Stream流计算<br>3.函数式接口</p><p>4.多线程部分</p>]]></content>
+        <content type="html"><![CDATA[<p>1.Lambda表达式<br>2.Stream流计算<br>3.函数式接口</p><p>4.多线程部分</p><p>5.JVM虚拟机</p>]]></content>
       
       
       

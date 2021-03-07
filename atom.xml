@@ -6,7 +6,7 @@
   <link href="https://huajiaohuixiang.github.io/atom.xml" rel="self"/>
   
   <link href="https://huajiaohuixiang.github.io/"/>
-  <updated>2021-03-05T00:27:29.128Z</updated>
+  <updated>2021-03-07T03:35:11.482Z</updated>
   <id>https://huajiaohuixiang.github.io/</id>
   
   <author>
@@ -17,19 +17,47 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>JVM内存区域</title>
+    <link href="https://huajiaohuixiang.github.io/2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/"/>
+    <id>https://huajiaohuixiang.github.io/2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</id>
+    <published>2021-03-07T02:37:27.000Z</published>
+    <updated>2021-03-07T03:35:11.482Z</updated>
+    
+    <content type="html"><![CDATA[<p>###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</p><p>####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。#### </p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###&lt;/p&gt;
+&lt;p&gt;####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####
+ &lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="Java" scheme="https://huajiaohuixiang.github.io/tags/Java/"/>
+    
+    <category term="JVM" scheme="https://huajiaohuixiang.github.io/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
     <title>目标模块</title>
     <link href="https://huajiaohuixiang.github.io/2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/"/>
     <id>https://huajiaohuixiang.github.io/2021/03/05/%E7%9B%AE%E6%A0%87%E6%A8%A1%E5%9D%97/</id>
     <published>2021-03-05T00:21:17.000Z</published>
-    <updated>2021-03-05T00:27:29.128Z</updated>
+    <updated>2021-03-07T02:36:32.530Z</updated>
     
-    <content type="html"><![CDATA[<p>1.Lambda表达式<br>2.Stream流计算<br>3.函数式接口</p><p>4.多线程部分</p>]]></content>
+    <content type="html"><![CDATA[<p>1.Lambda表达式<br>2.Stream流计算<br>3.函数式接口</p><p>4.多线程部分</p><p>5.JVM虚拟机</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;1.Lambda表达式&lt;br&gt;2.Stream流计算&lt;br&gt;3.函数式接口&lt;/p&gt;
 &lt;p&gt;4.多线程部分&lt;/p&gt;
+&lt;p&gt;5.JVM虚拟机&lt;/p&gt;
 </summary>
       
     
@@ -410,30 +438,6 @@
       
     <summary type="html">&lt;p&gt;java模块&lt;/p&gt;
 &lt;p&gt;参考资料：&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/1252599548343744/1281795926523938&quot;&gt;https://www.liaoxuefeng.com/wiki/12525995</summary>
-      
-    
-    
-    
-    
-    <category term="Java" scheme="https://huajiaohuixiang.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>修饰符</title>
-    <link href="https://huajiaohuixiang.github.io/2021/02/21/4%E4%BF%AE%E9%A5%B0%E7%AC%A6/"/>
-    <id>https://huajiaohuixiang.github.io/2021/02/21/4%E4%BF%AE%E9%A5%B0%E7%AC%A6/</id>
-    <published>2021-02-21T02:31:04.000Z</published>
-    <updated>2021-02-21T05:45:53.537Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h4><p>private  只能自己访问，子类extends后也不能访问</p><p>protected  子类可以访问</p><p>默认的（无） 同一个包内</p><p>public 所有都可以访问</p><h4 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h4><p>final  该类不能被继承</p><p>sealed + permits 指定某些类继承</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> sealed <span class="class"><span class="keyword">class</span> <span class="title">Shape</span> <span class="title">permits</span> <span class="title">a</span>,<span class="title">b</span>,<span class="title">c</span></span>&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="interface接口的default方法"><a href="#interface接口的default方法" class="headerlink" title="interface接口的default方法"></a>interface接口的default方法</h4><p>因为接口没有字段，所以接口无法定义非抽象的函数，这时候需要default修饰符来实现default方法，可以给予实现。default方法的目的主要是因为如果想往接口中增加一个方法但是又会影响所有实现接口的类都要实现该新增的方法，使用default便可以不影响所有类。</p><h4 id="static"><a href="#static" class="headerlink" title="static"></a>static</h4><h5 id="static-fields"><a href="#static-fields" class="headerlink" title="static  fields"></a>static  fields</h5><p>​    静态字段</p><p>​    对于接口来说是不能拥有fields的，但是如果你直接写 int a;是不会报错的，因为编译器自动将其转换为了static final int a;</p><h5 id="static-methods"><a href="#static-methods" class="headerlink" title="static methods"></a>static methods</h5><p>​    静态方法主要用于工具方法和辅助方法，例如：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Arrays.sort();</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span>&#123;...&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4 id=&quot;1&quot;&gt;&lt;a href=&quot;#1&quot; class=&quot;headerlink&quot; title=&quot;1.&quot;&gt;&lt;/a&gt;1.&lt;/h4&gt;&lt;p&gt;private  只能自己访问，子类extends后也不能访问&lt;/p&gt;
-&lt;p&gt;protected  子类可以访问&lt;/p&gt;
-&lt;p&gt;默认的（无） 同</summary>
       
     
     
