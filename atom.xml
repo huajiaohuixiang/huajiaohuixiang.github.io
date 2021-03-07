@@ -6,7 +6,7 @@
   <link href="https://huajiaohuixiang.github.io/atom.xml" rel="self"/>
   
   <link href="https://huajiaohuixiang.github.io/"/>
-  <updated>2021-03-07T03:35:11.482Z</updated>
+  <updated>2021-03-07T03:37:48.845Z</updated>
   <id>https://huajiaohuixiang.github.io/</id>
   
   <author>
@@ -21,16 +21,15 @@
     <link href="https://huajiaohuixiang.github.io/2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/"/>
     <id>https://huajiaohuixiang.github.io/2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/</id>
     <published>2021-03-07T02:37:27.000Z</published>
-    <updated>2021-03-07T03:35:11.482Z</updated>
+    <updated>2021-03-07T03:37:48.845Z</updated>
     
-    <content type="html"><![CDATA[<p>###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</p><p>####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。#### </p>]]></content>
+    <content type="html"><![CDATA[<p>###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###</p><p>####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####</p>]]></content>
     
     
       
       
     <summary type="html">&lt;p&gt;###看了好多面经，感觉还是要看书，然后自己整理一下,于是决定看深入理解java虚拟机这本书###&lt;/p&gt;
-&lt;p&gt;####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####
- &lt;/p&gt;
+&lt;p&gt;####Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的高墙，墙外面的人想进去，墙里 面的人却想出来。####&lt;/p&gt;
 </summary>
       
     
