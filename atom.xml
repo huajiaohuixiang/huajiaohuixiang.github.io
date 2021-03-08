@@ -6,7 +6,7 @@
   <link href="https://huajiaohuixiang.github.io/atom.xml" rel="self"/>
   
   <link href="https://huajiaohuixiang.github.io/"/>
-  <updated>2021-03-07T15:56:16.066Z</updated>
+  <updated>2021-03-08T02:54:14.303Z</updated>
   <id>https://huajiaohuixiang.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="https://huajiaohuixiang.github.io/2021/03/08/%E9%98%BF%E9%87%8C3.6%E7%AC%94%E8%AF%95%E9%A2%982/"/>
+    <id>https://huajiaohuixiang.github.io/2021/03/08/%E9%98%BF%E9%87%8C3.6%E7%AC%94%E8%AF%95%E9%A2%982/</id>
+    <published>2021-03-08T02:33:15.038Z</published>
+    <updated>2021-03-08T02:54:14.303Z</updated>
+    
+    <content type="html"><![CDATA[<p>给定N条线路</p><p>每条线路经过一些站点，判断能否从一个点到达另一个点；</p><p>floyd算法，但不需要求最短路径</p><p>输入：</p><p>2 3 6  两条线路 3起始站 6终点站</p><p>3    第i个线路经过几个站</p><p>1 6 7</p><p>4</p><p> 2 3 4 7</p><p>返回true</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;给定N条线路&lt;/p&gt;
+&lt;p&gt;每条线路经过一些站点，判断能否从一个点到达另一个点；&lt;/p&gt;
+&lt;p&gt;floyd算法，但不需要求最短路径&lt;/p&gt;
+&lt;p&gt;输入：&lt;/p&gt;
+&lt;p&gt;2 3 6  两条线路 3起始站 6终点站&lt;/p&gt;
+&lt;p&gt;3    第i个线路经过几个站&lt;/p&gt;
+&lt;p&gt;1</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>集合</title>
+    <link href="https://huajiaohuixiang.github.io/2021/03/08/%E9%9B%86%E5%90%88-1/"/>
+    <id>https://huajiaohuixiang.github.io/2021/03/08/%E9%9B%86%E5%90%88-1/</id>
+    <published>2021-03-08T01:21:56.000Z</published>
+    <updated>2021-03-08T01:21:56.948Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title></title>
+    <link href="https://huajiaohuixiang.github.io/2021/03/08/Untitled/"/>
+    <id>https://huajiaohuixiang.github.io/2021/03/08/Untitled/</id>
+    <published>2021-03-08T01:21:06.977Z</published>
+    <updated>2021-03-08T01:21:06.977Z</updated>
+    
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Java基础</title>
@@ -373,74 +425,6 @@
       
     <summary type="html">&lt;p&gt;&lt;img src=&quot;Y:\个人博客\hexo\source\photoes\StringBuffer.png&quot;&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;Y:\个人博客\hexo\source\photoes\StringBuilder.png&quot; alt=&quot;StringBuild</summary>
-      
-    
-    
-    
-    
-    <category term="Java" scheme="https://huajiaohuixiang.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>内部类</title>
-    <link href="https://huajiaohuixiang.github.io/2021/02/21/%E5%86%85%E9%83%A8%E7%B1%BB/"/>
-    <id>https://huajiaohuixiang.github.io/2021/02/21/%E5%86%85%E9%83%A8%E7%B1%BB/</id>
-    <published>2021-02-21T02:47:49.000Z</published>
-    <updated>2021-02-21T15:10:35.584Z</updated>
-    
-    <content type="html"><![CDATA[<p>参考：<a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1376414781669409">https://www.liaoxuefeng.com/wiki/1252599548343744/1376414781669409</a></p><p>嵌套类分为三种内部类 ,匿名类，静态内部类</p><p>InnerClass和匿名类本质上相同，都需要依靠外部类才能实现，静态内部类不需要依赖外部类。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;参考：&lt;a href=&quot;https://www.liaoxuefeng.com/wiki/1252599548343744/1376414781669409&quot;&gt;https://www.liaoxuefeng.com/wiki/1252599548343744/1376414</summary>
-      
-    
-    
-    
-    
-    <category term="Java" scheme="https://huajiaohuixiang.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>多态</title>
-    <link href="https://huajiaohuixiang.github.io/2021/02/21/%E5%A4%9A%E6%80%81/"/>
-    <id>https://huajiaohuixiang.github.io/2021/02/21/%E5%A4%9A%E6%80%81/</id>
-    <published>2021-02-21T02:47:49.000Z</published>
-    <updated>2021-02-21T14:33:08.729Z</updated>
-    
-    <content type="html"><![CDATA[<p>多态：对于某个类型的方法调用，实际调用的方法取决于运行时实际类型的方法。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">(Person p)</span></span>&#123;</span><br><span class="line">p.run();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Class Person&#123;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">&quot;Person&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">Class Teacher extends Person&#123; </span><br><span class="line"><span class="meta">@override</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">System.out.println(<span class="string">&quot;Teacher&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String [] args)</span></span>&#123;</span><br><span class="line">Person p1=<span class="keyword">new</span> Person();</span><br><span class="line">Person p2=<span class="keyword">new</span> Teacher();</span><br><span class="line">run(p1);</span><br><span class="line">    run(p2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>以上代码分别会打印各自的run  ， 因为两者的实际类型不同，通过声明类型传值</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;p&gt;多态：对于某个类型的方法调用，实际调用的方法取决于运行时实际类型的方法。&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br</summary>
-      
-    
-    
-    
-    
-    <category term="Java" scheme="https://huajiaohuixiang.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>枚举类</title>
-    <link href="https://huajiaohuixiang.github.io/2021/02/21/%E6%9E%9A%E4%B8%BE%E7%B1%BB/"/>
-    <id>https://huajiaohuixiang.github.io/2021/02/21/%E6%9E%9A%E4%B8%BE%E7%B1%BB/</id>
-    <published>2021-02-21T02:47:49.000Z</published>
-    <updated>2021-03-02T08:43:06.412Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="枚举类"><a href="#枚举类" class="headerlink" title="枚举类"></a>枚举类</h2><p>我们可以使用这种方式来实现枚举类：</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Weekday</span></span>&#123;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MON=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> Tu=<span class="number">2</span>;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>虽然可以实现，但是在使用的时候会出现问题，编译器不能检测出不在类中的值。</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> day=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(day==Weekday.MON)&#123;</span><br><span class="line">...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>所以我们用enum来实现枚举类:(编译器会将他们编译成final class Weekday extends Enum{…})</p><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Weekday</span></span>&#123;</span><br><span class="line">MON,Tue,Wed,Thur,Fri,Sat,Sun;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>与enum类似的还有record类 14后才有。</p><p>用enum实现单例模式</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h2 id=&quot;枚举类&quot;&gt;&lt;a href=&quot;#枚举类&quot; class=&quot;headerlink&quot; title=&quot;枚举类&quot;&gt;&lt;/a&gt;枚举类&lt;/h2&gt;&lt;p&gt;我们可以使用这种方式来实现枚举类：&lt;/p&gt;
-&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;t</summary>
       
     
     
