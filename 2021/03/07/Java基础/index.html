@@ -14,7 +14,7 @@
 <meta property="og:description" content="面向对象和面向过程的区别 面向对象是一种 对现实世界理解和抽象的方法，是计算机编程技术发展到一定阶段后的产物。 面向过程  (Procedure Oriented) 是一种 以过程为中心 的编程思想。这些都是以什么正在发生为主要目标进行编程，不同于面向对象的是谁在受影响。  Java 语言有哪些特点? 一处编译、到处执行 支持多线程 面向对象 支持网络编程并且很方便 编译与解释并存  关于 JV">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-07T13:41:59.000Z">
-<meta property="article:modified_time" content="2021-03-07T15:56:16.066Z">
+<meta property="article:modified_time" content="2021-03-09T04:31:41.341Z">
 <meta property="article:author" content="huajiaohuixiang">
 <meta property="article:tag" content="Java">
 <meta property="article:tag" content="面试">
@@ -83,7 +83,7 @@
     <span id="actions">
       <ul>
         
-        <li><a class="icon" href="/2021/03/08/Untitled/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        <li><a class="icon" href="/2021/03/08/%E9%9B%86%E5%90%88-1/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
         
         
         <li><a class="icon" href="/2021/03/07/JVM%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
@@ -114,7 +114,7 @@
 
     </div>
     <div id="toc">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-SpringBoot-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是 SpringBoot 自动装配？</span></a></li></ol>
     </div>
   </span>
 </div>
@@ -234,6 +234,15 @@
 <li><p> BIO,NIO,AIO 有什么区别?</p>
 </li>
 </ol>
+<p>20.反射</p>
+<p>JAVA 反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为 java 语言的反射机制。</p>
+<p>RPC远程过程调用</p>
+<h2 id="什么是-SpringBoot-自动装配？"><a href="#什么是-SpringBoot-自动装配？" class="headerlink" title="什么是 SpringBoot 自动装配？"></a>什么是 SpringBoot 自动装配？</h2><p>我们现在提到自动装配的时候，一般会和 Spring Boot 联系在一起。但是，实际上 Spring Framework 早就实现了这个功能。Spring Boot 只是在其基础上，通过 SPI 的方式，做了进一步优化。</p>
+<blockquote>
+<p>SpringBoot 定义了一套接口规范，这套规范规定：SpringBoot 在启动时会扫描外部引用 jar 包中的<code>META-INF/spring.factories</code>文件，将文件中配置的类型信息加载到 Spring 容器（此处涉及到 JVM 类加载机制与 Spring 的容器知识），并执行类中定义的各种操作。对于外部 jar 来说，只需要按照 SpringBoot 定义的标准，就能将自己的功能装置进 SpringBoot。</p>
+</blockquote>
+<p>Spring Boot 通过<code>@EnableAutoConfiguration</code>开启自动装配，通过 SpringFactoriesLoader 最终加载<code>META-INF/spring.factories</code>中的自动配置类实现自动装配，自动配置类其实就是通过<code>@Conditional</code>按需加载的配置类，想要其生效必须引入<code>spring-boot-starter-xxx</code>包实现起步依赖</p>
+<p>如何解决的循环依赖</p>
 
   </div>
 </article>
@@ -263,7 +272,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-SpringBoot-%E8%87%AA%E5%8A%A8%E8%A3%85%E9%85%8D%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">什么是 SpringBoot 自动装配？</span></a></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
