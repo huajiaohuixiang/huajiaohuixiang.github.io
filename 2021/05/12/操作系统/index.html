@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Cmalloc 动态内存分配malloc的全称是memory allocation，中文名为动态内存分配，用于申请一块连续的指定大小的内存块区域以void*类型返回分配的内存区域地址 callocclear allocation，中文名为动态内存分配并清零如果分配成功则返回指向被分配内存的指针**(此空间中的初始值为0)**，否则返回空指针NULL realloc动态内存调整 先判断当前的指针是否">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作系统">
+<meta property="og:url" content="https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="Cmalloc 动态内存分配malloc的全称是memory allocation，中文名为动态内存分配，用于申请一块连续的指定大小的内存块区域以void*类型返回分配的内存区域地址 callocclear allocation，中文名为动态内存分配并清零如果分配成功则返回指向被分配内存的指针**(此空间中的初始值为0)**，否则返回空指针NULL realloc动态内存调整 先判断当前的指针是否">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15744422-0f91fa4d5a55339c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/925/format/webp">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210421104956983.png">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210421105031788.png">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210421105400836.png">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210421105506866.png">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210421105617920.png">
+<meta property="article:published_time" content="2021-05-12T03:32:29.000Z">
+<meta property="article:modified_time" content="2021-05-12T03:33:00.920Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="操作系统">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/15744422-0f91fa4d5a55339c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/925/format/webp">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>操作系统</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/05/12/%E7%BD%91%E7%BB%9C/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&text=操作系统"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&is_video=false&description=操作系统"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=操作系统&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&name=操作系统&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&t=操作系统"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#C"><span class="toc-number">1.</span> <span class="toc-text">C</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.1.</span> <span class="toc-text">malloc 动态内存分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#calloc"><span class="toc-number">1.2.</span> <span class="toc-text">calloc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#realloc"><span class="toc-number">1.3.</span> <span class="toc-text">realloc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#free"><span class="toc-number">1.4.</span> <span class="toc-text">free</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2"><span class="toc-number">2.1.</span> <span class="toc-text">进程切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">孤儿进程和僵尸进程的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%8D%B1%E5%AE%B3%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">僵尸进程危害？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">2.4.</span> <span class="toc-text">如何解决？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.5.</span> <span class="toc-text">守护进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="toc-number">2.6.</span> <span class="toc-text">如何创建守护进程？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%847%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.7.</span> <span class="toc-text">进程间通信的7种方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux%E5%BA%95%E5%B1%82%E6%98%AF%E6%80%8E%E4%B9%88%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="toc-number">2.8.</span> <span class="toc-text">linux底层是怎么创建线程的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#0%E5%8F%B7%E8%BF%9B%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF"><span class="toc-number">2.9.</span> <span class="toc-text">0号进程是什么东西</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.10.</span> <span class="toc-text">进程调度的几种方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%A7%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.11.</span> <span class="toc-text">操作系统的吧，进程、线程和协程分别是什么以及他们之间的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32%E3%80%8164%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-number">2.12.</span> <span class="toc-text">32、64位系统有什么区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">什么是虚拟内存？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">内存分配方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BF%E5%AD%98%E6%AC%A1%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">段页式系统访存次数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">3.4.</span> <span class="toc-text">页面置换算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-number">4.</span> <span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%EF%BC%8C%E5%8F%91%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">死锁，发生的条件以及如何避免？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">如何避免？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%80%E6%8E%89%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B-9-%E4%BB%A3%E8%A1%A8%E4%BB%80%E4%B9%88%EF%BC%88%E5%BC%BA%E5%88%B6%EF%BC%89-%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0-%E3%80%81-%E4%BD%BF%E7%94%A8kill%E5%91%BD%E4%BB%A4%E5%90%8E%EF%BC%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E9%80%9A%E7%9F%A5%E8%BF%9B%E7%A8%8B%E7%9A%84"><span class="toc-number">4.3.</span> <span class="toc-text">杀掉一个进程         -9 代表什么（强制）         还有什么其他参数    、    使用kill命令后，操作系统是如何通知进程的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%8C%E8%99%9A%E5%9C%B0%E5%9D%80%E5%AE%9E%E5%9C%B0%E5%9D%80"><span class="toc-number">4.4.</span> <span class="toc-text">虚拟内存，虚地址实地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6"><span class="toc-number">5.</span> <span class="toc-text">磁盘调度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">磁盘调度算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BD%99"><span class="toc-number">6.</span> <span class="toc-text">其余</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">6.1.</span> <span class="toc-text">系统调用是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AE%E4%B8%B4%E7%95%8C%E5%8C%BA%EF%BC%9F"><span class="toc-number">6.2.</span> <span class="toc-text">两个进程如何访问临界区？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BIO"><span class="toc-number">6.3.</span> <span class="toc-text">BIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NIO"><span class="toc-number">6.4.</span> <span class="toc-text">NIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">6.5.</span> <span class="toc-text">IO多路复用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO"><span class="toc-number">6.6.</span> <span class="toc-text">信号驱动IO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AIO"><span class="toc-number">6.7.</span> <span class="toc-text">AIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll-%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%BD%AE%E8%AF%A2-%E4%B9%9F%E6%98%AFReactor%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">6.8.</span> <span class="toc-text">epoll(基于事件的轮询)  也是Reactor设计模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-poll-%E5%92%8Cepoll%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">6.9.</span> <span class="toc-text">Select poll  和epoll的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select%E3%80%81Poll%E3%80%81Epoll%E8%AF%A6%E8%A7%A3"><span class="toc-number">6.10.</span> <span class="toc-text">Select、Poll、Epoll详解</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        操作系统
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">huajiaohuixiang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-12T03:32:29.000Z" itemprop="datePublished">2021-05-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="tag">操作系统</a>, <a class="tag-link-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="C"><a href="#C" class="headerlink" title="C"></a>C</h3><h4 id="malloc-动态内存分配"><a href="#malloc-动态内存分配" class="headerlink" title="malloc 动态内存分配"></a>malloc 动态内存分配</h4><p>malloc的全称是memory allocation，中文名为<strong>动态内存分配</strong>，用于申请一块连续的指定大小的内存块区域以void*类型返回分配的内存区域地址</p>
+<h4 id="calloc"><a href="#calloc" class="headerlink" title="calloc"></a>calloc</h4><p>clear allocation，中文名为<strong>动态内存分配并清零</strong>如果分配成功则返回指向被分配内存的指针**(此空间中的初始值为0)**，否则返回空指针NULL</p>
+<h4 id="realloc"><a href="#realloc" class="headerlink" title="realloc"></a>realloc</h4><p><strong>动态内存调整</strong></p>
+<p>先判断当前的指针是否有足够的连续空间，如果有，扩大mem_address指向的地址，并且将mem_address返回，如果空间不够，先按照newsize指定的大小分配空间，将原有数据从头到尾拷贝到新分配的内存区域，而后释放原来mem_address所指内存区域(原来的指针会自动释放，不需要再使用free)，同时返回新分配的内存区域的首地址。重新分配成功返回指向被分配内存的指针，否则返回空指针NULL。</p>
+<h4 id="free"><a href="#free" class="headerlink" title="free"></a>free</h4><p>使用malloc,calloc,realloc函数进行内存分配后要使用free(起始地址的指针) 对内存进行释放</p>
+<p>在C++中是new  delete</p>
+<h3 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h3><h4 id="进程切换"><a href="#进程切换" class="headerlink" title="进程切换"></a>进程切换</h4><p><img src="https://upload-images.jianshu.io/upload_images/15744422-0f91fa4d5a55339c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/925/format/webp" alt="img"></p>
+<p>进程切换</p>
+<p>上图展示了进程切换中几个最重要的步骤：</p>
+<ol>
+<li>当一个程序正在执行的过程中， 中断（interrupt） 或 系统调用（system call） 发生可以使得 CPU 的控制权会从当前进程转移到操作系统内核。</li>
+<li>操作系统内核负责保存进程 i 在 CPU 中的上下文（程序计数器， 寄存器）到 PCBi （操作系统分配给进程的一个内存块）中。</li>
+<li>从 PCBj 取出进程 j 的CPU 上下文， 将 CPU 控制权转移给进程 j ， 开始执行进程 j 的指令。</li>
+</ol>
+<h4 id="孤儿进程和僵尸进程的区别？"><a href="#孤儿进程和僵尸进程的区别？" class="headerlink" title="孤儿进程和僵尸进程的区别？"></a>孤儿进程和僵尸进程的区别？</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Anker/p/3271773.html">https://www.cnblogs.com/Anker/p/3271773.html</a></p>
+<p>子进程的结束和父进程的运行是一个异步过程,即父进程永远无法预测子进程 到底什么时候结束。 当一个 进程完成它的工作终止之后，它的父进程需要调用wait()或者waitpid()系统调用取得子进程的终止状态。</p>
+<p>孤儿进程：父进程执行完或被终止，但是它仍在运行。孤儿进程将会被init进行进程号为1的进程收集。</p>
+<p>僵尸进程：是指执行完成后，但是在进程控制块PCB中仍然还有一个表项。一般是由一个进程fork创建子进程，如果子进程退出，但是父进程没有调用wait或waitpid获取子进程的信息，那么子进程的进程描述符仍然在PCB中，这种进程称为姜丝进程。</p>
+<p>每个进程再exit()之后都会成为僵尸进程，但是父进程调用wait后便可以删除PCB中的信息。</p>
+<h4 id="僵尸进程危害？"><a href="#僵尸进程危害？" class="headerlink" title="僵尸进程危害？"></a>僵尸进程危害？</h4><p>孤儿进程会被init进程收集，不会产生危害。</p>
+<p>僵尸进程：但是如果父进程没有调用wait或者waitpid来获取子进程结束的信息，那么PCB中的信息将不会被释放，进程号一直被占用。</p>
+<h4 id="如何解决？"><a href="#如何解决？" class="headerlink" title="如何解决？"></a>如何解决？</h4><p>（1）通过信号，子进程结束的时候向父进程发送一个信号，在信号处理函数中调用wait进行处理僵尸进程。</p>
+<p><strong>（2）fork两次</strong>原理是将子进程成为孤儿进程，从而其的父进程变为init进程，通过init进程可以处理僵尸进程。</p>
+<h4 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h4><p>守护进程是一个在后台运行并且不受任何终端控制的进程。</p>
+<h4 id="如何创建守护进程？"><a href="#如何创建守护进程？" class="headerlink" title="如何创建守护进程？"></a>如何创建守护进程？</h4><p><strong>(1)创建子进程，终止父进程</strong></p>
+<p>由于守护进程是脱离控制终端的，因此首先创建子进程，终止父进程，使得程序在shell终端里造成一个已经运行完毕的假象。之后所有的工作都在子进程中完成，而用户在shell终端里则可以执行其他的命令，从而使得程序以僵尸进程形式运行，在形式上做到了与控制终端的脱离。</p>
+<p><strong>(2)在子进程中创建新会话</strong></p>
+<p>这个步骤是创建守护进程中最重要的一步，在这里使用的是系统函数setsid。</p>
+<p>setsid函数用于创建一个新的会话，并担任该会话组的组长。调用setsid仃三个作用：让进程摆脱原会话的控制、让进程摆脱原进程组的控制和让进程摆脱原控制终端的控制。</p>
+<p>在调用fork函数时，<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%AD%90%E8%BF%9B%E7%A8%8B">子进程</a>全盘拷贝父进程的会话期(session，是一个或多个进程组的集合)、进程组、控制终端等，虽然父进程退出了，但原先的会话期、进程组、控制终端等并没有改变，因此，那还不是真正意义上使两者独立开来。setsid函数能够使进程完全独立出来，从而脱离所有其他进程的控制。</p>
+<p><strong>(3)改变工作目录</strong></p>
+<p>使用fork创建的子进程也继承了父进程的当前工作目录。由于在进程运行过程中，当前目录所在的文件系统不能卸载，因此，把当前工作目录换成其他的路径，如“/”或“/tmp”等。改变工作目录的常见函数是chdir。</p>
+<p><strong>(4)重设文件创建掩码</strong></p>
+<p>文件创建掩码是指屏蔽掉文件创建时的对应位。由于使用fork函数新建的子进程继承了父进程的文件创建掩码，这就给该子进程使用文件带来了诸多的麻烦。因此，把文件创建掩码设置为0，可以大大增强该守护进程的灵活性。设置文件创建掩码的函数是umask，通常的使用方法为umask(0)。</p>
+<p>(5)关闭[文件描述符]</p>
+<p>用fork新建的子进程会从父进程那里继承一些已经打开了的文件。这些被打开的文件可能永远不会被守护进程读或写，但它们一样消耗系统资源，可能导致所在的文件系统无法卸载</p>
+<p>syslogd</p>
+<h4 id="进程间通信的7种方式"><a href="#进程间通信的7种方式" class="headerlink" title="进程间通信的7种方式"></a>进程间通信的7种方式</h4><p>第一类：传统的Unix通信机制</p>
+<ol>
+<li>管道/匿名管道(pipe)</li>
+</ol>
+<p>管道的实质：<br>管道的实质是一个内核缓冲区，进程以先进先出的方式从缓冲区存取数据，管道一端的进程顺序的将数据写入缓冲区，另一端的进程则顺序的读出数据。该缓冲区可以看做是一个循环队列，读和写的位置都是自动增长的，不能随意改变，一个数据只能被读一次，读出来以后在缓冲区就不复存在了。当缓冲区读空或者写满时，有一定的规则控制相应的读进程或者写进程进入等待队列，当空的缓冲区有新数据写入或者满的缓冲区有数据读出来时，就唤醒等待队列中的进程继续读写。</p>
+<ol start="2">
+<li><p>有名管道(FIFO)</p>
+<p>有名管道 (named pipe) ： 有名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。</p>
+</li>
+<li><p>信号(Signal)</p>
+<p>​    信号 ( sinal ) ： 信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+</li>
+<li><p>消息(Message)队列</p>
+<p>消息队列( message queue ) ： 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+</li>
+<li><p>共享内存(share memory)</p>
+<p>共享内存( shared memory ) ：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号两，配合使用，来实现进程间的同步和通信。</p>
+</li>
+<li><p>信号量(semaphore)</p>
+<p>信号量( semophore ) ： 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
+</li>
+<li><p>套接字(socket)</p>
+<p>可用于不同机器间的进程通信。</p>
+</li>
+</ol>
+<h4 id="linux底层是怎么创建线程的"><a href="#linux底层是怎么创建线程的" class="headerlink" title="linux底层是怎么创建线程的"></a>linux底层是怎么创建线程的</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/melody157398/article/details/104912317">https://blog.csdn.net/melody157398/article/details/104912317</a></p>
+<h4 id="0号进程是什么东西"><a href="#0号进程是什么东西" class="headerlink" title="0号进程是什么东西"></a>0号进程是什么东西</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/wanghetao/archive/2012/03/29/2422723.html">Linux中的0号进程和1号进程 </a>     </p>
+<p>系统允许一个进程创建新进程，新进程即为子进程，子进程还可以创建新的子进程，形成进程树结构模型。整个linux系统的所有进程也是一个树形结 构。树根是系统自动构造的，即在内核态下执行的0号进程，它是所有进程的祖先。由0号进程创建1号进程（内核态），1号负责执行内核的部分初始化工作及进 行系统配置，并创建若干个用于高速缓存和虚拟主存管理的内核线程。随后，1号进程调用execve（）运行可执行程序init，并演变成用户态1号进程， 即init进程。它按照配置文件/etc/initab的要求，完成系统启动工作，创建编号为1号、2号…的若干终端注册进程getty</p>
+<h4 id="进程调度的几种方式"><a href="#进程调度的几种方式" class="headerlink" title="进程调度的几种方式"></a>进程调度的几种方式</h4><ol>
+<li><p>先来先服务  有利于长作业，不利于短作业</p>
+<p>​    最短作业优先    短作业先行，长作业有可能长时间无法执行</p>
+<p>短作业优先</p>
+</li>
+<li><p>带有优先级的    抢占式和非抢占式，</p>
+<p>每个进行都有一个优先级，系统会先给优先级高的分配，对于抢占式的，如果当前进程正在执行，然后来了一个优先级高的，当前进程就阻塞，先给优先级高的执行；非抢占的就是先执行完当前这个在给优先级高的执行</p>
+</li>
+<li><p>最短作业优先</p>
+<p>​    </p>
+</li>
+<li><p>时间片轮转</p>
+<p>​    每个进程都执行一段时间 按FCFS排队，比较重要的是如何确定时间片长度；</p>
+</li>
+<li><p>优先级队列</p>
+</li>
+<li><p>多级队列 将上面的算法都结合到了一起</p>
+<p>​    有很多优先级不同的队列，每个优先级执行的时间片长度也不同，优先级越低，时间片越长。当一个进程到来时，先进入第一队列，如果在当前时间段没有运行完，则进入第二队列，然后依次往下。。。当且仅当高优先级处理完后才处理低优先级的队列。</p>
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Blog-day/p/My_Blog_Days1-11.html">https://www.cnblogs.com/Blog-day/p/My_Blog_Days1-11.html</a></p>
+<h4 id="操作系统的吧，进程、线程和协程分别是什么以及他们之间的关系"><a href="#操作系统的吧，进程、线程和协程分别是什么以及他们之间的关系" class="headerlink" title="操作系统的吧，进程、线程和协程分别是什么以及他们之间的关系"></a>操作系统的吧，进程、线程和协程分别是什么以及他们之间的关系</h4><p>（自己整理一下答案，到时候就会说了）</p>
+<h4 id="32、64位系统有什么区别"><a href="#32、64位系统有什么区别" class="headerlink" title="32、64位系统有什么区别"></a><strong>32、64位系统有什么区别</strong></h4><p>32位和64位表示CPU一次能处理的最大位数</p>
+<p>32位系统的最大寻址空间是2的32次方=4294967296（bit）= 4（GB）左右；</p>
+<p>64位系统的最大寻址空间为2的64次方=4294967296（bit）的32次方，数值大于1亿GB</p>
+<h3 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h3><h4 id="什么是虚拟内存？"><a href="#什么是虚拟内存？" class="headerlink" title="什么是虚拟内存？"></a>什么是虚拟内存？</h4><p>虚拟内存的目的是为了让物理内存扩充成更大的逻辑内存，从而让程序获得更多的可用内存。</p>
+<h4 id="内存分配方式"><a href="#内存分配方式" class="headerlink" title="内存分配方式"></a>内存分配方式</h4><p>页式、段式、段页式</p>
+<h4 id="段页式系统访存次数"><a href="#段页式系统访存次数" class="headerlink" title="段页式系统访存次数"></a>段页式系统访存次数</h4><p>3次  段表-&gt;页地址-&gt;页表-&gt;地址 -&gt;访问</p>
+<p>为了访存的次数不这么多，在地址变换机构中增设一个高速缓冲寄存器，从中得到相应页的物理块号。</p>
+<h4 id="页面置换算法"><a href="#页面置换算法" class="headerlink" title="页面置换算法"></a>页面置换算法</h4><p>OPT最佳，因为不可能向后预知，无法实现</p>
+<p>LRU 最近最少未使用</p>
+<p>FIFO先进先出</p>
+<p>LFU最不长使用算法</p>
+<h3 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h3><h4 id="死锁，发生的条件以及如何避免？"><a href="#死锁，发生的条件以及如何避免？" class="headerlink" title="死锁，发生的条件以及如何避免？"></a>死锁，发生的条件以及如何避免？</h4><p><strong>1**</strong>）互斥条件：**指进程对所分配到的资源进行排它性使用，即在一段时间内某资源只由一个进程占用。如果此时还有其它进程请求资源，则请求者只能等待，直至占有资源的进程用毕释放。</p>
+<p><strong>2**</strong>）请求和保持条件：**指进程已经保持至少一个资源，但又提出了新的资源请求，而该资源已被其它进程占有，此时请求进程阻塞，但又对自己已获得的其它资源保持不放。</p>
+<p><strong>3**</strong>）不剥夺条件：**指进程已获得的资源，在未使用完之前，不能被剥夺，只能在使用完时由自己释放。</p>
+<p><strong>4**</strong>）环路等待条件：**指在发生死锁时，必然存在一个进程——资源的环形链，即进程集合{P0，P1，P2，···，Pn}中的P0正在等待一个P1占用的资源；P1正在等待P2占用的资源，……，Pn正在等待已被P0占用的资源。</p>
+<h4 id="如何避免？"><a href="#如何避免？" class="headerlink" title="如何避免？"></a>如何避免？</h4><p>通过哲学家就餐问题分析</p>
+<h4 id="杀掉一个进程-9-代表什么（强制）-还有什么其他参数-、-使用kill命令后，操作系统是如何通知进程的"><a href="#杀掉一个进程-9-代表什么（强制）-还有什么其他参数-、-使用kill命令后，操作系统是如何通知进程的" class="headerlink" title="杀掉一个进程         -9 代表什么（强制）         还有什么其他参数    、    使用kill命令后，操作系统是如何通知进程的"></a><strong>杀掉一个进程</strong>         <strong>-9 代表什么</strong>（强制）         <strong>还有什么其他参数</strong>    、    <strong>使用kill命令后，操作系统是如何通知进程的</strong></h4><h4 id="虚拟内存，虚地址实地址"><a href="#虚拟内存，虚地址实地址" class="headerlink" title="虚拟内存，虚地址实地址"></a>虚拟内存，虚地址实地址</h4><h3 id="磁盘调度"><a href="#磁盘调度" class="headerlink" title="磁盘调度"></a>磁盘调度</h3><h4 id="磁盘调度算法"><a href="#磁盘调度算法" class="headerlink" title="磁盘调度算法"></a>磁盘调度算法</h4><p>FIFO</p>
+<p>最短寻道时间优先</p>
+<p>电梯算法</p>
+<h3 id="其余"><a href="#其余" class="headerlink" title="其余"></a>其余</h3><h4 id="系统调用是什么"><a href="#系统调用是什么" class="headerlink" title="系统调用是什么"></a>系统调用是什么</h4><p>系统调用（英语：system call），又称为系统呼叫，指<strong>运行在使用者空间的程序</strong>向<strong>操作系统内核</strong>请求需要更高权限运行的服务。系统调用提供了用户程序与操作系统之间的接口（即系统调用是用户程序和内核交互的接口）。</p>
+<p>　　操作系统中的状态分为管态（核心态）和目态（用户态）。大多数系统交互式操作需求在内核态执行。如设备IO操作或者进程间通信。特权指令：一类只能在核心态下运行而不能在用户态下运行的特殊指令。不同的操作系统特权指令会有所差异，但是一般来说主要是和硬件相关的一些指令。用户程序只在用户态下运行，有时需要访问系统核心功能，这时通过系统调用接口使用系统调用。</p>
+<p>危险的指令被包装成系统调用，用户程序只能调用而无权自己运行那些危险的指令。另外，计算机硬件的资源是有限的，为了更好的管理这些资源，所有的资源都由操作系统控制，进程只能向操作系统请求这些资源。操作系统是这些资源的唯一入口，这个入口就是系统调用。</p>
+<h4 id="两个进程如何访问临界区？"><a href="#两个进程如何访问临界区？" class="headerlink" title="两个进程如何访问临界区？"></a>两个进程如何访问临界区？</h4><p>1.一个turn 标志哪一个进入  （问题：只能ABABABAB的形式）</p>
+<p>2.设置flag[2]  flag[0]表示A  flag[1]表示B能否进入{<br>    这时候有两种情况  先设置true还是先判断</p>
+<p>​        先判断有可能两个一起进入</p>
+<p>​        先设置有可能两个都进不去    </p>
+<p>​    }</p>
+<p>3.flag[2]+turn </p>
+<p>​    设置flag  设置turn=另外一个  判断 flag&amp;&amp;turn==另外一个  </p>
+<p>​    结束后设置flag</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//flag[2]  turn</span></span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">	</span><br><span class="line">    </span><br><span class="line">&#125;<span class="keyword">while</span>(<span class="keyword">true</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h4 id="BIO"><a href="#BIO" class="headerlink" title="BIO"></a>BIO</h4><p>同步阻塞IO ：从系统调用开始一直到系统调用结束一直在阻塞。</p>
+<p>阻塞时间太久，基本上会为每一个连接IO分配一个线程，不能处理高并发的情况。</p>
+<p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210421104956983.png" alt="image-20210421104956983"></p>
+<h4 id="NIO"><a href="#NIO" class="headerlink" title="NIO"></a>NIO</h4><p>同步非阻塞IO： 系统调用开始后一直轮询数据是否准备好，如果准备好了就拷贝数据。</p>
+<p>需要大量的轮询操作，占用大量的CPU时间</p>
+<p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210421105031788.png" alt="image-20210421105031788"></p>
+<h4 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h4><p>同步IO多路复用：线程发起select调用后，询问内核数据是否就绪，等内核准备好了以后用户线程在发起read调用。</p>
+<p>需要不断select轮询，但是它可以通过一个线程处理成千上万个连接。</p>
+<p>使用select的优势在于可以等待多个描述符就绪</p>
+<p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210421105400836.png" alt="image-20210421105400836"></p>
+<h4 id="信号驱动IO"><a href="#信号驱动IO" class="headerlink" title="信号驱动IO"></a>信号驱动IO</h4><p>调用后会立即返回，然后再数据准备好的时候会返回一个信号</p>
+<p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210421105506866.png" alt="image-20210421105506866"></p>
+<h4 id="AIO"><a href="#AIO" class="headerlink" title="AIO"></a>AIO</h4><p>异步IO： 通过通知回调机制完全不阻塞.对于异步来说，内核是调用的发起方</p>
+<p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210421105617920.png" alt="image-20210421105617920"></p>
+<h4 id="epoll-基于事件的轮询-也是Reactor设计模式"><a href="#epoll-基于事件的轮询-也是Reactor设计模式" class="headerlink" title="epoll(基于事件的轮询)  也是Reactor设计模式"></a>epoll(基于事件的轮询)  也是Reactor设计模式</h4><p><strong>效率提升</strong>，不是轮询的方式，不会随着FD数目的增加效率下降。只有活跃可用的FD才会调用callback函数；即Epoll最大的优点就在于它只管你“活跃”的连接，而跟连接总数无关，因此在实际的网络环境中，Epoll的效率就会远远高于select和poll。</p>
+<h4 id="Select-poll-和epoll的区别？"><a href="#Select-poll-和epoll的区别？" class="headerlink" title="Select poll  和epoll的区别？"></a>Select poll  和epoll的区别？</h4><p>select使用数组 ，有1024的最大连接限制</p>
+<p>poll使用链表没有最大连接限制</p>
+<p>传统select/poll的另一个致命弱点就是当你拥有一个很大的socket集合，由于网络得延时，使得任一时间只有部分的socket是”活跃” 的，而select/poll每次调用都会线性扫描全部的集合，导致效率呈现线性下降。</p>
+<p>epoll使用“事件”的就绪通知方式，通过epoll_ctl注册fd，一旦该fd就绪，内核就会采用类似callback的回调机制来激活该fd。</p>
+<h4 id="Select、Poll、Epoll详解"><a href="#Select、Poll、Epoll详解" class="headerlink" title="Select、Poll、Epoll详解"></a>Select、Poll、Epoll详解</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/722819425dbd">https://www.jianshu.com/p/722819425dbd</a></p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#C"><span class="toc-number">1.</span> <span class="toc-text">C</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#malloc-%E5%8A%A8%E6%80%81%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D"><span class="toc-number">1.1.</span> <span class="toc-text">malloc 动态内存分配</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#calloc"><span class="toc-number">1.2.</span> <span class="toc-text">calloc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#realloc"><span class="toc-number">1.3.</span> <span class="toc-text">realloc</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#free"><span class="toc-number">1.4.</span> <span class="toc-text">free</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">进程管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E5%88%87%E6%8D%A2"><span class="toc-number">2.1.</span> <span class="toc-text">进程切换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%A4%E5%84%BF%E8%BF%9B%E7%A8%8B%E5%92%8C%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">2.2.</span> <span class="toc-text">孤儿进程和僵尸进程的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%83%B5%E5%B0%B8%E8%BF%9B%E7%A8%8B%E5%8D%B1%E5%AE%B3%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">僵尸进程危害？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%EF%BC%9F"><span class="toc-number">2.4.</span> <span class="toc-text">如何解决？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="toc-number">2.5.</span> <span class="toc-text">守护进程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B%EF%BC%9F"><span class="toc-number">2.6.</span> <span class="toc-text">如何创建守护进程？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E7%9A%847%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.7.</span> <span class="toc-text">进程间通信的7种方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#linux%E5%BA%95%E5%B1%82%E6%98%AF%E6%80%8E%E4%B9%88%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E7%9A%84"><span class="toc-number">2.8.</span> <span class="toc-text">linux底层是怎么创建线程的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#0%E5%8F%B7%E8%BF%9B%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%9C%E8%A5%BF"><span class="toc-number">2.9.</span> <span class="toc-text">0号进程是什么东西</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">2.10.</span> <span class="toc-text">进程调度的几种方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%90%A7%EF%BC%8C%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E5%92%8C%E5%8D%8F%E7%A8%8B%E5%88%86%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%E4%BB%A5%E5%8F%8A%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.11.</span> <span class="toc-text">操作系统的吧，进程、线程和协程分别是什么以及他们之间的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#32%E3%80%8164%E4%BD%8D%E7%B3%BB%E7%BB%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-number">2.12.</span> <span class="toc-text">32、64位系统有什么区别</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">3.</span> <span class="toc-text">内存管理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%9F"><span class="toc-number">3.1.</span> <span class="toc-text">什么是虚拟内存？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.</span> <span class="toc-text">内存分配方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AE%B5%E9%A1%B5%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BF%E5%AD%98%E6%AC%A1%E6%95%B0"><span class="toc-number">3.3.</span> <span class="toc-text">段页式系统访存次数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-number">3.4.</span> <span class="toc-text">页面置换算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-number">4.</span> <span class="toc-text">死锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81%EF%BC%8C%E5%8F%91%E7%94%9F%E7%9A%84%E6%9D%A1%E4%BB%B6%E4%BB%A5%E5%8F%8A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">死锁，发生的条件以及如何避免？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%EF%BC%9F"><span class="toc-number">4.2.</span> <span class="toc-text">如何避免？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%80%E6%8E%89%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B-9-%E4%BB%A3%E8%A1%A8%E4%BB%80%E4%B9%88%EF%BC%88%E5%BC%BA%E5%88%B6%EF%BC%89-%E8%BF%98%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0-%E3%80%81-%E4%BD%BF%E7%94%A8kill%E5%91%BD%E4%BB%A4%E5%90%8E%EF%BC%8C%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E9%80%9A%E7%9F%A5%E8%BF%9B%E7%A8%8B%E7%9A%84"><span class="toc-number">4.3.</span> <span class="toc-text">杀掉一个进程         -9 代表什么（强制）         还有什么其他参数    、    使用kill命令后，操作系统是如何通知进程的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%EF%BC%8C%E8%99%9A%E5%9C%B0%E5%9D%80%E5%AE%9E%E5%9C%B0%E5%9D%80"><span class="toc-number">4.4.</span> <span class="toc-text">虚拟内存，虚地址实地址</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6"><span class="toc-number">5.</span> <span class="toc-text">磁盘调度</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A3%81%E7%9B%98%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-number">5.1.</span> <span class="toc-text">磁盘调度算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BD%99"><span class="toc-number">6.</span> <span class="toc-text">其余</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88"><span class="toc-number">6.1.</span> <span class="toc-text">系统调用是什么</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E4%B8%AA%E8%BF%9B%E7%A8%8B%E5%A6%82%E4%BD%95%E8%AE%BF%E9%97%AE%E4%B8%B4%E7%95%8C%E5%8C%BA%EF%BC%9F"><span class="toc-number">6.2.</span> <span class="toc-text">两个进程如何访问临界区？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BIO"><span class="toc-number">6.3.</span> <span class="toc-text">BIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NIO"><span class="toc-number">6.4.</span> <span class="toc-text">NIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">6.5.</span> <span class="toc-text">IO多路复用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E5%8F%B7%E9%A9%B1%E5%8A%A8IO"><span class="toc-number">6.6.</span> <span class="toc-text">信号驱动IO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AIO"><span class="toc-number">6.7.</span> <span class="toc-text">AIO</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#epoll-%E5%9F%BA%E4%BA%8E%E4%BA%8B%E4%BB%B6%E7%9A%84%E8%BD%AE%E8%AF%A2-%E4%B9%9F%E6%98%AFReactor%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-number">6.8.</span> <span class="toc-text">epoll(基于事件的轮询)  也是Reactor设计模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select-poll-%E5%92%8Cepoll%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">6.9.</span> <span class="toc-text">Select poll  和epoll的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Select%E3%80%81Poll%E3%80%81Epoll%E8%AF%A6%E8%A7%A3"><span class="toc-number">6.10.</span> <span class="toc-text">Select、Poll、Epoll详解</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&text=操作系统"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&is_video=false&description=操作系统"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=操作系统&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&title=操作系统"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&name=操作系统&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/&t=操作系统"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    huajiaohuixiang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="如何使用JetsonNano或者树莓派搭建自己的服务器？nano介绍Jetson Nano和树莓派的区别Jetson Nano 是一款功能强大的小型计算机，专为支持入门级边缘 AI 应用程序和设备而设计，拥有完善的 NVIDIA JetPack™ SDK 包含用于深度学习、计算机视觉、图形、多媒体等方面的加速库。相比于树莓派多了显卡，也就是你可以通过图形化界面去操作，不只是命令行，在图像处理方面很">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jetson Nano 搭建Mysql">
+<meta property="og:url" content="https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="如何使用JetsonNano或者树莓派搭建自己的服务器？nano介绍Jetson Nano和树莓派的区别Jetson Nano 是一款功能强大的小型计算机，专为支持入门级边缘 AI 应用程序和设备而设计，拥有完善的 NVIDIA JetPack™ SDK 包含用于深度学习、计算机视觉、图形、多媒体等方面的加速库。相比于树莓派多了显卡，也就是你可以通过图形化界面去操作，不只是命令行，在图像处理方面很">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-05-12T02:07:08.000Z">
+<meta property="article:modified_time" content="2021-05-12T03:21:42.372Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="jetson">
+<meta property="article:tag" content="nano">
+<meta property="article:tag" content="ubuntu">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Jetson Nano 搭建Mysql</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/05/12/JVM/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/04/19/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&text=Jetson Nano 搭建Mysql"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&is_video=false&description=Jetson Nano 搭建Mysql"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jetson Nano 搭建Mysql&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&name=Jetson Nano 搭建Mysql&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&t=Jetson Nano 搭建Mysql"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8JetsonNano%E6%88%96%E8%80%85%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">如何使用JetsonNano或者树莓派搭建自己的服务器？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nano%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.0.1.</span> <span class="toc-text">nano介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Jetson-Nano%E5%92%8C%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">Jetson Nano和树莓派的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql"><span class="toc-number">1.0.2.</span> <span class="toc-text">安装配置mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">配置用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%8C%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">修改配置文件，实现远程访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">1.0.2.4.</span> <span class="toc-text">mysql其他常用命令：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="toc-number">1.0.3.</span> <span class="toc-text">配置内网穿透</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.0.4.</span> <span class="toc-text">测试</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Jetson Nano 搭建Mysql
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">huajiaohuixiang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-12T02:07:08.000Z" itemprop="datePublished">2021-05-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/jetson/" rel="tag">jetson</a>, <a class="tag-link-link" href="/tags/mysql/" rel="tag">mysql</a>, <a class="tag-link-link" href="/tags/nano/" rel="tag">nano</a>, <a class="tag-link-link" href="/tags/ubuntu/" rel="tag">ubuntu</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="如何使用JetsonNano或者树莓派搭建自己的服务器？"><a href="#如何使用JetsonNano或者树莓派搭建自己的服务器？" class="headerlink" title="如何使用JetsonNano或者树莓派搭建自己的服务器？"></a>如何使用JetsonNano或者树莓派搭建自己的服务器？</h1><h3 id="nano介绍"><a href="#nano介绍" class="headerlink" title="nano介绍"></a>nano介绍</h3><h4 id="Jetson-Nano和树莓派的区别"><a href="#Jetson-Nano和树莓派的区别" class="headerlink" title="Jetson Nano和树莓派的区别"></a>Jetson Nano和树莓派的区别</h4><p>Jetson Nano 是一款功能强大的小型计算机，专为支持入门级边缘 AI 应用程序和设备而设计，拥有完善的 NVIDIA JetPack™ SDK 包含用于深度学习、计算机视觉、图形、多媒体等方面的加速库。<br>相比于树莓派多了显卡，也就是你可以通过图形化界面去操作，不只是命令行，在图像处理方面很强。</p>
+<h4 id="系统"><a href="#系统" class="headerlink" title="系统"></a>系统</h4><p>Jetson nano 官方系统是ubuntu，是在ubuntu上修改的NVIDIA系统 ubuntu18.04 LTS，是arm架构，系统界面如下</p>
+<h3 id="安装配置mysql"><a href="#安装配置mysql" class="headerlink" title="安装配置mysql"></a>安装配置mysql</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>和直接在ubuntu上安装没有什么区别，直接使用apt-get install mysql-server 得到的是5.x版本，不是最新的8.x版本<br>使用 apt-get 安装完后 会生成一些默认的账户在 /etc/mysql/debian.cnf中<br>可以通过sudo cat /etc/mysql/debian.cnf查看</p>
+<h4 id="配置用户"><a href="#配置用户" class="headerlink" title="配置用户"></a>配置用户</h4><p>登录应该是需要安装mysqsl-client,也是使用apt-get install mysql-client安装</p>
+<p>然后登录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -u username -p </span><br></pre></td></tr></table></figure>
+<p>然后输入密码</p>
+<p>新建用户，赋予权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create user &#39;username&#39;@&#39;localhost&#39; identified by &#39;password&#39;;</span><br><span class="line">#username是你想创建的用户名</span><br><span class="line">#localhost是表示它可以通过那个ip来访问，localhost表示本地 其余ip表示其他地址 %表示所有</span><br><span class="line">#password是密码</span><br><span class="line">grant all privileges on 数据库.* to username@ip地址 ;</span><br><span class="line">#好像mysql的用户是通过 username+ip来区别，可以有连个username相同的用户，只要ip不一样。</span><br></pre></td></tr></table></figure>
+<h4 id="修改配置文件，实现远程访问"><a href="#修改配置文件，实现远程访问" class="headerlink" title="修改配置文件，实现远程访问"></a>修改配置文件，实现远程访问</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/mysql</span><br><span class="line"></span><br><span class="line">//然后ls一下 我的有下面这些东西，配置文件在mysql.conf.d中</span><br><span class="line">//conf.d      debian-start  my.cnf.fallback  mysql.conf.d</span><br><span class="line">//debian.cnf  my.cnf        mysql.cnf</span><br><span class="line"></span><br><span class="line">cd mysql.conf.d</span><br><span class="line">vim mysqld.cnf</span><br><span class="line">     //将地址127.0.0.1 改成0.0.0.0</span><br><span class="line">service mysql restart</span><br></pre></td></tr></table></figure>
+<h4 id="mysql其他常用命令："><a href="#mysql其他常用命令：" class="headerlink" title="mysql其他常用命令："></a>mysql其他常用命令：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo service mysql restart</span><br><span class="line">sudo netstat -tap | grep mysql        #查看是否允许</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="配置内网穿透"><a href="#配置内网穿透" class="headerlink" title="配置内网穿透"></a>配置内网穿透</h3><p>我选择使用花生壳进行内网穿透，花生壳还是比较方便的。</p>
+<p>应该是可以直接参考树莓派的官方教程<a target="_blank" rel="noopener" href="https://service.oray.com/question/11639.html">https://service.oray.com/question/11639.html</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dpkg -i phtunnel_5_0_rapi_aarch64.deb      #安装</span><br></pre></td></tr></table></figure>
+<p>可以通过以下命令来操作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">phddns           	#查看命令</span><br><span class="line">phddns 	start		#打开</span><br><span class="line">phddns status		#可以查看SN码</span><br></pre></td></tr></table></figure>
+<p>打开<a target="_blank" rel="noopener" href="http://b.oray.com/">http://b.oray.com</a> ，在登录页面中输入SN码与默认密码（admin）登录。</p>
+<p>剩下的就看官方教程就好了<a target="_blank" rel="noopener" href="https://service.oray.com/question/11639.html">https://service.oray.com/question/11639.html</a></p>
+<p>建立的映射应该是tcp类型，绑定到3306端口</p>
+<p><strong>注意，需要先给你的Nano 配置IP与MAC绑定，因为你的路由器应该是使用动态分配IP，打开192.168.1.1即可进行绑定，不然每次都要重新 在管理界面绑定一次</strong>。</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p>可以先在内网测试一下能否脸上nano的mysql，使用ifconfig获得内网地址类似与192.168.1.101，然后在自己电脑上用workbench测试一下。</p>
+<p>测试成功后绑定外网然后在外网试一下。</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8JetsonNano%E6%88%96%E8%80%85%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%99%A8%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">如何使用JetsonNano或者树莓派搭建自己的服务器？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#nano%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.0.1.</span> <span class="toc-text">nano介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Jetson-Nano%E5%92%8C%E6%A0%91%E8%8E%93%E6%B4%BE%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.0.1.1.</span> <span class="toc-text">Jetson Nano和树莓派的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.0.1.2.</span> <span class="toc-text">系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEmysql"><span class="toc-number">1.0.2.</span> <span class="toc-text">安装配置mysql</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">1.0.2.1.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%94%A8%E6%88%B7"><span class="toc-number">1.0.2.2.</span> <span class="toc-text">配置用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%8C%E5%AE%9E%E7%8E%B0%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE"><span class="toc-number">1.0.2.3.</span> <span class="toc-text">修改配置文件，实现远程访问</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#mysql%E5%85%B6%E4%BB%96%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9A"><span class="toc-number">1.0.2.4.</span> <span class="toc-text">mysql其他常用命令：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F"><span class="toc-number">1.0.3.</span> <span class="toc-text">配置内网穿透</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-number">1.0.4.</span> <span class="toc-text">测试</span></a></li></ol></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&text=Jetson Nano 搭建Mysql"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&is_video=false&description=Jetson Nano 搭建Mysql"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Jetson Nano 搭建Mysql&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&title=Jetson Nano 搭建Mysql"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&name=Jetson Nano 搭建Mysql&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/Jetson-Nano-%E6%90%AD%E5%BB%BAMysql/&t=Jetson Nano 搭建Mysql"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    huajiaohuixiang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

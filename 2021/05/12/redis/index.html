@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="官方文档也针布错http:&#x2F;&#x2F;redis.cn&#x2F;documentation.html 这个博客针布错https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_38261137&#x2F;article&#x2F;details&#x2F;106949963https:&#x2F;&#x2F;thinkwon.blog.csdn.net&#x2F;article&#x2F;details&#x2F;103522351 不能用的命令keys、flushdb、flushall Redis的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis">
+<meta property="og:url" content="https://huajiaohuixiang.github.io/2021/05/12/redis/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="官方文档也针布错http:&#x2F;&#x2F;redis.cn&#x2F;documentation.html 这个博客针布错https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_38261137&#x2F;article&#x2F;details&#x2F;106949963https:&#x2F;&#x2F;thinkwon.blog.csdn.net&#x2F;article&#x2F;details&#x2F;103522351 不能用的命令keys、flushdb、flushall Redis的">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210414192259605.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/12474275-68e045cc8f730270?imageMogr2/auto-orient/strip%7CimageView2/2/w/776/format/webp">
+<meta property="article:published_time" content="2021-05-12T03:28:03.000Z">
+<meta property="article:modified_time" content="2021-05-12T03:28:39.480Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="数据库">
+<meta property="article:tag" content="redis">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210414192259605.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>redis</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2021/05/12/%E7%BD%91%E7%BB%9C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2021/05/12/mysql/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/redis/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&text=redis"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&is_video=false&description=redis"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=redis&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/redis/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&name=redis&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/redis/&t=redis"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E9%92%88%E5%B8%83%E9%94%99https-blog-csdn-net-qq-38261137-article-details-106949963"><span class="toc-number">1.</span> <span class="toc-text">这个博客针布错https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_38261137&#x2F;article&#x2F;details&#x2F;106949963</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E8%83%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">不能用的命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">Redis的应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%9C%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5"><span class="toc-number">4.</span> <span class="toc-text">过期数据的删除策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5-6-%E5%86%85%E5%AD%98%E4%B8%8D%E5%A4%9F%E7%94%A8%E6%97%B6%EF%BC%8C%E4%BC%9A%E5%88%A0%E9%99%A4%E6%B2%A1%E6%9C%89%E8%BF%87%E6%9C%9F%E7%9A%84"><span class="toc-number">5.</span> <span class="toc-text">内存淘汰策略*6   内存不够用时，会删除没有过期的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%8BLRU%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">手写一下LRU算法实现？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%A1%88"><span class="toc-number">7.</span> <span class="toc-text">两种持久化方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">什么是事务？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E4%BA%8B%E5%8A%A1"><span class="toc-number">9.</span> <span class="toc-text">Redis事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E5%92%8CMemchace%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">10.</span> <span class="toc-text">Redis和Memchace的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis-%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">11.</span> <span class="toc-text">redis 的线程模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E9%87%8C%E4%BD%BF%E7%94%A8%E4%BA%86%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-number">12.</span> <span class="toc-text">哪里使用了缓存？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8C%E5%86%99%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">13.</span> <span class="toc-text">缓存和数据库双写一致性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E6%98%AF%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%EF%BC%8C%E5%9C%A8%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E5%86%85%E7%BC%93%E5%AD%98%E7%9A%84%E5%80%BC%E9%83%BD%E5%8F%AF%E8%83%BD%E4%B8%8D%E6%98%AF%E5%B9%B2%E5%87%80%E7%9A%84%E3%80%82"><span class="toc-number">13.1.</span> <span class="toc-text">首先是通过设置过期时间，在过期时间内缓存的值都可能不是干净的。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%84%B6%E5%90%8E%E6%98%AF%E4%B8%8D%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%89%E7%A7%8D%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="toc-number">13.2.</span> <span class="toc-text">然后是不设置过期时间的三种更新策略：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%B1%E6%9C%89%E4%BA%86%E9%80%9A%E8%BF%87%E8%AE%A2%E9%98%85mysql%E7%9A%84binlog%E6%9D%A5%E5%88%A0%E7%BC%93%E5%AD%98%E7%9A%84%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">13.3.</span> <span class="toc-text">就有了通过订阅mysql的binlog来删缓存的操作。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB"><span class="toc-number">14.</span> <span class="toc-text">Redis为什么快</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8BIO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">15.</span> <span class="toc-text">讲一下IO多路复用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84"><span class="toc-number">16.</span> <span class="toc-text">redis如何保证高可用的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E4%B8%BB%E4%BB%8E%E6%A8%A1%E5%BC%8F"><span class="toc-number">17.</span> <span class="toc-text">redis主从模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E4%B8%BB%E4%BB%8E%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6%E7%9A%84%EF%BC%9F"><span class="toc-number">18.</span> <span class="toc-text">redis主从模式如何复制的？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6"><span class="toc-number">19.</span> <span class="toc-text">心跳机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="toc-number">20.</span> <span class="toc-text">redis哨兵模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E3%80%91"><span class="toc-number">21.</span> <span class="toc-text">【集群模式】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E7%AB%9E%E4%BA%89%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">22.</span> <span class="toc-text">并发竞争的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E4%B8%AA%E7%B1%BB%E5%9E%8B-%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">23.</span> <span class="toc-text">五个类型 的底层数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">23.1.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-number">23.2.</span> <span class="toc-text">链表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#zipList"><span class="toc-number">23.2.1.</span> <span class="toc-text">zipList</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#quickList"><span class="toc-number">23.2.2.</span> <span class="toc-text">quickList</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%93%88%E5%B8%8CMap"><span class="toc-number">23.3.</span> <span class="toc-text">哈希Map</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ziplist"><span class="toc-number">23.3.1.</span> <span class="toc-text">ziplist</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#hash"><span class="toc-number">23.3.2.</span> <span class="toc-text">hash</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">23.4.</span> <span class="toc-text">集合</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#intset"><span class="toc-number">23.4.1.</span> <span class="toc-text">intset</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#hashmap"><span class="toc-number">23.4.2.</span> <span class="toc-text">hashmap</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="toc-number">23.5.</span> <span class="toc-text">有序集合</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8zipList"><span class="toc-number">23.5.1.</span> <span class="toc-text">压缩列表zipList</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B7%B3%E8%A1%A8"><span class="toc-number">23.5.2.</span> <span class="toc-text">跳表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hash%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-number">24.</span> <span class="toc-text">hash底层结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E4%B8%AD%E7%9A%84Rehash%E6%9C%BA%E5%88%B6"><span class="toc-number">25.</span> <span class="toc-text">Redis中的Rehash机制</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        redis
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">huajiaohuixiang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-12T03:28:03.000Z" itemprop="datePublished">2021-05-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/redis/" rel="tag">redis</a>, <a class="tag-link-link" href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag">数据库</a>, <a class="tag-link-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><strong>官方文档也针布错<a target="_blank" rel="noopener" href="http://redis.cn/documentation.html">http://redis.cn/documentation.html</a></strong></p>
+<h4 id="这个博客针布错https-blog-csdn-net-qq-38261137-article-details-106949963"><a href="#这个博客针布错https-blog-csdn-net-qq-38261137-article-details-106949963" class="headerlink" title="这个博客针布错https://blog.csdn.net/qq_38261137/article/details/106949963"></a>这个博客针布错<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38261137/article/details/106949963">https://blog.csdn.net/qq_38261137/article/details/106949963</a></h4><p><a target="_blank" rel="noopener" href="https://thinkwon.blog.csdn.net/article/details/103522351">https://thinkwon.blog.csdn.net/article/details/103522351</a></p>
+<h4 id="不能用的命令"><a href="#不能用的命令" class="headerlink" title="不能用的命令"></a>不能用的命令</h4><p>keys、flushdb、flushall</p>
+<h4 id="Redis的应用场景"><a href="#Redis的应用场景" class="headerlink" title="Redis的应用场景"></a>Redis的应用场景</h4><p>总结一</p>
+<p>计数器</p>
+<p>可以对 String 进行自增自减运算，从而实现计数器功能。Redis 这种内存型数据库的读写性能非常高，很适合存储频繁读写的计数量。</p>
+<p>缓存</p>
+<p>将热点数据放到内存中，设置内存的最大使用量以及淘汰策略来保证缓存的命中率。</p>
+<p>会话缓存</p>
+<p>可以使用 Redis 来统一存储多台应用服务器的会话信息。当应用服务器不再存储用户的会话信息，也就不再具有状态，一个用户可以请求任意一个应用服务器，从而更容易实现高可用性以及可伸缩性。</p>
+<p>全页缓存（FPC）</p>
+<p>除基本的会话token之外，Redis还提供很简便的FPC平台。以Magento为例，Magento提供一个插件来使用Redis作为全页缓存后端。此外，对WordPress的用户来说，Pantheon有一个非常好的插件 wp-redis，这个插件能帮助你以最快速度加载你曾浏览过的页面。</p>
+<p>查找表</p>
+<p>例如 DNS 记录就很适合使用 Redis 进行存储。查找表和缓存类似，也是利用了 Redis 快速的查找特性。但是查找表的内容不能失效，而缓存的内容可以失效，因为缓存不作为可靠的数据来源。</p>
+<p>消息队列(发布/订阅功能)</p>
+<p>List 是一个双向链表，可以通过 lpush 和 rpop 写入和读取消息。不过最好使用 Kafka、RabbitMQ 等消息中间件。</p>
+<p>分布式锁实现</p>
+<p>在分布式场景下，无法使用单机环境下的锁来对多个节点上的进程进行同步。可以使用 Redis 自带的 SETNX 命令实现分布式锁，除此之外，还可以使用官方提供的 RedLock 分布式锁实现。</p>
+<p>其它</p>
+<p>Set 可以实现交集、并集等操作，从而实现共同好友等功能。ZSet 可以实现有序性操作，从而实现排行榜等功能。</p>
+<p>总结二</p>
+<p>Redis相比其他缓存，有一个非常大的优势，就是支持多种数据类型。</p>
+<p>数据类型说明string字符串，最简单的k-v存储hashhash格式，value为field和value，适合ID-Detail这样的场景。list简单的list，顺序列表，支持首位或者末尾插入数据set无序list，查找速度快，适合交集、并集、差集处理sorted set有序的set</p>
+<p>其实，通过上面的数据类型的特性，基本就能想到合适的应用场景了。</p>
+<p>string——适合最简单的k-v存储，类似于memcached的存储结构，短信验证码，配置信息等，就用这种类型来存储。</p>
+<p>hash——一般key为ID或者唯一标示，value对应的就是详情了。如商品详情，个人信息详情，新闻详情等。</p>
+<p>list——因为list是有序的，比较适合存储一些有序且数据相对固定的数据。如省市区表、字典表等。因为list是有序的，适合根据写入的时间来排序，如：最新的***，消息队列等。</p>
+<p>set——可以简单的理解为ID-List的模式，如微博中一个人有哪些好友，set最牛的地方在于，可以对两个set提供交集、并集、差集操作。例如：查找两个人共同的好友等。</p>
+<p>Sorted Set——是set的增强版本，增加了一个score参数，自动会根据score的值进行排序。比较适合类似于top 10等不根据插入的时间来排序的数据。</p>
+<p>如上所述，虽然Redis不像关系数据库那么复杂的数据结构，但是，也能适合很多场景，比一般的缓存数据结构要多。了解每种数据结构适合的业务场景，不仅有利于提升开发效率，也能有效利用Redis的性能。</p>
+<h4 id="过期数据的删除策略"><a href="#过期数据的删除策略" class="headerlink" title="过期数据的删除策略"></a>过期数据的删除策略</h4><p>定时  使用定时器，时间到了就删除过期的key</p>
+<p>惰性+定期   每隔一段时间抽取一些key进行检查，然后删除；惰性的话就是用到该key时发现数据过期了就删除该key返回空。</p>
+<p>这样的话还是有很多没有删除，这就需要内存淘汰策略。</p>
+<h4 id="内存淘汰策略-6-内存不够用时，会删除没有过期的"><a href="#内存淘汰策略-6-内存不够用时，会删除没有过期的" class="headerlink" title="内存淘汰策略*6   内存不够用时，会删除没有过期的"></a>内存淘汰策略*6   内存不够用时，会删除没有过期的</h4><p>设置过期时间的key*3 最近最少未使用、最快要过期的、随机</p>
+<p>所有key*2 随机、最近最少未使用</p>
+<p>不淘汰，内存不足新写入的时候报错。</p>
+<ol start="4">
+<li>0 引入volatile-lfu 和 allkeys-lfu 淘汰策略，LFU 策略通过统计访问频率，将访问频率最少的键值对淘汰。</li>
+</ol>
+<h4 id="手写一下LRU算法实现？"><a href="#手写一下LRU算法实现？" class="headerlink" title="手写一下LRU算法实现？"></a>手写一下LRU算法实现？</h4><p>继承于LinkedHashMap</p>
+<p>通过HashMap实现LinkedHashMap</p>
+<h4 id="两种持久化方案"><a href="#两种持久化方案" class="headerlink" title="两种持久化方案"></a>两种持久化方案</h4><p>RDB  AOF</p>
+<p>RDB 每隔一段时间将数据存储到硬盘上，宕机可能会丢失部分数据；如果数据量很大保存时间过长。按照一定的时间将内存的数据以快照的形式保存到硬盘中，对应产生的数据文件为dump.rdb。通过配置文件中的save参数来定义快照的周期</p>
+<p>AOF 将命令追加到日志记录中，可以选择逐条追加/每秒追加/让操作系统选择</p>
+<ul>
+<li>redis 支持同时开启开启两种持久化方式，我们可以综合使用 AOF 和 RDB 两种持久化机制，用 AOF 来保证数据不丢失，作为数据恢复的第一选择; 用 RDB 来做不同程度的冷备，在 AOF 文件都丢失或损坏不可用的时候，还可以使用 RDB 来进行快速的数据恢复。</li>
+</ul>
+<p>AOF安全，但是占的空间大，恢复也会比较慢。</p>
+<p>redis默认使用RDB，性能最大化，fork子进程来完成写操作，让主进程继续处理命令，IO最大化，保证了Redis的高性能，数据集大的时候AOF启动效率更高。缺点是数据安全性比较低。</p>
+<p>AOF数据安全，但是占用空间更大，恢复的时候启动效率低。</p>
+<h4 id="什么是事务？"><a href="#什么是事务？" class="headerlink" title="什么是事务？"></a>什么是事务？</h4><p>事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。</p>
+<p>事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。</p>
+<h4 id="Redis事务"><a href="#Redis事务" class="headerlink" title="Redis事务"></a>Redis事务</h4><p>multi   命令入队  exec</p>
+<p>Redis事务功能是通过MULTI、EXEC、DISCARD和WATCH 四个原语实现的</p>
+<p><strong>Redis的事务总是具有ACID中的一致性和隔离性</strong>，其他特性是不支持的。当服务器运行在<em>AOF</em>持久化模式下，并且appendfsync选项的值为always时，事务也具有耐久性。</p>
+<h4 id="Redis和Memchace的区别"><a href="#Redis和Memchace的区别" class="headerlink" title="Redis和Memchace的区别"></a>Redis和Memchace的区别</h4><p>redis 支持复杂的数据结构</p>
+<p>redis 相比 memcached 来说，拥有更多的数据结构，能支持更丰富的数据操作。如果需要缓存能够支持更复杂的结构和操作， redis 会是不错的选择。</p>
+<p>redis 原生支持集群模式。在 redis3.x 版本中，便能支持 cluster 模式，而 memcached 没有原生的集群模式，需要依靠客户端来实现往集群中分片写入数据。</p>
+<p>性能对比。由于 redis 只使用单核，而 memcached 可以使用多核，所以平均每一个核上 redis 在存储小数据时比 memcached 性能更高。而在 100k 以上的数据中，memcached 性能要高于 redis。虽然 redis 最近也在存储大数据的性能上进行优化，但是比起 memcached，还是稍有逊色。</p>
+<h4 id="redis-的线程模型"><a href="#redis-的线程模型" class="headerlink" title="redis 的线程模型"></a>redis 的线程模型</h4><p>redis 内部使用文件事件处理器 file event handler，这个文件事件处理器是单线程的，所以 redis 才叫做单线程的模型。它采用 IO 多路复用机制同时监听多个 socket，将产生事件的 socket 压入内存队列中，事件分派器根据 socket 上的事件类型来选择对应的事件处理器进行处理。</p>
+<p>文件事件处理器的结构包含 4 个部分：</p>
+<p>多个 socket<br>IO 多路复用程序<br>文件事件分派器<br>事件处理器（连接应答处理器、命令请求处理器、命令回复处理器）<br>多个 socket 可能会并发产生不同的操作，每个操作对应不同的文件事件，但是 IO 多路复用程序会监听多个 socket，会将产生事件的 socket 放入队列中排队，事件分派器每次从队列中取出一个 socket，根据 socket 的事件类型交给对应的事件处理器进行处理。</p>
+<h4 id="哪里使用了缓存？"><a href="#哪里使用了缓存？" class="headerlink" title="哪里使用了缓存？"></a>哪里使用了缓存？</h4><p>快递网点的一些统计信息，总包裹数量等；取件消息进入缓存，通常一个人看到取件消息后至少还要再看一次取件；</p>
+<p>当前仓库和快递柜的包裹信息。</p>
+<p>在抢购优惠券功能上将优惠券剩余量放到了redis中，防止超卖。</p>
+<h4 id="缓存和数据库双写一致性问题"><a href="#缓存和数据库双写一致性问题" class="headerlink" title="缓存和数据库双写一致性问题"></a>缓存和数据库双写一致性问题</h4><p>只能实现最终一致性不能实现强一致性。</p>
+<h5 id="首先是通过设置过期时间，在过期时间内缓存的值都可能不是干净的。"><a href="#首先是通过设置过期时间，在过期时间内缓存的值都可能不是干净的。" class="headerlink" title="首先是通过设置过期时间，在过期时间内缓存的值都可能不是干净的。"></a>首先是通过设置过期时间，在过期时间内缓存的值都可能不是干净的。</h5><h5 id="然后是不设置过期时间的三种更新策略："><a href="#然后是不设置过期时间的三种更新策略：" class="headerlink" title="然后是不设置过期时间的三种更新策略："></a>然后是不设置过期时间的三种更新策略：</h5><ol>
+<li><p>先写数据库，在更新缓存（最不好的）</p>
+<p>因为是更新缓存，存在并发问题，两个线程写数据库的顺序和删除缓存的顺序不一致会导致错误的缓存一直使用</p>
+</li>
+<li><p>先删除缓存在更新数据库，B的查询在A的删除缓存之后A的写入数据库之前，同样会出现很久的错误缓存</p>
+<p>可以采用延迟双删的策略，写入数据库1s后再次删除缓存</p>
+</li>
+<li><p>先更新数据库，在删缓存</p>
+<p>有很小的几率会产生问题，A读取缓存失效，然后读取数据库，之后卡住了，知道B写入数据库之后，写入缓存之后A再写入缓存导致旧的缓存。</p>
+</li>
+</ol>
+<p>每种方法都有删除缓存失败的情况使用失败重试机制，使用消息队列，将需要删除的key放入MQ中。</p>
+<h5 id="就有了通过订阅mysql的binlog来删缓存的操作。"><a href="#就有了通过订阅mysql的binlog来删缓存的操作。" class="headerlink" title="就有了通过订阅mysql的binlog来删缓存的操作。"></a>就有了通过订阅mysql的binlog来删缓存的操作。</h5><p>只更缓存，不更MySQL，MySQL由缓存异步的更新</p>
+<p><strong>使用canal解析binlog</strong> Mysql通过binlog同步redis   基于zookeeper临时有序节点可以实现的分布式锁</p>
+<h4 id="Redis为什么快"><a href="#Redis为什么快" class="headerlink" title="Redis为什么快"></a>Redis为什么快</h4><ul>
+<li>纯内存操作。</li>
+<li>核心是基于非阻塞的 IO 多路复用机制。</li>
+<li>单线程反而避免了多线程的频繁上下文切换问题，预防了多线程可能产生的竞争问题</li>
+</ul>
+<h4 id="讲一下IO多路复用"><a href="#讲一下IO多路复用" class="headerlink" title="讲一下IO多路复用"></a>讲一下IO多路复用</h4><p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210414192259605.png" alt="image-20210414192259605"></p>
+<p>有一个线程监听socket，每来一个事件将其放入到事件队列，然后事件分派器将事件分派到不同的处理器进行处理。</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/mashaokang1314/article/details/88636371">https://blog.csdn.net/mashaokang1314/article/details/88636371</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zwt1990/p/8821185.html">https://www.cnblogs.com/zwt1990/p/8821185.html</a></p>
+<h4 id="redis如何保证高可用的"><a href="#redis如何保证高可用的" class="headerlink" title="redis如何保证高可用的"></a><a target="_blank" rel="noopener" href="https://www.nowcoder.com/jump/super-jump/word?word=redis">redis</a>如何保证高可用的</h4><p>哨兵模式 和主从模式</p>
+<h4 id="redis主从模式"><a href="#redis主从模式" class="headerlink" title="redis主从模式"></a>redis主从模式</h4><p>一个主节点可以有多个从节点(或没有从节点)，但一个从节点只能有一个主节点，同时每个从节点也可以是别的从节点的父节点，即主从节点连接形成树结构。</p>
+<h4 id="redis主从模式如何复制的？"><a href="#redis主从模式如何复制的？" class="headerlink" title="redis主从模式如何复制的？"></a>redis主从模式如何复制的？</h4><p><a target="_blank" rel="noopener" href="http://kaito-kidd.com/2020/06/30/redis-replication/">http://kaito-kidd.com/2020/06/30/redis-replication/</a></p>
+<p><strong>主从结构中数据的复制是单向的，只能由主节点到从节点</strong>，所有的内存变更，即数据的增删改都只能在主节点上进行，从节点通过同步的方式完成修改。默认情况下，从节点对非Master节点客户端是只读的。</p>
+<p>主从复制分为全量复制和增量复制+命令传播</p>
+<p>全量复制就是将主节点生成RDB文件发给从节点，从节点清除内存中的数据并删除之前RDB，然后将接受到的RDB放入内存。（第一次复制）</p>
+<p>增量复制：master复制的时候可能会有新的数据产生，master会把数据放入缓冲区，等slave加载RDB完成后再将这些增量数据发送给slave。</p>
+<p>命令传播就是每处理完一个命令都会把命令广播给所有的子节点，每个子结点收到广播后会继续广播给子节点，然后各个子结点会执行这个命令</p>
+<p>如果主从断开连接，可能会发生全量复制，也可能只是增量复制。在slave第一次全量同步的时候记录了master的runid，然后slave知道自己的offset，这时候只需要把offset发送给master，master会先检查runid是否相同，然后检查offset中的命令是否再缓冲区中，因为缓冲区是有大小的，时间就的就会被删除，如果找得到offset之后的数据就可以只发送这些命令，否则就要进行全量复制。</p>
+<h4 id="心跳机制"><a href="#心跳机制" class="headerlink" title="心跳机制"></a>心跳机制</h4><h4 id="redis哨兵模式"><a href="#redis哨兵模式" class="headerlink" title="redis哨兵模式"></a><a target="_blank" rel="noopener" href="https://www.nowcoder.com/jump/super-jump/word?word=redis">redis</a>哨兵模式</h4><p>单点模式就是一个单机</p>
+<p>主从 1个主N个从  主机挂了之后 不能提供服务</p>
+<p>哨兵模式  单哨兵和多哨兵 单哨兵是一个哨兵线程不断向redis服务器发送命令等待响应，没有响应表示挂掉，然后从其余的服务器选出一个主服务器；多哨兵是要所有的哨兵都认为该服务器挂掉，然后投票选举。</p>
+<p>使用哨兵是，客户端直接连哨兵服务器</p>
+<h4 id="【集群模式】"><a href="#【集群模式】" class="headerlink" title="【集群模式】"></a>【集群模式】</h4><p>多个主从节点，实现了 Redis 的分布式存储，<strong>也就是说每台 Redis 节点上存储不同的内容</strong></p>
+<h4 id="并发竞争的问题"><a href="#并发竞争的问题" class="headerlink" title="并发竞争的问题"></a>并发竞争的问题</h4><h4 id="五个类型-的底层数据结构"><a href="#五个类型-的底层数据结构" class="headerlink" title="五个类型 的底层数据结构"></a>五个类型 的底层数据结构</h4><h5 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/reecelin/p/13352694.html">https://www.cnblogs.com/reecelin/p/13352694.html</a></p>
+<p>char数组+len长度+free长度</p>
+<p>Simple Dynamic String  SDS来存储</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdsshr</span>&lt;</span>T&gt;&#123;</span><br><span class="line">    T len;<span class="comment">//数组长度</span></span><br><span class="line">    T alloc;<span class="comment">//数组容量</span></span><br><span class="line">    <span class="keyword">unsigned</span>  flags;<span class="comment">//sdshdr类型</span></span><br><span class="line">    <span class="keyword">char</span> buf[];<span class="comment">//数组内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>int</code>：当存储的字符串全是数字时，此时使用<code>int</code>方式来存储；</li>
+<li><code>embstr</code>：当存储的字符串长度小于44个字符时，此时使用<code>embstr</code>方式来存储；</li>
+<li><code>raw</code>：当存储的字符串长度大于44个字符时，此时使用<code>raw</code>方式来存储；</li>
+</ul>
+<h5 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/reecelin/p/13358432.html">https://www.cnblogs.com/reecelin/p/13358432.html</a></p>
+<p>通过linkedList<code>、</code>zipList<code>和</code>quickList三种方式实现</p>
+<p>分别是双向链表（与Java中的一样）、压缩列表、快表</p>
+<h6 id="zipList"><a href="#zipList" class="headerlink" title="zipList"></a>zipList</h6><p>通过Entry数组实现，每个Entry中存着前一个Entry的长度，编码，内容，节省了linkedList的前后指针。</p>
+<h6 id="quickList"><a href="#quickList" class="headerlink" title="quickList"></a>quickList</h6><p><code>qucikList</code>是由<code>zipList</code>和双向链表<code>linkedList</code>组成的混合体。</p>
+<h5 id="哈希Map"><a href="#哈希Map" class="headerlink" title="哈希Map"></a>哈希Map</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/reecelin/p/13362104.html">https://www.cnblogs.com/reecelin/p/13362104.html</a></p>
+<h6 id="ziplist"><a href="#ziplist" class="headerlink" title="ziplist"></a>ziplist</h6><h6 id="hash"><a href="#hash" class="headerlink" title="hash"></a>hash</h6><p>数组+链表  dictEntry  **table    每一个dictentry有key，val</p>
+<p>​    rehash hashmap中有两个table  一次使用一个，rehash的时候将一个rehash到另一个上；如果数据量特别大会渐进式哈希，一次弄不完。</p>
+<p>压缩列表：</p>
+<h5 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/reecelin/p/13364089.html">https://www.cnblogs.com/reecelin/p/13364089.html</a></p>
+<h6 id="intset"><a href="#intset" class="headerlink" title="intset"></a>intset</h6><h6 id="hashmap"><a href="#hashmap" class="headerlink" title="hashmap"></a>hashmap</h6><h5 id="有序集合"><a href="#有序集合" class="headerlink" title="有序集合"></a>有序集合</h5><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/reecelin/p/13368374.html">https://www.cnblogs.com/reecelin/p/13368374.html</a></p>
+<h6 id="压缩列表zipList"><a href="#压缩列表zipList" class="headerlink" title="压缩列表zipList"></a>压缩列表zipList</h6><h6 id="跳表"><a href="#跳表" class="headerlink" title="跳表"></a>跳表</h6><p>跳表实现，解决了有序链表查询慢的问题，将查询时间降低到logN</p>
+<p>将一些点提出来做索引，然后在从这些点中提出来做二级索引。</p>
+<p>插入的时候采用随机的方式决定他最多要插到几层。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (random(<span class="number">0</span>,<span class="number">1</span>))  </span><br><span class="line">        K++;  </span><br></pre></td></tr></table></figure>
+
+
+
+
+<h4 id="hash底层结构"><a href="#hash底层结构" class="headerlink" title="hash底层结构"></a>hash底层结构</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7f53f5e683cf">https://www.jianshu.com/p/7f53f5e683cf</a></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//哈希表的table指向的数组存放这dictEntry类型的地址。定义在dict.h/dictEntryt中</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> &#123;</span><span class="comment">//字典的节点</span></span><br><span class="line">    <span class="keyword">void</span> *key;</span><br><span class="line">    <span class="class"><span class="keyword">union</span> &#123;</span><span class="comment">//使用的联合体</span></span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;<span class="comment">//这两个参数很有用</span></span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">    &#125; v;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span><span class="comment">//指向下一个hash节点，用来解决hash键冲突（collision）</span></span><br><span class="line">&#125; dictEntry;</span><br><span class="line"></span><br><span class="line"><span class="comment">//dictType类型保存着 操作字典不同类型key和value的方法 的指针</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictType</span> &#123;</span></span><br><span class="line">    <span class="function"><span class="keyword">unsigned</span> <span class="title">int</span> <span class="params">(*hashFunction)</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *key)</span></span>;      <span class="comment">//计算hash值的函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*keyDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key);   <span class="comment">//复制key的函数</span></span><br><span class="line">    <span class="keyword">void</span> *(*valDup)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *obj);   <span class="comment">//复制value的函数</span></span><br><span class="line">    <span class="keyword">int</span> (*keyCompare)(<span class="keyword">void</span> *privdata, <span class="keyword">const</span> <span class="keyword">void</span> *key1, <span class="keyword">const</span> <span class="keyword">void</span> *key2);  <span class="comment">//比较key的函数</span></span><br><span class="line">    <span class="keyword">void</span> (*keyDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *key);   <span class="comment">//销毁key的析构函数</span></span><br><span class="line">    <span class="keyword">void</span> (*valDestructor)(<span class="keyword">void</span> *privdata, <span class="keyword">void</span> *obj);   <span class="comment">//销毁val的析构函数</span></span><br><span class="line">&#125; dictType;</span><br><span class="line"></span><br><span class="line"><span class="comment">//redis中哈希表定义dict.h/dictht</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span> &#123;</span> <span class="comment">//哈希表</span></span><br><span class="line">    dictEntry **table;      <span class="comment">//存放一个数组的地址，数组存放着哈希表节点dictEntry的地址。</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;     <span class="comment">//哈希表table的大小，初始化大小为4</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask; <span class="comment">//用于将哈希值映射到table的位置索引。它的值总是等于(size-1)。</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;     <span class="comment">//记录哈希表已有的节点（键值对）数量。</span></span><br><span class="line">&#125; dictht;</span><br><span class="line"></span><br><span class="line"> <span class="comment">//字典结构定义在dict.h/dict</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span> &#123;</span></span><br><span class="line">    dictType *type;     <span class="comment">//指向dictType结构，dictType结构中包含自定义的函数，这些函数使得key和value能够存储任何类型的数据。</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;     <span class="comment">//私有数据，保存着dictType结构中函数的参数。</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];       <span class="comment">//两张哈希表。</span></span><br><span class="line">    <span class="keyword">long</span> rehashidx;     <span class="comment">//rehash的标记，rehashidx==-1，表示没在进行rehash</span></span><br><span class="line">    <span class="keyword">int</span> iterators;      <span class="comment">//正在迭代的迭代器数量</span></span><br><span class="line">&#125; dict;</span><br></pre></td></tr></table></figure>
+<p><img src="https://upload-images.jianshu.io/upload_images/12474275-68e045cc8f730270?imageMogr2/auto-orient/strip%7CimageView2/2/w/776/format/webp"></p>
+<p>dict内部有两个dicthashtable  平常只有一个有内容，另一个的table为null，在扩容的时候，将一个重新映射到另一个上。</p>
+<p>拉链法解决哈希冲突 ，数组中存储的是第二维链表的第一个指针</p>
+<p>扩容时机是数组元素个数等于数组大小的时候就会扩容，但如果正在bgsave不会扩容，当entry个数为数组大小的五倍的时候就会强制扩容。而且它的扩容并不是一次完成的，可以渐进式的扩容rehash。</p>
+<h4 id="Redis中的Rehash机制"><a href="#Redis中的Rehash机制" class="headerlink" title="Redis中的Rehash机制"></a>Redis中的Rehash机制</h4><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/cqk0100/article/details/80400811">https://blog.csdn.net/cqk0100/article/details/80400811</a></p>
+<p>你是如何查询</p>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%99%E4%B8%AA%E5%8D%9A%E5%AE%A2%E9%92%88%E5%B8%83%E9%94%99https-blog-csdn-net-qq-38261137-article-details-106949963"><span class="toc-number">1.</span> <span class="toc-text">这个博客针布错https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_38261137&#x2F;article&#x2F;details&#x2F;106949963</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E8%83%BD%E7%94%A8%E7%9A%84%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text">不能用的命令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E7%9A%84%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">3.</span> <span class="toc-text">Redis的应用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%87%E6%9C%9F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5"><span class="toc-number">4.</span> <span class="toc-text">过期数据的删除策略</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5-6-%E5%86%85%E5%AD%98%E4%B8%8D%E5%A4%9F%E7%94%A8%E6%97%B6%EF%BC%8C%E4%BC%9A%E5%88%A0%E9%99%A4%E6%B2%A1%E6%9C%89%E8%BF%87%E6%9C%9F%E7%9A%84"><span class="toc-number">5.</span> <span class="toc-text">内存淘汰策略*6   内存不够用时，会删除没有过期的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%8B%E5%86%99%E4%B8%80%E4%B8%8BLRU%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0%EF%BC%9F"><span class="toc-number">6.</span> <span class="toc-text">手写一下LRU算法实现？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%A4%E7%A7%8D%E6%8C%81%E4%B9%85%E5%8C%96%E6%96%B9%E6%A1%88"><span class="toc-number">7.</span> <span class="toc-text">两种持久化方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%BA%8B%E5%8A%A1%EF%BC%9F"><span class="toc-number">8.</span> <span class="toc-text">什么是事务？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E4%BA%8B%E5%8A%A1"><span class="toc-number">9.</span> <span class="toc-text">Redis事务</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E5%92%8CMemchace%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">10.</span> <span class="toc-text">Redis和Memchace的区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis-%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-number">11.</span> <span class="toc-text">redis 的线程模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E9%87%8C%E4%BD%BF%E7%94%A8%E4%BA%86%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-number">12.</span> <span class="toc-text">哪里使用了缓存？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E5%92%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8F%8C%E5%86%99%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="toc-number">13.</span> <span class="toc-text">缓存和数据库双写一致性问题</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%A6%96%E5%85%88%E6%98%AF%E9%80%9A%E8%BF%87%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%EF%BC%8C%E5%9C%A8%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E5%86%85%E7%BC%93%E5%AD%98%E7%9A%84%E5%80%BC%E9%83%BD%E5%8F%AF%E8%83%BD%E4%B8%8D%E6%98%AF%E5%B9%B2%E5%87%80%E7%9A%84%E3%80%82"><span class="toc-number">13.1.</span> <span class="toc-text">首先是通过设置过期时间，在过期时间内缓存的值都可能不是干净的。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%84%B6%E5%90%8E%E6%98%AF%E4%B8%8D%E8%AE%BE%E7%BD%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E7%9A%84%E4%B8%89%E7%A7%8D%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5%EF%BC%9A"><span class="toc-number">13.2.</span> <span class="toc-text">然后是不设置过期时间的三种更新策略：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%B1%E6%9C%89%E4%BA%86%E9%80%9A%E8%BF%87%E8%AE%A2%E9%98%85mysql%E7%9A%84binlog%E6%9D%A5%E5%88%A0%E7%BC%93%E5%AD%98%E7%9A%84%E6%93%8D%E4%BD%9C%E3%80%82"><span class="toc-number">13.3.</span> <span class="toc-text">就有了通过订阅mysql的binlog来删缓存的操作。</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB"><span class="toc-number">14.</span> <span class="toc-text">Redis为什么快</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8BIO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8"><span class="toc-number">15.</span> <span class="toc-text">讲一下IO多路复用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84"><span class="toc-number">16.</span> <span class="toc-text">redis如何保证高可用的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E4%B8%BB%E4%BB%8E%E6%A8%A1%E5%BC%8F"><span class="toc-number">17.</span> <span class="toc-text">redis主从模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E4%B8%BB%E4%BB%8E%E6%A8%A1%E5%BC%8F%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6%E7%9A%84%EF%BC%9F"><span class="toc-number">18.</span> <span class="toc-text">redis主从模式如何复制的？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%83%E8%B7%B3%E6%9C%BA%E5%88%B6"><span class="toc-number">19.</span> <span class="toc-text">心跳机制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#redis%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F"><span class="toc-number">20.</span> <span class="toc-text">redis哨兵模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E3%80%90%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F%E3%80%91"><span class="toc-number">21.</span> <span class="toc-text">【集群模式】</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%B6%E5%8F%91%E7%AB%9E%E4%BA%89%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">22.</span> <span class="toc-text">并发竞争的问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%94%E4%B8%AA%E7%B1%BB%E5%9E%8B-%E7%9A%84%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">23.</span> <span class="toc-text">五个类型 的底层数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">23.1.</span> <span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%93%BE%E8%A1%A8"><span class="toc-number">23.2.</span> <span class="toc-text">链表</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#zipList"><span class="toc-number">23.2.1.</span> <span class="toc-text">zipList</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#quickList"><span class="toc-number">23.2.2.</span> <span class="toc-text">quickList</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%93%88%E5%B8%8CMap"><span class="toc-number">23.3.</span> <span class="toc-text">哈希Map</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ziplist"><span class="toc-number">23.3.1.</span> <span class="toc-text">ziplist</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#hash"><span class="toc-number">23.3.2.</span> <span class="toc-text">hash</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%9B%86%E5%90%88"><span class="toc-number">23.4.</span> <span class="toc-text">集合</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#intset"><span class="toc-number">23.4.1.</span> <span class="toc-text">intset</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#hashmap"><span class="toc-number">23.4.2.</span> <span class="toc-text">hashmap</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="toc-number">23.5.</span> <span class="toc-text">有序集合</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8zipList"><span class="toc-number">23.5.1.</span> <span class="toc-text">压缩列表zipList</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%B7%B3%E8%A1%A8"><span class="toc-number">23.5.2.</span> <span class="toc-text">跳表</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#hash%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="toc-number">24.</span> <span class="toc-text">hash底层结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Redis%E4%B8%AD%E7%9A%84Rehash%E6%9C%BA%E5%88%B6"><span class="toc-number">25.</span> <span class="toc-text">Redis中的Rehash机制</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/redis/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&text=redis"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&is_video=false&description=redis"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=redis&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/redis/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&title=redis"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/redis/&name=redis&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/redis/&t=redis"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    huajiaohuixiang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>

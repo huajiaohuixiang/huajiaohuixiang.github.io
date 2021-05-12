@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="SynchronizedSynchronized实现原理通过加锁来实现同步，在编译之后，通过在代码块前后加monitor enter和exit来实现； 分别修饰代码块、修饰方法、修饰静态方法，加锁的对象。 每个对象都是由对象头、对象实际数据、填充组成的。 对象头中的MarkWord会记录锁的信息，对于不同的锁格式不相同。 如果是重量级锁的话，存储了指向重量级锁的指针。偏向锁就是存储了线程ID等信息">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java锁和并发">
+<meta property="og:url" content="https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/index.html">
+<meta property="og:site_name" content="花椒茴香的个人博客">
+<meta property="og:description" content="SynchronizedSynchronized实现原理通过加锁来实现同步，在编译之后，通过在代码块前后加monitor enter和exit来实现； 分别修饰代码块、修饰方法、修饰静态方法，加锁的对象。 每个对象都是由对象头、对象实际数据、填充组成的。 对象头中的MarkWord会记录锁的信息，对于不同的锁格式不相同。 如果是重量级锁的话，存储了指向重量级锁的指针。偏向锁就是存储了线程ID等信息">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210416194929575.png">
+<meta property="article:published_time" content="2021-05-12T03:33:35.000Z">
+<meta property="article:modified_time" content="2021-05-12T03:33:59.234Z">
+<meta property="article:author" content="huajiaohuixiang">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="面试">
+<meta property="article:tag" content="锁">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/花椒茴香/AppData/Roaming/Typora/typora-user-images/image-20210416194929575.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Java锁和并发</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
+
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"><link rel="alternate" href="/atom.xml" title="花椒茴香的个人博客" type="application/atom+xml">
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2021/05/12/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&text=Java锁和并发"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&is_video=false&description=Java锁和并发"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java锁和并发&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&name=Java锁和并发&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&t=Java锁和并发"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronized"><span class="toc-number">1.</span> <span class="toc-text">Synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronized%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">Synchronized实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronized%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%87%8D%E5%85%A5"><span class="toc-number">1.2.</span> <span class="toc-text">Synchronized如何实现可重入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReentrantLock%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%87%8D%E5%85%A5"><span class="toc-number">1.3.</span> <span class="toc-text">ReentrantLock如何实现可重入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized-%E5%92%8C-Lock-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">synchronized 和 Lock 有什么区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized-%E5%92%8C-ReentrantLock-%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">synchronized 和 ReentrantLock 区别是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized%E9%94%81%E5%8D%87%E7%BA%A7%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-number">1.6.</span> <span class="toc-text">synchronized锁升级的原理？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">四种引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E9%87%8C%E4%BD%BF%E7%94%A8%E4%BA%86%E5%BC%B1%E5%BC%95%E7%94%A8%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">哪里使用了弱引用？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadLocal"><span class="toc-number">3.</span> <span class="toc-text">ThreadLocal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadLocal%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E9%80%A0%E6%88%90%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">ThreadLocal为什么会造成内存泄漏?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadLocal%E6%AD%A3%E7%A1%AE%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">ThreadLocal正确的使用方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81"><span class="toc-number">4.</span> <span class="toc-text">锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-number">4.1.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="toc-number">4.2.</span> <span class="toc-text">悲观锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="toc-number">4.3.</span> <span class="toc-text">乐观锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%97%8B%E9%94%81"><span class="toc-number">5.1.</span> <span class="toc-text">自旋锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E8%87%AA%E6%97%8B"><span class="toc-number">5.2.</span> <span class="toc-text">适应性自旋</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%81%E6%B6%88%E9%99%A4"><span class="toc-number">5.3.</span> <span class="toc-text">锁消除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%81%E7%B2%97%E5%8C%96"><span class="toc-number">5.4.</span> <span class="toc-text">锁粗化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">5.5.</span> <span class="toc-text">轻量级锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS"><span class="toc-number">6.</span> <span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JUC"><span class="toc-number">7.</span> <span class="toc-text">JUC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AQS"><span class="toc-number">7.1.</span> <span class="toc-text">AQS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#https-blog-csdn-net-mulinsen77-article-details-84583716"><span class="toc-number">7.2.</span> <span class="toc-text">https:&#x2F;&#x2F;blog.csdn.net&#x2F;mulinsen77&#x2F;article&#x2F;details&#x2F;84583716</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">7.3.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CyclicBarrier"><span class="toc-number">7.4.</span> <span class="toc-text">CyclicBarrier</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore"><span class="toc-number">7.5.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Phaser"><span class="toc-number">7.6.</span> <span class="toc-text">Phaser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BlockingQueue"><span class="toc-number">7.7.</span> <span class="toc-text">BlockingQueue</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Java锁和并发
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">huajiaohuixiang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2021-05-12T03:33:35.000Z" itemprop="datePublished">2021-05-12</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Java/" rel="tag">Java</a>, <a class="tag-link-link" href="/tags/%E9%94%81/" rel="tag">锁</a>, <a class="tag-link-link" href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag">面试</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h3 id="Synchronized"><a href="#Synchronized" class="headerlink" title="Synchronized"></a>Synchronized</h3><h4 id="Synchronized实现原理"><a href="#Synchronized实现原理" class="headerlink" title="Synchronized实现原理"></a>Synchronized实现原理</h4><p>通过加锁来实现同步，在编译之后，通过在代码块前后加monitor enter和exit来实现；</p>
+<p>分别修饰代码块、修饰方法、修饰静态方法，加锁的对象。</p>
+<p>每个对象都是由对象头、对象实际数据、填充组成的。</p>
+<p>对象头中的MarkWord会记录锁的信息，对于不同的锁格式不相同。</p>
+<p>如果是重量级锁的话，存储了指向重量级锁的指针。偏向锁就是存储了线程ID等信息。</p>
+<p>轻量级锁指向线程中markword副本。</p>
+<h4 id="Synchronized如何实现可重入"><a href="#Synchronized如何实现可重入" class="headerlink" title="Synchronized如何实现可重入"></a>Synchronized如何实现可重入</h4><p>每个锁对象内部维护一个计数器，该计数器初始值为0，表示任何线程都可以获取该锁并执行相应的方法。根据虚拟机规范的要求，在执行monitorenter指令时，首先要尝试获取对象的锁。如果这个对象没被锁定，或者当前线程已经拥有了那个对象的锁，把锁的计数器加1，相应的，在执行monitorexit指令时会将锁计数器减1，当计数器为0时，锁就被释放。如果获取对象锁失败，那当前线程就要阻塞等待，直到对象锁被另外一个线程释放为止。</p>
+<h4 id="ReentrantLock如何实现可重入"><a href="#ReentrantLock如何实现可重入" class="headerlink" title="ReentrantLock如何实现可重入"></a>ReentrantLock如何实现可重入</h4><p> ReentrantLock在内部使用了内部类Sync来管理锁，所以真正的获取锁是由Sync的实现类控制的。Sync有两个实现，分别为NonfairSync（非公平锁）和FairSync（公平锁）。Sync通过继承AQS实现，在AQS中维护了一个private volatile int state来计数重入次数，避免了频繁的持有释放操作带来效率问题。3个状态：没占用是0，占用了是1，大于1是可重入锁</p>
+<p>AQS<a target="_blank" rel="noopener" href="https://javadoop.com/post/AbstractQueuedSynchronizer">https://javadoop.com/post/AbstractQueuedSynchronizer</a></p>
+<h4 id="synchronized-和-Lock-有什么区别？"><a href="#synchronized-和-Lock-有什么区别？" class="headerlink" title="synchronized 和 Lock 有什么区别？"></a>synchronized 和 Lock 有什么区别？</h4><h4 id="synchronized-和-ReentrantLock-区别是什么？"><a href="#synchronized-和-ReentrantLock-区别是什么？" class="headerlink" title="synchronized 和 ReentrantLock 区别是什么？"></a>synchronized 和 ReentrantLock 区别是什么？</h4><h4 id="synchronized锁升级的原理？"><a href="#synchronized锁升级的原理？" class="headerlink" title="synchronized锁升级的原理？"></a>synchronized锁升级的原理？</h4><p>在无锁状态下markword中偏向标志为0，如果这时有线程请求锁并且设置了可以是偏向锁就将偏向标志设为1 .线程ID设置为当前线程。如果这时候另外一个线程请求锁，锁就会升级为轻量级锁，markword中放着指向线程栈中markword副本的指针，这时候会自旋。如果自旋的线程过多就会升级为重量级锁。</p>
+<h3 id="四种引用"><a href="#四种引用" class="headerlink" title="四种引用"></a>四种引用</h3><p>强引用：</p>
+<p>软引用：SoftReference</p>
+<p>弱引用：WeakReference</p>
+<p>虚引用：</p>
+<h4 id="哪里使用了弱引用？"><a href="#哪里使用了弱引用？" class="headerlink" title="哪里使用了弱引用？"></a>哪里使用了弱引用？</h4><p>ThreadLocal</p>
+<h3 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h3><p>通过ThreadLocal来存储当前线程需要存储变量的一个副本。但实际上ThreadLocal是把这个（它自己，变量）存在了Thread的ThreadLocaMap中，然后通过该ThreadLocal取取值。</p>
+<p>每一个Thread中都有一个ThreadLocalMap，ThreadLocalMap是ThreadLOcal的内部类，ThreadLocalMap里由一个Entry数组实现。</p>
+<p>一个Thread,通过ThreadLocal对象来保存一个值，每个ThreadLocal是键，对应着一个值。如果要保存两个变量就需要两个threadlocal。</p>
+<h4 id="ThreadLocal为什么会造成内存泄漏"><a href="#ThreadLocal为什么会造成内存泄漏" class="headerlink" title="ThreadLocal为什么会造成内存泄漏?"></a>ThreadLocal为什么会造成内存泄漏?</h4><p>因为ThreadLocalMap是在Thread中，ThreadLocalMap中某个V的K指向了ThreadLocal对象，但这个对象是弱引用WeakReference，如果该对象的没有其他强引用之后该对象将被回收。此时Thread将无法获得该V，但是它永远都在Thread的ThreadLocalMap的Entry数组中。</p>
+<h4 id="ThreadLocal正确的使用方法"><a href="#ThreadLocal正确的使用方法" class="headerlink" title="ThreadLocal正确的使用方法"></a>ThreadLocal正确的使用方法</h4><ul>
+<li>每次使用完ThreadLocal都调用它的remove()方法清除数据</li>
+<li>将ThreadLocal变量定义成private static，这样就一直存在ThreadLocal的强引用，也就能保证任何时候都能通过ThreadLocal的弱引用访问到Entry的value值，进而清除掉 。</li>
+</ul>
+<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><h4 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h4><p>是指两个或两个以上的进程在执行过程中，因争夺资源而造成的一种互相等待的现象，若无外力作用，它们都将无法推进下去。此时称系统处于死锁状态或系统产生了死锁，这些永远在互相等待的进程称为死锁进程。由于资源占用是互斥的，当某个进程提出申请资源后，使得有关进程在无外力协助下，永远分配不到必需的资源而无法继续运行，这就产生了一种特殊现</p>
+<h4 id="悲观锁"><a href="#悲观锁" class="headerlink" title="悲观锁"></a>悲观锁</h4><p>当我们要对一个数据库中的一条数据进行修改的时候，为了避免同时被其他人修改，最好的办法就是直接对该数据进行加锁以防止并发。</p>
+<p>悲观锁的实现，往往依靠数据库提供的锁机制。Synchronized  java；数据库的页锁和行锁。</p>
+<p>select…for update 会锁住数据 如果用到了索引是 行锁；没用到索引是表锁。</p>
+<h4 id="乐观锁"><a href="#乐观锁" class="headerlink" title="乐观锁"></a>乐观锁</h4><p>乐观锁（ Optimistic Locking ） 是相对悲观锁而言的，乐观锁假设数据一般情况下不会造成冲突，所以在数据进行提交更新的时候，才会正式对数据的冲突与否进行检测，如果发现冲突了，则让返回用户错误的信息，让用户决定如何去做。相对于悲观锁，在对数据库进行处理的时候，乐观锁并不会使用数据库提供的锁机制。CAS+MVCC</p>
+<p>Java中AtomicInteger等</p>
+<p>CAS操作中包括三个操作数：内存中的值，期望的值，修改后的值。每次提交修改后的值要检查期望值于内存中的值是否相同，不相同会失败；相同则成功。</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/kyoner/p/11318979.html">https://www.cnblogs.com/kyoner/p/11318979.html</a></p>
+<h3 id="锁优化"><a href="#锁优化" class="headerlink" title="锁优化"></a>锁优化</h3><p>如适应性自旋（Adaptive Spinning）、锁消除（Lock Elimination）、锁膨胀（Lock Coarsening）、轻量级锁（Lightweight Locking）、偏向锁（Biased Locking）等，这些技术都是为了在线程之间更高效地共享数据及解决竞争问题，从而提高程序的执行 效率。</p>
+<h4 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h4><p>互斥同步对性能最大的影响是阻塞的实现，挂起线程和恢 复线程的操作都需要转入内核态中完成，这些操作给Java虚拟机的并发性能带来了很大的压力。所以如果处理器有两个以上的核心九合一让后面请求锁的线程多等一会而不是加入阻塞队列然后挂起。多等一会就是通过自旋（忙循环）来实现。</p>
+<p>但是自旋锁会占用处理器时间，所以需要设定一个自旋次数，默认十次，超过后就挂起。</p>
+<h4 id="适应性自旋"><a href="#适应性自旋" class="headerlink" title="适应性自旋"></a>适应性自旋</h4><p>自旋的时间不是固定的，是由前一次在同一个锁上的自选时间以及锁的拥有者的状态来确定的。</p>
+<h4 id="锁消除"><a href="#锁消除" class="headerlink" title="锁消除"></a>锁消除</h4><p>一些代码要求了同步，但是检测不到存在的数据竞争，就可以将这个锁来消除，主要是通过逃逸分析的数据支持来判断。</p>
+<h4 id="锁粗化"><a href="#锁粗化" class="headerlink" title="锁粗化"></a>锁粗化</h4><p>如果一系列的操作对同一个对象进行反复加锁和解锁，甚至在循环体中，那么锁的范围会扩展到整个操作序列的外部。</p>
+<h4 id="轻量级锁"><a href="#轻量级锁" class="headerlink" title="轻量级锁"></a>轻量级锁</h4><p><img src="C:\Users\花椒茴香\AppData\Roaming\Typora\typora-user-images\image-20210416194929575.png" alt="image-20210416194929575"></p>
+<p>MarkWord一共32位，在不同的锁状态下有不同的结构</p>
+<p>未锁定和可偏向差不多  标志位都为01  偏向模式不同 可偏向下有一个线程ID指向偏向的线程</p>
+<p>轻量级锁下30位用来存储指向调用栈中锁记录的指针。每个线程在竞争锁的时候都会在本地栈帧放一下对象头，然后CAS尝试修改对象的对象头，如果失败就看一下对象的对象头是否指向自己。</p>
+<p>持有偏向锁的线程访问这个对象不会存在任何同步操作，如果访问的线程不是该偏向锁ID中的线程，那么偏向锁模式会升级为轻量锁</p>
+<p>重量级锁下30 位指向重量级锁的指针。</p>
+<h3 id="CAS"><a href="#CAS" class="headerlink" title="CAS"></a>CAS</h3><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42636552/article/details/82383272">https://blog.csdn.net/weixin_42636552/article/details/82383272</a></p>
+<h3 id="JUC"><a href="#JUC" class="headerlink" title="JUC"></a>JUC</h3><h4 id="AQS"><a href="#AQS" class="headerlink" title="AQS"></a>AQS</h4><p>AbstractQuenedSynchronizer抽象的队列式同步器。是除了java自带的synchronized关键字之外的锁机制</p>
+<p>如果当前请求的资源空闲，将当前请求的线程设置为有效的工作线程，那么将其设置为锁定状态（通过CAS修改状态）。如果请求的线程不空闲，那么通过CLH队列锁实现线程的阻塞以及唤醒。</p>
+<p>AQS 定义了两种资源共享方式：<br>1.<strong>Exclusive</strong>：独占，只有一个线程能执行，如ReentrantLock<br>2.<strong>Share</strong>：共享，多个线程可以同时执行，如Semaphore、CountDownLatch、ReadWriteLock，CyclicBarrier</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/TZ845195485/article/details/109210263">https://blog.csdn.net/TZ845195485/article/details/109210263</a></p>
+<h4 id="https-blog-csdn-net-mulinsen77-article-details-84583716"><a href="#https-blog-csdn-net-mulinsen77-article-details-84583716" class="headerlink" title="https://blog.csdn.net/mulinsen77/article/details/84583716"></a><a target="_blank" rel="noopener" href="https://blog.csdn.net/mulinsen77/article/details/84583716">https://blog.csdn.net/mulinsen77/article/details/84583716</a></h4><h4 id="CountDownLatch"><a href="#CountDownLatch" class="headerlink" title="CountDownLatch"></a>CountDownLatch</h4><p>线程控制</p>
+<h4 id="CyclicBarrier"><a href="#CyclicBarrier" class="headerlink" title="CyclicBarrier"></a>CyclicBarrier</h4><p>可重置的线程控制</p>
+<h4 id="Semaphore"><a href="#Semaphore" class="headerlink" title="Semaphore"></a>Semaphore</h4><p>信号量来模拟资源</p>
+<h4 id="Phaser"><a href="#Phaser" class="headerlink" title="Phaser"></a>Phaser</h4><p>阶段性的控制</p>
+<h4 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h4>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Synchronized"><span class="toc-number">1.</span> <span class="toc-text">Synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronized%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-number">1.1.</span> <span class="toc-text">Synchronized实现原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Synchronized%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%87%8D%E5%85%A5"><span class="toc-number">1.2.</span> <span class="toc-text">Synchronized如何实现可重入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReentrantLock%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%8F%AF%E9%87%8D%E5%85%A5"><span class="toc-number">1.3.</span> <span class="toc-text">ReentrantLock如何实现可重入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized-%E5%92%8C-Lock-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">synchronized 和 Lock 有什么区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized-%E5%92%8C-ReentrantLock-%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">synchronized 和 ReentrantLock 区别是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#synchronized%E9%94%81%E5%8D%87%E7%BA%A7%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%9F"><span class="toc-number">1.6.</span> <span class="toc-text">synchronized锁升级的原理？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E7%A7%8D%E5%BC%95%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">四种引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%AA%E9%87%8C%E4%BD%BF%E7%94%A8%E4%BA%86%E5%BC%B1%E5%BC%95%E7%94%A8%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">哪里使用了弱引用？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThreadLocal"><span class="toc-number">3.</span> <span class="toc-text">ThreadLocal</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadLocal%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E9%80%A0%E6%88%90%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F"><span class="toc-number">3.1.</span> <span class="toc-text">ThreadLocal为什么会造成内存泄漏?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ThreadLocal%E6%AD%A3%E7%A1%AE%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">3.2.</span> <span class="toc-text">ThreadLocal正确的使用方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81"><span class="toc-number">4.</span> <span class="toc-text">锁</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%AD%BB%E9%94%81"><span class="toc-number">4.1.</span> <span class="toc-text">死锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="toc-number">4.2.</span> <span class="toc-text">悲观锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="toc-number">4.3.</span> <span class="toc-text">乐观锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%81%E4%BC%98%E5%8C%96"><span class="toc-number">5.</span> <span class="toc-text">锁优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E6%97%8B%E9%94%81"><span class="toc-number">5.1.</span> <span class="toc-text">自旋锁</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%82%E5%BA%94%E6%80%A7%E8%87%AA%E6%97%8B"><span class="toc-number">5.2.</span> <span class="toc-text">适应性自旋</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%81%E6%B6%88%E9%99%A4"><span class="toc-number">5.3.</span> <span class="toc-text">锁消除</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%81%E7%B2%97%E5%8C%96"><span class="toc-number">5.4.</span> <span class="toc-text">锁粗化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E9%94%81"><span class="toc-number">5.5.</span> <span class="toc-text">轻量级锁</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CAS"><span class="toc-number">6.</span> <span class="toc-text">CAS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JUC"><span class="toc-number">7.</span> <span class="toc-text">JUC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AQS"><span class="toc-number">7.1.</span> <span class="toc-text">AQS</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#https-blog-csdn-net-mulinsen77-article-details-84583716"><span class="toc-number">7.2.</span> <span class="toc-text">https:&#x2F;&#x2F;blog.csdn.net&#x2F;mulinsen77&#x2F;article&#x2F;details&#x2F;84583716</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CountDownLatch"><span class="toc-number">7.3.</span> <span class="toc-text">CountDownLatch</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CyclicBarrier"><span class="toc-number">7.4.</span> <span class="toc-text">CyclicBarrier</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Semaphore"><span class="toc-number">7.5.</span> <span class="toc-text">Semaphore</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Phaser"><span class="toc-number">7.6.</span> <span class="toc-text">Phaser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#BlockingQueue"><span class="toc-number">7.7.</span> <span class="toc-text">BlockingQueue</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&text=Java锁和并发"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&is_video=false&description=Java锁和并发"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Java锁和并发&body=Check out this article: https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&title=Java锁和并发"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&name=Java锁和并发&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://huajiaohuixiang.github.io/2021/05/12/Java%E9%94%81%E5%92%8C%E5%B9%B6%E5%8F%91/&t=Java锁和并发"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2021
+    huajiaohuixiang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="https://github.com/huajiaohuixiang">Projects</a></li>
+         
+          <li><a href="/tags/">Tag</a></li>
+         
+          <li><a href="/categories/">Category</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
+
+  
+<script src="/lib/clipboard/clipboard.min.js"></script>
+
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
