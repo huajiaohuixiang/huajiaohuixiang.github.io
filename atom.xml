@@ -6,7 +6,7 @@
   <link href="https://huajiaohuixiang.github.io/atom.xml" rel="self"/>
   
   <link href="https://huajiaohuixiang.github.io/"/>
-  <updated>2021-05-12T17:07:54.427Z</updated>
+  <updated>2021-05-28T01:02:47.604Z</updated>
   <id>https://huajiaohuixiang.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue</title>
+    <link href="https://huajiaohuixiang.github.io/2021/05/28/vue/"/>
+    <id>https://huajiaohuixiang.github.io/2021/05/28/vue/</id>
+    <published>2021-05-28T00:51:50.000Z</published>
+    <updated>2021-05-28T01:02:47.604Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="https://p0.ssl.qhimg.com/t01f9e6d57da363d02f.jpg" alt=""></p><p>原来一直理解错了Vue，重点是后面的js，哈哈</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;&lt;img src=&quot;https://p0.ssl.qhimg.com/t01f9e6d57da363d02f.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;原来一直理解错了Vue，重点是后面的js，哈哈&lt;/p&gt;
+</summary>
+      
+    
+    
+    
+    
+    <category term="vue" scheme="https://huajiaohuixiang.github.io/tags/vue/"/>
+    
+    <category term="js" scheme="https://huajiaohuixiang.github.io/tags/js/"/>
+    
+  </entry>
   
   <entry>
     <title>test</title>
@@ -477,28 +503,6 @@
     <category term="习概" scheme="https://huajiaohuixiang.github.io/tags/%E4%B9%A0%E6%A6%82/"/>
     
     <category term="毛概" scheme="https://huajiaohuixiang.github.io/tags/%E6%AF%9B%E6%A6%82/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>单例模式的实现</title>
-    <link href="https://huajiaohuixiang.github.io/2021/03/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/"/>
-    <id>https://huajiaohuixiang.github.io/2021/03/02/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0/</id>
-    <published>2021-03-02T08:45:02.000Z</published>
-    <updated>2021-03-02T09:02:23.116Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="单例模式实现的六种方法"><a href="#单例模式实现的六种方法" class="headerlink" title="单例模式实现的六种方法"></a>单例模式实现的六种方法</h4><h5 id="1懒汉模式"><a href="#1懒汉模式" class="headerlink" title="1懒汉模式"></a>1懒汉模式</h5><p> 获取时判断是否为null，然后创建</p><p> 可能会出现线程安全问题，所以对他加上Synchronize</p><h5 id="2-Synchronize修饰的get方法"><a href="#2-Synchronize修饰的get方法" class="headerlink" title="2.Synchronize修饰的get方法"></a>2.Synchronize修饰的get方法</h5><p>  速度会很慢，通过双重校验锁法来实现</p><h5 id="3-双重校验锁法"><a href="#3-双重校验锁法" class="headerlink" title="3.双重校验锁法"></a>3.双重校验锁法</h5><p>在get方法中，先判断是否为null，为空则加一个Synchronize代码块，里面还需要再判断一次，因为可能有多个线程同时阻塞在了这里，当第一个创建好后，没有判断的话还会创建其他的。</p><p>实例需要添加volatile修饰符  禁止指令重排序保证线程安全</p><h4 id="4-饿汉模式"><a href="#4-饿汉模式" class="headerlink" title="4.饿汉模式"></a>4.饿汉模式</h4><p>直接在定义的时候就实现</p><h4 id="5-静态内部类"><a href="#5-静态内部类" class="headerlink" title="5.静态内部类"></a>5.静态内部类</h4><p>定义一个静态内部类</p><p>通过一个方法返回该内部类</p><p>实现了懒加载</p><h4 id="6-枚举类实现"><a href="#6-枚举类实现" class="headerlink" title="6.枚举类实现"></a>6.枚举类实现</h4><p><a href="https://cloud.tencent.com/developer/article/1497592">https://cloud.tencent.com/developer/article/1497592</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;h4 id=&quot;单例模式实现的六种方法&quot;&gt;&lt;a href=&quot;#单例模式实现的六种方法&quot; class=&quot;headerlink&quot; title=&quot;单例模式实现的六种方法&quot;&gt;&lt;/a&gt;单例模式实现的六种方法&lt;/h4&gt;&lt;h5 id=&quot;1懒汉模式&quot;&gt;&lt;a href=&quot;#1懒汉模式&quot; class</summary>
-      
-    
-    
-    
-    
-    <category term="Java" scheme="https://huajiaohuixiang.github.io/tags/Java/"/>
     
   </entry>
   
